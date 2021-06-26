@@ -1,0 +1,132 @@
+*to create a new project, goto cmd in the folder in which you want to make the project's folder. Type ng new projectName
+
+*for compiling the code= go to the location of the file then open cmd or vice versa then run the 
+						 command ng serve.
+
+
+*for ngModel attribute of input type text we have to import= import { FormsModule } from '@angular/
+forms'; and then include FormsModule in imports block. Both is task is done in app.module.ts
+ngModel gives the output of the input value into the page in runtime. This can be included as <input type="text" [(ngModel)]="name">
+<p>{{ name }}</p>
+
+
+*bootstrap= it provides some styling in css which we can use without writing code of it.
+			to include it, first run the command npm install --save bootstrap@3 on cmd within that folder. After it install, add location of bootstap.min.css in the styles section of angular.json. The location must be like "node_modules/bootstrap/dist/css/bootstrap.min.css",
+
+
+*server doesn't serve app.component.html file, it serves index.html file
+*main.ts gets first executed by angular from there it goes to app.module.ts then it gets to know that there is a module called app-root which angular have to load to index.html
+
+
+*component is just a typescript class so that angular can instantiate it
+*component decorator used in the about of ts class tells the angular that its not the regular class but is a coponent and that @component block tells the metadata about that class
+
+
+*selector basically tells the html tag with the help of which we can use that component in our html file. selector should be a unique string. it should not clash with another component's selector.
+
+
+*app.module is the root file and app is the root component, if we have any other component then we have to tell the root component in app.module.ts file
+
+*to let root know about our component, we have to write our component's ts className in the declarations block of app.module.ts file and have to import that class to let ts know for eg. import { ServerComponent } from './server/server.component';
+
+
+*but we don't add our components selector in the index.html(where app root's selector is added) but we add it in the app.component.html file
+
+
+*to create component through cmd use command ng generate component componentName or use ng g c componentName. this method will automatically create default .html .ts .css file for you
+component through cmd is recommended as it does some work automatically (like connecting the component with the app.module, making files automatically)
+
+to create the components without the creation of testing files we can create component with command ng g c componentName --skipTests true
+
+ng g c folderName/componentName --skipTests true = to create a component in another folder
+by default cli makes a component inside app root component.
+
+*as component is just a typeScript class, it will not be recognised as a component by angular until we write @Component() declarator and after that we need to import { Component } from '@angular/core';
+and then in order to configure this component we need to pass template or templateUrl and selector.
+@Component({
+	selector: 'app-header',
+	templateUrl: './header.component.html' /*if our html file name is header.component.html*/
+})
+
+
+*.spec.ts file is used for testing
+
+
+*we can use a component as many times as we want by using its selector
+
+
+*when we connect our .html file with .ts file, we do it by templateUrl atribute. But if our html file is very small(1-2 lines) then we can add the code of html file in .ts file by using template attribute.
+We can also write html code of more than 2 lines in ts file but it will not look good.
+for single line we can use '', for multiple lines code we use ``.
+One thing has to be there either template or templateUrl
+
+
+*similarly we can do the same with styles atribute, we can write code of .css file in .ts file only
+
+
+*selector can act as a atribute by writing the selector name in '[selectorName]' and to include this selector, we have to write <div selectorName></div> in place of <selectorName></selectorName>
+similarly we can also write selector as a className by writing it as .selectorName and can include it by <div class="selectorName"></div>
+
+
+*ngIf is a structural directive which includes a line (or anything else) only if the passed value is true otherwise it will not add that thing on the html page. eg= <p *ngIf="serverCreated">Server was created, server name is {{ serverName }}</p>
+we can also apply a else part in it, if we want to display something when passed value is false.
+<p *ngIf="serverCreated; else noServer">Server was created, server name is {{ serverName }}</p>
+<ng-template #noServer>
+    <p>No server was created!</p>
+</ng-template>
+
+ngIf requires true or false, we can either pass a boolean variable or a method returning true or false.
+
+
+*property binding binds the data with the existing property (or change the value of the property) of the template's element.
+
+eg: <p [innerText]="allowNewServer"></p> This chages/gives the value to the existing property(
+innerText) of the html element (<p>).
+
+
+whereas string interpolation is used to print any value in the template.
+
+eg: <p>{{ allowNewServer }}</p> This just prints the value of the allowNewServer in the template.
+(Both the example does the same thing, just method is different.)
+
+
+*event binding is calling a function or performing a task when any event has occured (eg. click event or mouse hover event).
+
+eg: <button (click)="onCreateServer()">Button Name</button>
+<input type="text" (input)="onUpdateServerName($event)"> where $event returns the value being entered in the input field.
+
+
+*two way binding is the mixture of property binding and event binding.
+eg: <input type="text" [(ngModel)]="serverName"> here serverName is the variable of the .ts file and its value gets updated everytime value is entered in the input field plus it also updates the value of the input field if serverName has a initial value. Thats the two way process.
+
+
+*attribute directives don't add or remove elements. They only change the element they were placed on.
+this helps in dynamically update the styling of the page by applying conditions and logic.
+
+
+*ngStyle allows us to dynamically assign a style.
+ngClass allows us to dynamically add or remove CSS class. It takes a JS object in the form of key value pairs where key is CSS classes and value are the conditions deciding whether that class should be added or not.
+
+
+*@Input('alias') decorator is put on the component's property and only to those properties which we want to show to parent components (or we can say the properties which other components want to access)
+
+
+@Output('alias') is used to enable other components to listen to your own custom events which we can create with event emitter.
+
+
+*<ng-content></ng-content> this serves as a hook you can place in your component to mark the place for your angular where it should add any content it finds in any opening and closing tag
+
+
+*ngOnInit is a lifecycle hook. It is called once the component is initialized. It runs after the constructor.
+
+
+*attribute directives: Looks like a normal HTML Attribute (possibly with databinding or event binding). Only affect/change the element they are added to. (eg: ngClass, ngStyle)
+
+
+*structural directives: Looks like a normal HTML Attribute but have a leading * (for desugaring). Affect a whole area in the DOM (elements get added/removed). We cannot have more than one structural directive on one element. (eg: *ngFor, *ngIf)
+
+
+*to create a new directive, write this command in cli: ng g d directiveName. After creation, we can put its file in its folder (which you need to make manually).
+
+
+*HostListner reacts to any event. (eg. if we hover over any thing then its color gets changed)
