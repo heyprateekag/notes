@@ -1,0 +1,94 @@
+* Express: 
+It is a framework of node.js
+whereas node.js is the language through which we write code for server side operations
+
+
+* MongoDB:
+It is a NoSQL DB which stores "Documents" in "Collections" (instead of "Records" in "Tables" as in SQL)
+Enforces no Data Schema or Relations
+Easily connected to Node/Express
+Application which has many relations between multiple tables, SQL will be more benificial to use.
+
+
+* Angular needs node.js
+Basic angular FE also needs node.js to build/compile/minimize the code to the browser basically it handles complex workflow of angular to make it efficient
+
+*Project Setup
+1. download node.js
+2. run npm install -g @angular/cli //on cmd this will globally(-g) add angular cli to the system
+3. goto the folder in which you want to keep the code of the application
+4. Open cmd and write ng new project-name --no-strict, choose No Router and CSS (which will be automatically asked). It will give huge structure of files which are mostly configuration files.
+5. Go inside the application folder and run cmd
+6. ng serve //this will run our application on the development server which will be local to our system
+
+
+* Opening html files
+Just opening html files wont give all the functionalities of the application bcz all the functionities are structured by node.js and ng serve needs to be run to start them
+
+
+* package.json
+this file contains all the dependencies and versions of the things used
+
+
+*e2e
+this folder has files for end to end testing
+
+
+* index.html
+this is the file which our compiler runs, and this individual file stays all the time and what changes is the components in that index.html file.
+
+
+* app.module.ts
+this file contains all the features which our application has and also data about all the components and all the routing part
+
+
+* adding a component name in the declarations array in app.module.ts makes that component known to all the components but not index.html
+to be known to index.html, AppComponent is added in the bootstrap array in app.module.ts and I guess we can add typically only one component in that array as that becomes the root component and all the other component stays inside/connected that root component
+that bootstrap array tells angular/index.html to search for that component which is inside it for rendering the component in that index.html
+
+
+* main.ts
+this is the file which is run the very first time our application starts. We pass our root module(AppModule) in that file which tells to run that component
+
+
+* add and configure angular material
+ng add @angular/material 
+from project's folder only
+
+
+* css selector which selects that component/selector in whose css file its added
+:host {
+	//styling
+}
+
+
+* REST in RESTful APIs:
+REpresentational State Transfer
+
+
+* install express.js
+npm install --save express
+
+
+* if you dont want to again and again terminate and restart the node server in vscode
+npm install --save-dev nodemon
+then add the command in package.json in "scripts" below line
+"start-server": "nodemon server.js"
+
+then run npm run start-server //or whatever your nodemon server name is
+
+
+* prerequisites for fetching params from the req in be:
+npm install --save body-parser
+
+
+* run frontend
+ng serve
+
+
+* connect angular with db
+We can connect angular with db but its not secure bcz we will have to write credentials of db in angular to connect it with db and eventually that code will get converted into javascript and it can be seen from browser.
+
+
+*for connection between mongodb and mongooze
+npm install --save mongoose
