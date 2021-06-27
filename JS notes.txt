@@ -1,0 +1,524 @@
+* alert('Hello World!')
+shows the alert box in the browser window
+
+*JavaScript is a high-level, object oriented, multi-paradigm programming language. It helps to add dynamic and interactive effects to any webpage. It is also used to manipulate the content or the CSS, load data from remote servers and really build entire applications in the browser which we then call web applications.
+
+With JS one can also make websites on web server by using technology called node js, which doesn't need any browser at all which helps us to make backend applications, which interacts with db. With simply javascript and browser, we create frontend applications. 
+
+We can also build native mobile apps with JS and also desktop applications with the help of react native, ionic, electron.
+
+ES(s) are the versions of the JS and ES stands for ECMAScript and from ES6 to today, its called modern JS. There was big change from ES5 to ES6
+
+
+*If we write any operation in console, then it will print its result automatically as at that time we are in console. But if we write that operation in <script> tag then it will not automatically give the result as at that time we are in script tag and to print something on console, we need to put a bridge between script and console and console.log('message'); acts like that bridge.
+
+
+*Inline Script: In this we write all the JS code in html file itself, its only advantage is that we don't have to create another file for JS but we should use external file for JS logic.
+
+To link js logic file to html file, we usually do that at the end of the <body> within <script src="script.js"></script>
+we need to write the location of the file, if file is in same folder then only name of that file will work.
+
+
+*We generally use camelCase notation to name a variable in JS. Variable name cannot start with a number. It can only contain letters, numbers(in between or last), underscore, dollar sign and we can't use reserved JS keyword as variable names.
+Another convention of writing constants variable name is by writing all the letters as uppercase.
+
+
+
+*You can't name a variable "name" in JS in global scope because without any enclosing scope, var name is window.name, which is a native property which cannot be replaced or overridden. You can assign a string to it.
+In a local scope you can use "name" as your variable name.
+> name
+< "[object Object]"
+> name.anchor
+< function anchor() {
+    [native code]
+}
+> name = null
+> name
+< "null"
+> typeof name
+< "string"
+> name.anchor
+< function anchor() {
+    [native code]
+}
+
+
+*In JS every value is either object or primitive.
+
+
+*There are 7 primitive data types:
+Number: Floating point numbers (used for decimals and integers)
+String: Sequence of characters (used for text, single quotes or double quotes both will work)
+Boolean:
+Undefined: Value taken by a variable that is not yet defined ('empty value') (let children;) 
+	typeof that variable is undefined.
+
+	var test = undefined;
+	console.log(test);
+	// undefined
+
+	var test = {};
+	console.log(test.prop);
+	// undefined
+
+Null: Also mnz empty value. Null is assigned. typeof that variable will show object, this is bug in JS which is never corrected.
+Symbol(from ES2015): Value that is unique and cannot be changed.
+BigInt(from ES2020): Larger integers than the Number type can hold.
+
+
+
+*JS has dynamic typing: We do not have to manually define the data type of the value stored in the variable. Instead data types are determined automatically. Whereas in other languages you need to determine the datatype of the variable. In JS it is the value that has type, not the variables. So variables simply store the values that have type. That is why we can assign a Number value to a variable and later we can assign String value to a variable without any error.
+
+
+
+*typeof operator: this operator tells the datatype of the value or value holding by a variable. (typeof true; typeof firstName)
+
+
+
+*let and const were introduced in ES6. const variable can never be mutated/changed. Initialization is required in const variable declaration, without giving a value, const variable can't be declared. One should generally use const to declare a variable instead of let, its a good practice. let should only be used when we are sure that that variable's value will be changed in future. var is the old way of declaring variables, it is prety much same as let, difference is that var is function scoped and let is block scoped.
+We can also give value to a variable without actually declaring it with let, const or var. But in that case JS will actually use that variable as a property which will have global scope.
+
+
+* 2 ** 3 = mnz 2 to the power of 3 = 2 * 2 * 2
+
+
+*String can be initialised either with single quotes or with double quotes. When we want to use single quotes in our sentence then we can use double quotes to initialize our string and vice versa.
+const sen = "I'm " + year + ' years old.'; //is perfectly fine; JS will convert year number to string and will concatinate it with other strings; we can use single quotes and double quotes at the same time. The only thing which is to keep in mind is if you open with single quotes then close with single quotes.
+
+
+*In the last example, to manage all the spaces and + is a problematic work so to avoid this, we should use TEMPLATE LITERAL. 
+eg. const sen = `I'm ${year} years old.`; //so we use backticks in this
+
+
+*We can use backticks for a regular string as well.
+
+
+
+*console.log('string\nwith multiple\nlines');
+output:
+string
+with multiple
+lines
+
+console.log('string\n\
+with multiple\n\
+lines');
+output:
+string
+with multiple
+lines
+
+
+*as before, we have a shortcut with ``(backticks)
+console.log(`string
+with multiple
+lines);
+
+
+*type conversion is when we explicitly converts the type of a value and type coersion is when JS itself converts the type.
+const year = '1991';
+console.log(year + 18); //199118
+console.log(Number(year) + 18);//type conversion
+
+console.log(Number('Prateek'));//NaN
+NaN (Not a Number): is an invalid number
+
+console.log('23'-'10'-3); //10; type coersion
+In the operators other than +, JS will convert string to number implicitly 
+
+let n = '1' + 1; // 11; type conversion from number to string
+n = n-1; //11-1; type conversion from string to number
+console.log(n); //10
+
+2+3+4+'5' = "95"
+'10'-'4'-'3'-2+'5' = "15"
+
+
+*falsy values: 0, '', undefined, null, NaN
+these are the values which become false when converted to boolean implicitly or explicitly. Everything else converts to true.
+false is normally a falsy value.
+
+
+*if we don't write any logical operation in if condition then JS will implicitly convert value/variable present in parenthesis to Boolean.
+if(age){} //JS will convert age to Boolean; if age = 0, null, undefined, Nan, '', false then false otherwise true.
+
+
+* === is the strict equality operator, it doesn't do type coersion.
+
+'18' == 18 //true bcz JS will do type coersion
+'18' === 18 //false bcz in strict equality operator, type coersion doesn't occur.
+For bug less code, prefer strict quality operator and not loose equality operator.
+
+
+*To take a value from frontend in short, we can use prompt
+const favouriteNumber = prompt("What's your favourite number?"); //favouriteNumber variable will contain the entered string
+
+
+*switch statement does strict comparision.
+
+
+*An expression is something which produces a value. Eg. 1991, 2+4, true || false, etc.
+Statement is a piece of code which doesn't produces a value. Eg. if else statement, switch statement
+
+
+*ternary operator
+age >= 18 ? console.log('wine') : console.log('water');
+const drink = age >= 18 ? 'wine' : 'water' ;
+here we can see that ternary operator is an expression which returns a value. Operators always make a expression.
+we can also add nested ternary operator for eg.
+age >= 18 ? (age >= 60 ? console.log('retired') : console.log('workable')) : console.log('minor');
+
+
+*JavaScript has to do nothing with Java.
+JS is backward compatible. Means a JS code written in 1997 can still work in today's browser.
+JS contains some old bugs or weird things as the very first version was made in 10 days and ECMA don't remove previous things from JS to prevent the breakage of old websites. So those bugs are still there but we can ignore them as JS offers manyy exciting features with which we can play along.
+
+But JS is not forward compatible. Means code form 2089 won't work in today's browsers.
+
+Transpiling: process of reducing the version of our code to ES5 bcz user's browser can be of old version and if we have made our code with the latest browser then it might create problem in our users browser as we don't have any control over their browser. Babel is the tool to reduce the version to ES5 as ES5 is supported by all the browsers. That version conversion can be done before deploy of the app to the server which is when our user will be able to use our website.
+
+
+*to activate strict mode for the .js file, we just have to write
+'use strict';
+in the first line of the .js file.
+We can also activate strict mode for any function or any block, but there is no significant use of that.
+Strict mode forbids us to do certain things and second it creates visible errors, which JS doesn't show us normally. So we can easily debug them.
+For eg:
+
+let hasDriversLicense = false;
+const canDrive = true;
+if (canDrive)
+    hasDriverLicense = true;
+if (hasDriversLicense)
+    console.log('I can drive.');
+//this will not show error in console when strict mode is not there
+//whereas it will show error(hasDriverLicense is not defined) in console when strict mode will be there
+//vscode doesn't show this error by default
+
+if we will use the words which can be used as a keyword in future which is reserved by JS then strict mode will show the error on console where we have used that word. eg: private, interface
+
+
+*syntax of a function:
+//this is function declaration
+function age(birthYear){//any number of parameters can be there
+	return currentYear - birthYear;
+}
+console.log(age(1998));
+
+//this is function expression/anonymous function; here function acts as a value
+const age = function (birthYear){
+	return currentYear - birthYear;
+}
+console.log(age(1998));
+
+
+*JS Hoisting
+
+
+*Arrow Function: it is a special form of function expression
+const age = birthYear => currentYear - birthYear;
+console.log(age(1998));
+If we have multiple lines of code in the function, then syntax will be like this:
+const yearsUntilRetirement = birthYear => {
+	const age = currentYear - birthYear; 
+	const years = 60 - age;
+	return years;
+}
+if we have to pass multiple parameters then write all the parameters seperated by commas and in parenthisis in place of birthYear.
+
+
+*two ways to initialise the array:
+const words = ['hello', 'cat', 'dry'];
+const words = new Array('hello', 'cat', 'dry');
+
+to know the number of elements in the array, words.length
+to print the array, we can directly use its name
+
+*here we can change a particular element of the array, you must be thinking how bcz words array is const and const can't be changed, but const primitive values can't be changed and array is not primitive.
+Therefore you can keep in mind that arrays can be mutated even though it is declared const. But we can't replace the entire array, we can change any number of elements.
+
+
+*we can keep any type of value in the same array, JS just expects an expression (which gives a value).
+const words = ['hello', 'c'+'at', variableName]; is perfectly fine.
+
+*to add a new element in the last of the array, we can use push function and that function call returns the length of the updated array. 
+words.push('betty');
+to add in the starting, words.unshift('betty');
+
+
+*to remove element from last, words.pop();
+this returns the removed element
+words.shift() for removing from the front of the array
+
+*words.indexOf(element) //this will return 0-indexed position.
+if that element is not present then it will return -1
+words.includes(element) just returns true or false
+it do strict comparision
+
+
+*initialise a object
+const prateek = {
+	firstName: 'Prateek',
+	lastName: 'Agarwal',
+	age: 2021 - 1998,
+	friends: ['raju', 'taj']
+};
+we can also say that this prateek object has 4 properties(firstName, lastName, age, friends).
+
+
+*to print this object, we can directly print its name:
+console.log(prateek);
+to print its property:
+console.log(prateek['lastName']);//here we can write any expression which gives the property name
+console.log(prateek.lastName);
+
+if we will extract a property name which doesnt exists in the object, then it will return undefined
+
+we can use bracket notation when we will be extracting the property or taking the property name from dom but we can't use the variable name or expression in dot notation, it won't extract the value of the variable, it will find the property = variable name.
+eg:
+const property = 'lastName';
+console.log(prateek.property); //undefined
+console.log(prateek[property]); //Agarwal
+
+
+*to give another property after the initialisation,
+objectName.newPropertyName = value;
+objectName['newPropertyName'] = value;
+
+
+*objects can also have object, function expression inside it.
+we can use the property of that same object inside its function by this keyword/object name, but we should prefer this keyword as we should not repeat ourself in the code.
+
+
+*we can call functions(push, pop) on an array, so we can say that array also has property as functions. This means array is also an object. So we can say that array is a special type of object (about which we will discuss later).
+
+
+*how to create an empty array:
+const types = [];
+
+
+*console.table(objectName); can be used to display the object on the console
+
+
+*A better way to do a manual testing is done through Sources tab of developer tools. By setting the breakpoints, we can see the values being passed and set at each step live which program is running. It will be a type of dry run only just we don't have to write values at every step.
+We can put a breakpoint in our code by writing 
+debugger:
+at that point where we want to add breakpoint.
+
+
+*To use font-awesome icons in your website, include this link in your header
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+You can take the latest link from https://fontawesome.com/how-to-use/customizing-wordpress/snippets/setup-cdn-webfont
+
+
+*when we add opacity in any div, then it is also applied to its text, image or any other element inside it. To avoid it, we need to use overlay which we will discuss later.
+
+
+*If we want to change the border color when any input field is focused then we can do:
+#contact-form input:focus,
+#contact-form textarea:focus {
+	outline: none;
+	border-color: #3o83jk;
+}
+
+
+*to select an element of dom in .js file:
+document.querySelector('.itsClassName').textContent
+There are other ways of selecting elements as well.
+For input field, we use .value instead of .textContent
+
+
+*Remember to use .(dot) before the class name in the selector.
+
+
+*DOM Manipulation: It is basically a process where .js file interacts with the dom(browser window).
+
+
+*DOM(Document Object Model): Structured Representation of HTML documents. Allows JS to access HTML elements and Styles to manipulate them.
+DOM is not the part of JS language. Web apis include Dom methods and properties and Web apis are the libraries which are written in browsers and JS. There are many more apis like timer and fetch apis which we will learn later.
+
+
+*Event Listener: document.querySelector('.itsClassName').addEventListener('click', function(){
+	//logic to run after clicking that button
+});
+This function here will be called, event handler which handles the click event.
+
+
+*Input field returns a string.
+
+
+*Change styling from .js file:
+document.querySelector('body').style.backgroundColor = '#342321'; 
+We have to assign a string, no matter what value we have to assign
+If we have two words in style then in .js file we should write in camelCase notation.
+document.querySelector('.number').style.width = '30rem';
+These are the inline styles
+
+
+*Following are the ways through which we can achieve responsive view:
+-Set the viewport/scale
+-Use fluid(max/min) widths as oppose to fixed.
+-Media queries: Different CSS styling for different screen sizes
+-Rem units over px
+-Mobile first method
+
+
+*If we have more than one element containing same class then document.querySelector('.className') will contain the first element.
+If we want to address every element then we need to use document.querySelectorAll('.className') and this will contain the array of each element and we can address each one with the index position from that array.
+
+
+*Remove class from an element from .js:
+const myVariable = document.querySelector('.className');
+myVariable.classList.remove('hidden', 'class2');
+Note: here in this we do not include .(dot) before the class name.
+
+
+*Similarly we can add class by using add() inplace of remove();
+
+
+*apply global event listner
+keypress event is a global event listner, to listen to keypress event:
+document.addEventListner('keydown', function(e){
+	//'e' is an object which will contain the value which will tell which key is pressed
+	//e.key will contain that keyboard key name; you can print 'e' to get all the key value pairs.
+})
+
+
+*diagrams.net can be used to make flowcharts.
+
+
+*imageElementVariable.src= "image.png";
+
+
+*Js is highlevel language: which mnz that in languages like C, we have to manually manage the memory by asking for the memory from computer but in JS we do not have to manage these resources at all. But the downside is, JS program can never be as fast as C.
+
+
+*JS also cleans up the memory used by our program. We don't have to do it manually.
+
+
+*JS is an interpreted or Just-in-time compiled language.
+
+
+*JS is a multi-paradigm language, which mnz it follows all the 3 paradigm/approaches: Procedural Programming, OOP, Functional Programming.
+
+
+*JS Engine is a program that executes JS code. It consists of call stack and memory heap.
+
+
+*JS use just-in-time compilation which is combination of both compilation and interpretation. This approach compile the whole code at once and then run it right away but it doesnt produce the portable file(machine code) in between. It optimises the part of a code and executes it and in that time optimises another part of the code in another thread.
+
+
+*Just after compilation, creation of global execution context(EC) (for top-level code(code which is outside any function)) happens.
+
+
+*Execution Context: Environment in which a piece of JS code is executed. Stores all the necessary information for some code to be executed. This contains environment variable(let, const and var declarations, functions, argument object), scope chain, this keyword.
+
+
+*IMPORTANT: EC of arrow functions do not have argument object and this keyword.
+
+
+*then execution of top-level code(inside global EC) happens. Finally the Execution of functions and waiting for callbacks and EC are created for all the functions.
+
+
+*JS follows Lexical scoping(scoping is controlled by placement of functions and blocks in the code).
+
+
+*Variable lookup: it is the process in which compiler looks for a variable in the outer scope if inner scope has used that variable. If compiler finds that variable in the outer scope, then it will use its value and if not then it will look more outer of that outer scope and if compiler still doesnt finds that variable till the global scope then it will throw an error.
+
+
+*var variable is function scoped which mnz that even if a var variable is declared inside a block, it will be accessible in the function in which that block is. But let/const variable declared inside a block will only be accessible in that block, not in the function in which that block is.
+
+function checkScope(){
+  if(true){
+    var varVariable = 10;
+    let letVariable = 20;
+    const constVariable = 30;
+  }
+  console.log(varVariable);//accessible as var variable is function scoped
+  console.log(letVariable);//not accessible
+  console.log(constVariable);//not accessible
+}
+
+checkScope();
+console.log('var in global scope: '+ varVariable);//not accessible
+
+
+*functions are also block scoped. But this is only true for strict mode.
+
+
+*Hoisting: Makes some types of variables accessible/usable in the code before they are actually declared. "Variables lifted to the top of their scope". But behind the scenes before execution, code is scanned for variable declarations, and for each variable, a new property is created in the variable environment object.
+
+
+*Function Declarations are hoisted and is blocked scope.
+
+
+*var variable is also hoisted, its function scoped, and its initial value is undefined. That mnz if you use a var variable before its declaration, then it can be accessed but its value will be undefined.
+
+
+*let and const variables are not hoisted. Its blocked scoped. Actually it stays in temporal dead zone(TDZ) in its scope. If you use a let or const variable before its declaration in its scope then you will get different error(cannot access variable before its initialization) as compared to error(variable is not defined) which we get if we use variable which is not declared in the entire code.
+One will get the same error(variable is not defined) if we use that variable outside its scope.
+
+TDZ was introduced to get the clear error msg and to debug the code easily.
+
+
+*Function expressions and arrow functions depends on the way(let or const or var) with which they are defined and will work according to its(let or const or var) properties.
+
+
+*Ideally we should not use hoisting in case of the variables as it could create bugs if not used carefully. Basically hoisting was introduced for functions and hoisting in var variables are a biproduct of it. To work around this, we use let and const variable in modern JS.
+
+
+*'window' is a global object.
+
+
+*variable created with var makes its property in window object whereas let and const doesn't. (Just an info doesnt really mean bcz var is not used in modern JS).
+
+
+*'this' is not static. It depends on how the function is called, and its value is only assigned when the function is actually called.
+
+	1: function is called by an object.
+	const jonas = {
+		name: 'Jonas',
+		year: 1989,
+		calcAge: function() {
+		 return 2037 - this.year;//this pointing to object jonas
+		}
+	};
+	jonas.calcAge();//fn is called by an object
+
+	So in this case, 'this' points to the object. Therefore this used in that function meant the value of that variable(year) in that object.
+
+	2: Normal function call.
+	'this' is undefined in strict mode but points to global object(window) in non-strict mode but that can be very problematic.
+
+	3: arrow functions
+	this = this of surrounding function (lexical this keyword) mnz 'this' of the outer scope as arrow fns do not get their own this keyword.
+
+	4: event listner.
+	this = DOM element that the handler is attached to
+
+	5: new, call, apply, bind.
+	later
+
+
+*Note: 'this' never point to the function in which we are using it and also never to the variable environment of the function.
+
+
+*curly braces in object creation doesn't creates a scope, its just the way by which we define object.
+
+
+*If we dont know how many arguments are gonna be passed into our function then we can use 'arguments' array in that function or can loop through that array and it stores the arguments passed into that function in different index positions. But arguments keyword/array does not exist in arrow functions.
+
+
+*Primitives: Number, String, Boolean, undefined, null, symbol, bigint. They are called primitive types. They are stored in call stack(to be precise, execution context).
+Objects: Object literal, Arrays, Functions and many more. They are called reference types. They are stored in heap.
+
+
+*value at a certain memory position cannot be changed, if we change value of a variable then a new memory is generated and new value is kept there in call stack.
+
+
+*const reference variables can be changed later. As reference variable has value = address where its value is stored in heap. So by changing the value of the const reference variable, we change the value in heap, we dont change its address(which cant be changed of const reference variable). What needs to remain constant is the value its holding in call stack, which we are not changing. 
+We cant change the whole object, we can change its property or can add or remove a property from that object.
+
+
+*const objectCopy = Object.assign({}, objectName);
+this makes a shallow copy of the object objectName, which mnz that if we change a normal value of that object then it will be just changed for that object, not for both the objects. But this doesn't work with objects under these objects.
