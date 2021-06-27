@@ -1,0 +1,8 @@
+* The main reasons why the C++ programming language is Known as Semi-Object oriented language are as follows:
+
+1. Availability of the Friend function-
+A friend class is allowed to access private and protected members of another class, within which it is declared a friend. It may be very useful for some time, but still, it violates the rule of the Object-Oriented features.
+2. Concept of the Global variable-
+As we all know that we can declare a global variable in C++ language that can be easily accessible from anywhere within the program. So again, C++ does not provide complete privacy because no one is restricted to access and manipulate that data/information. Hence it offers partial Encapsulation, unlike Java Language, in which a user only allows to declare a variable within the class and can provide access specifier to it.
+3. The main function is Out-side the class-
+C++ is an object-oriented language, but still, object-oriented is not fundamentally related (or implicit) to the language. So a user can easily write a valid, well-defined C++ code even without using any object once.
