@@ -1,0 +1,459 @@
+*HTML is not a programming language. It is a markup language to create web pages. Content display/structure
+
+*CSS(Cascading Style Sheets): used for styling html elements.
+
+*home page is usually given a name index.html, the page which gets loaded in the very beginning.
+
+
+*DOCTYPE tells the browser which kind(HTML5, XHTML, any version) of document it is. HTML5 is a standard. This must be the very first line in the html file.
+<!DOCTYPE html> indicates HTML5 document. All versions have its own doctype.
+
+
+*ctrl+/ or ctrl+k+c for comment
+
+
+*to write the basic structure of html automatically in vs code, write ! then press enter, emmet will automatically write the structure of html code.
+
+
+*to automatically load the html file in browser, whenever you save your html file, install vs code extention with name Live Server by Ritwick Dey and then click Go Live from bottom right of the vs code.
+
+
+*meta tag doesnt appear on the page, they just tell details about the page.
+
+<meta charset="UTF-8"> is famous meta tag, which tells the character set of the characters used in that page which is unary characters most of the time, well everything will still work if this meta tag is not present.
+   
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> this meta tag is important, this is for the responsive layout
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> this is for browser compatibility.
+
+<meta name="description" content="This is my website description"> this meta tag is quite important, this is not default one. When someone searches about your website then in your search engine, this description is displayed where your website link appears.
+
+<meta name="keywords" content="app, app development"> this tag gives keywords to the website/page, years and years ago keywords used to hold a lot of importance in SEO but now they doesn't hold much importance, now SEO includes a lot of different things.
+
+<meta name="robots" content="NOINDEX, NOFOLLOW"> this meta tag is included if we don't want our website/page to come up in any search engine.
+
+
+
+*to write in the next line by creating another line without going to the last of that line, press ctrl+enter from wherever you are in previous line.
+
+
+*it is a good practice to give one h1 heading per page which could be any (title of the page for eg.)
+
+
+*if one want to add dommy words to check a feature then we can write lorem+enter to write random number of words, for writing n number of words shortcut, lorem19+enter this will add 19 random words and we can add any number of words in place of 19.
+
+
+*<strong> text in this tag will make that text bold, though we can change strong tag's property
+<em> text in this tag will make that text italic, though we can change emphasis tag's property
+<hr> tag will change the line and also adds the horizontal line in next line.
+<b> <u> <i> <s> tags are now depricated
+<del> tag adds the strike to the text inside that tag.
+
+
+*<a> is an inline element which mnz it will not change the line after it. The opposite is the block element which changes the line after it.
+We don't want user to go away from our website, so we should make sure if a user clicks on a link then that link should open in new window. For that we have to write a target attribute in <a> tag.
+<a href="https://www.google.com" target="_blank">Google on new tab.</a>
+we can also link another html file from our system in this <a> tag.
+
+
+*<!-- Unordered List (generally used) -->
+  <ul>
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+    <li>Item 4</li>
+  </ul>
+
+to remove the default bullets or to change the bullets styling:
+list-style: none;//for no bullets in ul tag styling
+
+
+*Table
+  <table>
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Prateek</td>
+        <td>Agarwal</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Pragati</td>
+        <td>Agarwal</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Meenu</td>
+        <td>Agarwal</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+*'for' attribute in label tag is added to add a feature which focuses on the input field when clicked on. So when we will click on the label then it will focus on the input field for which label is present. 'for' in label tag and 'id' in input tag should be same.
+
+
+*input type contains text, number (which will contain increment and decrement arrow by default), date (which will contain date picker by default), radio (which will give the option to select just one option), checkbox (its like radio but in checkbox we can select more than one option)
+dropdown is added with select tag
+button contains type submit, reset
+
+
+*<p> has a styling by default which adds a margin after it by default.
+
+
+* id and class don't have any functional difference when we want to consider them while styling but we don't really give same id to more than one tags, its not a good practice (though we can give if we want, we won't get any error). But we can give same class to more than one tags.
+
+
+*the only differnce between span and div is that span is inline element and div is a block element.
+
+
+*&nbsp; is used to add one whitespace in the dom. We can use n number of &nbsp; to add n number of whitespaces.
+&gt; is used for greater than angle bracket bcz some browsers will not be able to read angle bracket as they indicate start or end of any tag.
+
+
+*if one wants to add a code snipet in the dom then he can use <code> tag to write his code in this tag which will look like a code in dom.
+
+
+*to show keyboard keys, one can use <kbd> tag 
+
+
+*from ES5, <header>, <footer>, <nav>, <main>, <section>, <main>, <article>, <aside> are used instead of using <div> everywhere.
+
+
+*<style> tag is added inside <head> tag and after <title> tag if using inline css.
+selecter {
+	property: value;
+}
+selector can be the tag name, class, id, pseudo selector.
+
+
+*to link external css, write <link> tag in <head> tag
+eg: <link rel="stylesheet" href="location.css">
+External CSS is prefered.
+
+
+*for tag name, we just use its name {}
+for id, #idName{}
+for class, .className{}
+
+
+*to give same styling to multiple selectors,
+.selectorName, .selectorName1, #id1 {
+	
+}
+
+
+*nested selectors:
+#id2 .class3{
+	
+}
+This mnz apply styling in class 'class3' of id 'id2'
+
+
+*we can change the line height of the text by applying styling:
+line-height: 1.6em
+for bold text, we can use font-weight: bold;
+for italic text, we can use font-style: italic;
+
+
+*to write color in rgb:
+color: rgb(0to255, 0to255, 0to255); (red, blue, green)
+hexadecimal code
+color: #ff0000 (this is also rgb; first 2 for red, second 2 for green, last 2 for blue)
+color-hex.com is a nice website for selecting color
+
+
+*border-top-left-radius: 10px; for curving top left border
+border is not necessary for curving the edges, one can curve the div without even border by the same styling
+
+
+*for background image:
+background-image: url('./img/stars.jpg');
+if our image dimensions are small then it will repeat by default. If one don't want that then use
+background-repeat: no-repeat;
+background-position: center center; can be used to set the position of the image
+backgound-size: cover; is used if we want whole image to cover and not crop by default.
+
+we can write all the properties and its values in one line as
+background: url('./img/stars.jpg') no-repeat center center/cover;
+
+if you want your image to not move when scrolling then use
+backgound-attachment: fixed;
+
+
+*to reset all the default styling,
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	* for reseting every tag's default styling
+
+
+*green color indicates padding and orange indicates margin in dev tools of browser window.
+
+
+Important
+*if we apply width to a element and also apply padding then its total width will be width+padding. If we want fixed width which we gave and adjust the inner elements according to that then in the reseting block we need to give:
+box-sizing: border-box;
+
+
+*if we have more than one same properties then further descriptive/down property (padding-top, padding-left, etc) will override the further up property (padding, etc)
+
+
+*we can give descriptive property in one line as well:
+padding: top right bottom left;
+if we have same top, bottom and same left, right then,
+padding: top/bottom left/right;
+
+
+Important
+*if one want to put something in center, then cover that in a container like <div class="container"></div> then 
+give the following styling properties to the class
+max-width: 960px;(or any other desired width)
+margin: auto;
+
+then it will move the elements inside container to the center
+one should use max-width instead of width bcz if we will use width then even in small devices, its width will be the same so it will go outside of the view.
+when max-width is used then in the view greater than that width, elements will acquire that width but in the view with lesser width than given width, elements will squeeze by itselft according to the view width.
+
+
+*if we want to align the text then text-align: property is used.
+text-align: justify; is a suggestion bcz it will align the text to center but will keep the last line aligned left so it is a combination of align left and align center(better than either one).
+
+
+*one should not use float nowadays as now we have things like flexbox and grid with which we can attain the same results. Flexbox and grid will be discussed later. Float creates problem in responsive view.
+
+
+*another issue with float elements is, it needs to be cleared otherwise elements after it will be below those floated elements.
+To clear those floated elements we need to add clr class like:
+.clr {
+	clear: both;
+}
+and after that we need to add a div after floated elements and give clr class to that div like:
+<div class="clr"></div>
+In 90% of the cases we will need this.
+
+
+*by default <a> tag have underline under it, to remove that apply styling:
+text-decoration: none;
+to add styling on hover, we can write styling as:
+a:hover {
+	//styling properties
+}
+to add styling on the visited links, 
+a:visited {
+	//styling properties
+}
+
+These are known as different states of the link, active is also the one.
+
+
+*we can apply hover property to any class:
+.className:hover {
+	//styling properties
+}
+
+
+*pseudo selectors can be applied on last item, first item or the alternate items like:
+.side-menu li:last-child {
+	//styling properties      
+}
+
+
+*sometime applying float to the elements inside the div, hides the background styling of the div, to show the styling of the div, we should do overflow: auto in that div styling
+
+
+*sometimes padding don't come in top and bottom if the div is just of one row, to change that we should make display property of the elements inside that div 'block' to contain those elements with their property.
+display: block;
+
+
+*margin: auto; moves the items to the center only if the element in which it is applied is block level.
+inline element won't go to the center if applied margin: auto
+
+
+*we can't apply width and margin to the inline element. If we want inline properties with the styling then we can use display: inline-block;
+
+
+*position values:
+Static: not affected by tblr(top, below, left, right) properties/values.
+Relative: tblr values cause element to be moved from its normal position.
+Absolute: positioned relative to its parent element that is positioned relative.
+Fixed: positioned relative to the viewport. Keeps same position even after scrolling.
+Sticky: positioned based on scroll position. Position can be set when scrolled like the navbar.
+
+
+*if we want element to be positioned according to the parent/outer element then we can give position: relative to the parent element and position: absolute to the child/inner element and then can position it, then it will get positioned according to the parent element.
+
+
+*if a element gets hiden by another element then we can give higher z-index of the element which we wanna show above. The higher z-index, the closer it will be to you.
+
+
+*positioning is not done that much nowadays bcz it creates problem in the mobile devices/responsive view.
+
+
+*When we don't want something to show in the dom at a certain condition then we should use the property visibility: hidden; instead of display: none; bcz display: none; will not even take its space and other elements will overtake its space but in visibility: hidden; its space will be taken by the element but it will not be visible on the dom.
+We can use any according to our requirement
+
+
+*importance of the class is higher than the actual tag
+for same importance level, importance grows as we go down in the styling.
+This mnz if we have given different styling to the same element through different ways then styling given in the class will have higher importance than styling given in the tag.
+if we have used same thing(tag or class) multiple times then as we go down the importance increases. This mnz styling given in the last tag/class will be implemented.
+
+If we have used external css file and we want to give our property to the element then we can use !important in that property's value. So its importance will be highest.
+color: blue !important;
+
+
+*we can't use negative padding. We should avoid negative margin.
+
+
+*we have to give color to the links specially, giving color to its div might not work.
+
+
+*following methods can be used to get responsive design:
+	-set the viewport/scale
+	-use fluid widths as opposed to fixed
+	-media queries - different css styling for different screen sizes
+	-rem units over px
+	-mobile first method
+
+
+*@media (max-width: 500px) {} screens with width 500px or less
+styling for that screen width can be written in this block
+
+@media (min-width: 501px) and (max-width: 768px){} //screens with width 501px to 768px
+768px is the width generally used for tablet
+
+We should be writing a general styling which should be applied to those elements whose styling is not mentioned in the given screen sizes.
+We can give min/max-height in place of width and can apply styling for a particular height or a range of height.
+
+
+*We can also create a different stylesheet for a particular width range
+<link rel="stylesheet" media="screen and (max-width: 768px)" href="fileName.css">
+this should be after the main stylesheet.
+
+
+*px is a fixed unit, number of px will be same for all the screen sizes.
+whereas em and rem units are relative to different things:
+em unit is relative to its parent element and rem unit is relative to its root parent element
+
+if parent element has font-size of 20px then if we provided font-size 2em then its equivalent px size will be 2*20=40px.
+root parent(html) element has font-size of 16px.
+but em becomes very confusing due to its behavior with its parent therefore its better to use rem as it will have only one parent i.e html.
+
+*Find benefit of rem and em units, the only benefit which I think is that by using rem and em units, if we want to increase or decrease the size of all the text then we just have to decrease the size of the parent element and the font size of all the other texts will change on its own. If we don't give em or rem units then we individually have to increase or decrease the font size of all the elements.
+
+It said that these sizes are responsive but even if I give font size in px then too if I decrease the screen size, font size will decrease.
+If we change the font size of the browser (from browser) then em units will not be affected bcz they are taking size from their parent element and changing the font size of the browser changes the font size of the root element
+
+
+*vh/vw: viewport height/width is the height/width of the browser. A browser is divided into 100 parts horizontally and vertically. We can give height/width from 1-100vh/vw if we give 50vh then that element will take half of the browser's size.
+
+
+*How JS works behind the screen is to be studied and make notes of it.
+
+
+*display: flex will align all the elements inside it, horizontally by default.
+To keep them vertically, we need to add flex-direction: column;
+
+
+*flex-wrap: wrap; moves the contents to the next line if screen size is reduced. Basically it adds responsiveness automatically.
+Without this property, elements will gonna shrink. If we dont want a particular element to shrink then we can add flex-shrink: 0; to its styling
+
+
+*flex-grow: 1; will automatically set the width to cover all the remaining space. If this is kept in all the elements then all will take equal width and will cover the width of the container.
+
+
+*we can combine all the values in one property i.e flex: grow shrink basis; flex: 1 0 200px;
+
+
+*align-items: center; align-items property applies to the flex-container and it aligns across the cross-axis. If flex-direction is row then align-items will align the items on vertical scale. 
+By default result will not be seen as height of the container must be just the elements height, to see the effect one needs to increase the height of the container.
+It also gives the value stretch which will stretch to complete height(if flex-direction: row) or width(if flex-direction: column) of the container.
+
+
+*for main-axis align: use justify-content: center; It works same as align-items, just it aligns the elements on the main-axis (if flex-direction:row then horizontal, if flex-direction:column then vertical axis is the main-axis).
+
+
+*align-self works on the individual elements. 
+
+
+*Remove the opacity of the background from its elements:
+.hero {
+  background: url("../image_resources/showcase.jpg") no-repeat center
+    center/cover;
+  height: 100vh;
+  position: relative;
+  color: #fff;
+}
+
+.hero .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  padding: 0 20px;
+}
+
+till now there is a simple background and some text over it
+if we want to add a overlay to the background so that it doesnt look too flashy,
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+this will add a overlay of a faded black color, but this will also be applied over the text on the background.
+
+.hero * {
+  z-index: 10;
+}
+
+if we increase the z-index then all the contents on the background will come infront of the overlay.
+
+
+* object-fit: cover; //it covers the image in our required dimentions without streching the image.
+
+
+* to change the outline color of the input field when focused:
+input:focus {
+  outline-color: #28a745;
+}
+
+
+* to increase the size of the favicon icons, use fa-2x class to double the size.
+
+
+* for restricting special characters and space in text input field
+onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode==32)"
+this can be applied to input tag, this will accept blank space too, no not accept blank space, remove 32 condition
+
+
+* To apply horizontal scroll to the table
+table{
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+} 
+
+
+* For gradient background color:
+background: linear-gradient(110deg, #fdcd3b 60%, #ffed4b 60%);
+
+
+* for gradient background with image:
+background: linear-gradient(-70deg, #fa7c30 30%, rgba(0, 0, 0, 0) 30%), url('planets.jpg');
