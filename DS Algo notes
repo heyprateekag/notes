@@ -1,0 +1,441 @@
+* Symbol table: space where system maintains the address of the variable names is known as Symbol table. (like i is kept at 400, j is kept at location 219 etc)
+
+
+* 0x: any number which has 0x before that number (like 0xnumber) indicates, that number is hexadecimal.
+
+
+* address of operator (&): gives the address of the variable in hexadecimal form.
+
+
+* pointers: are variables which stores address of another variable.
+	
+	int i = 10;
+	int *p = &i;
+	cout<<*p; //10
+	cout<<p; //address of i
+	cout<<sizeof(p); //4 or 8 anything can be its size of every datatype
+	p = p + 1; //starts pointing to next location
+
+
+* always initialize a pointer, otherwise it will store a garbage address and if we access or change the value at that address then it is dangerous.
+
+
+* different ways of getting element at ith index: a[i], *(a+i), i[a] all will give same result which is the value at ith index as 'a' acts as a pointer pointing to the location of the first element of the array but size of 'a' will be size of whole array, we dont have seperate 8 bytes allocated to 'a', which we have in the case of pointers.
+&a will also print the address of the first element of the array as no seperate space is allocated to 'a'.
+
+
+* We can't change the value in the symbol table bcz if int i = 10; and i gets the address 780 so we can't say that we dont want that address, I want 800. We just need the memory and we got that thats it.
+Therefore we cant do a = a + 3; as we dont have any memory given to 'a' its value in symbol table is the address its pointing to i.e the first element so if we are doing a = a + 3, then that means we are asking 'a' to point the 4th element of the array so a's value in symbol table needs to be changed as well which is not possible.
+But we can do
+	int *p = &a[0];
+	p = &a[3];
+in this case a seperate memory is assigned to pointer p so it has some address of 8 bytes which is it's value in the symbol table and what pointer p holds in the memory is the address of the array's 0th index in the first line, so as we can change the value in the memory, second step is also valid.
+
+
+* All the difference between 'a' and pointer p comes bcz of the fact that no new memory is assigned to 'a'.
+First difference is the sizeOf 'a'=40 and 'p'=8.
+Second difference is the address of 'a' = address of first element of the array and 'p' = its own address where its stored in memory.
+Third difference is the arithmatic in both of them a = a + 1; //not valid p = p+1; //valid (disscussed in the previous point).
+
+
+* However, if 'a' is a character array and we print 'a' then it will not print the address of the first character, it will print the whole array till it will find the null(/0) character. Similar is the case with pointer p pointing to &a[0];
+
+
+* but if pointer 'p' is pointing to the character c1 then if we print 'p' then it will print everything from c1's location till it will find the null character i.e it will print garbage too.
+
+
+*char s[] = "abcde"; //system will make a temporary memory and will copy that memory and will allocate a space to us named 's';
+char *ps = "abcde"; //system will make a temporary memory and will point the pointer to that temporary memory and that can be dangerous as that temporary memory can be read only or anything.
+
+
+* Syntax of declaring the pointer: type *p = &i; eg: int *p = &i;
+  so if we want to declare a double pointer then type *dp = &p; eg: int* *dp = &p; or int **dp = &p;
+  here 'type' is the type of data whose address pointer is holding.
+
+
+* Why do we write datatype whose value pointer will store?
+bcz pointer should know how many bytes it has to read at the time of dereferencing and how to interpret those bytes, as both in the case of int and float, pointer has to read 4 bytes but it will convert machine language in different ways in both of the cases.
+
+
+* integer 65 is kept as 65 0 0 0 not as 0 0 0 65 in machine language obviously and as int gets 4 bytes. This is bcz most of our system is Little Endium(Little head at first).
+
+
+* when we assign differnt type of pointer to different type of pointer then we have to explicitely typecast it.
+int i = 65;
+int * p = &i;
+char *pc = p;//error
+char *pc = (char *) p; //correct
+cout<<*pc; //A
+ideally it should read 0 (of 0 0 0 65) but now as we know int is stored as 65 0 0 0, so it reads the first byte i.e 65 and stores its ASCII value.
+cout<<*(pc+1);//null(doesnt prints anything as next byte is 0)
+cout<<*(pc+2);//null
+cout<<*(pc+3);
+
+
+* reference variable: variable which doesnt takes it own memory but is given same memory to which it is assinged.
+int i = 10;
+int &j = i;//reference variable j has the same memory as i
+so if we change any of the variable then those changes will be reflected to the other variable as well.
+basically one memory space is given two different names.
+It is important to assign a variable to reference variable at the time of initialisation of that reference variable.
+
+
+
+* Don't return address/pointer/reference of local variable from a function to another function as local variable will get destroyed just after that function will end but we will still be using that destroyed variable's space. So that's dangerous.
+
+
+* We should not do this:
+int n;
+cin>>n;
+int arr[n];
+//int n, arr[10] all these memories are allocated in stack memory and system knows in the starting that this much amount of memory I will need and system starts with accquaring that much memory from stack and it can't increase that memory later.
+So in the case of arr[n] system doesnt know how much memory program will take so it will start with any fixed amount of memory and if in case user entered big value of n, so at that time problem will arrise as program can't increase our stack memory which it took before starting.
+So we need to use heap memory instead which is large and can't be changed after the program has started(run time)(DYNAMIC MEMORY ALLOCATION).
+
+
+* "new" creates memory on heap and new returns the address of the memory which it allocates on heap.
+So to access that memory, we can assign that address to a pointer.
+int *p = new int;
+int *p will acquire memory on stack only. i.e 8 bytes will be allocated on stack and 4 bytes on head in this case.
+int *pa = new int[n]; //is completely fine bcz no matter how the big array is, it will be allocated to heap. Stack will just store the address of *pa, which has the address of first element of array(in heap) with which we can traverse whole array.
+
+
+* We cant directly access heap memory as we can't name that memory. The only relief which we have is, new keyword returns the memory of that address and that address we can store in the pointer and can access that memory.
+
+
+* Static memory acquired, releases by its own according to the scope. Whereas Dynamic memory needs to be released manually.
+To delete that memory, write
+delete address of that memory;
+delete p; //as address of that memory is stored in p, at this point p is not deleted, only the memory which p was pointing gets deleted, p will automatically get deleted as its static
+delete [] p; //if p is pointing to an array
+
+
+* We can't directly make 2D array on head like new int[10][20]
+What we can do is, we can make array of 10 pointers, and each pointer is pointing to an array of length 20.
+int **p = new int*[10];
+for(int i=0; i<10; i++){
+	p[i] = new int[20];//we can also give any size at this place(even changing size too like [i+2])
+}
+cout<<p[4][5]; //will give element at 4th row and 5th column
+
+
+* Never forget to delete dynamically allocated memory
+So in the case of 2D array, we will delete the array by:
+for(int i=0; i<10; i++){
+	delete [] p[i];//first delete all the individual arrays
+}
+delete [] p; //then delete array of pointers
+//if we delete array of pointers first then there will be no way to access individual arrays.
+
+
+* #define PI 3.14
+few benifits of declaring this in the starting(even before main function, where we write using namespace etc):
+	if we later want to change the value then I dont have to change at every single place used.
+	if we declared a normal variable then someone might change the value of that variable in the middle.
+	we dont have to take even that much memory.
+What system does is, before even compiling the code, it will replace all PI in the code with the value given at #define.
+
+
+* using global variables is a bad practice, as if anyone changed the value anywhere then whole code will get affected which we might not want.
+
+
+* Inline function: A function which is of 1 to 3 lines. Which gets replaced with its calls in the program.
+If I want to perform one action(eg: max between 3 numbers) multiple times in the program then I can add that action in the function and can call that function wherever I want that action. This will increase the readibility of our code but this will increase the work of the compiler. So better is to make that function inline by adding inline keywork before that function. In this case compiler will replace the call with the body of the function before compilation.
+You can add inline before any function but compiler will only replace the call with body in case of small function(1 to 3 lines).
+
+
+* Default arguments: arguments where value is given in parameter only but if user want to give any value then he can pass at the time of calling otherwise system will use the default value which is given at the time of declaration of the defualt arguments.
+Default values are given from right to left in the arguments.
+
+
+* One application of default arguments: If we want to find maximum between any number of numbers in our code multiple times and we know that we will require max of max to max 4 values and atleast there will be 2(obviously) so we can make a function
+int maxi(int a, int b, int c=INT_MIN, int d=INT_MIN){//body} so in this case we can pass 2 or 3 or 4 arguments and our function will tell maximum between them. We dont have to make different functions for different number of values.
+
+
+* In the case of constant variables we have to give the value at the time of initialisation otherwise system will throw an error.
+We make the path constant not the storage. For eg:
+int j = 10;
+const int &k = j;
+j++; //correct
+k++; //error
+So we have two paths(j and k) to reach value 10, j is not constant but k is constant. Therefore we can change the value 10 to something else from j but we cant change the value from k path. Change in k will be reflected too obviously.
+
+
+* We cannot make a normal reference variable of a constant variable(error). We can make a constant reference variable of a constant variable. In easy language kisi jagah ka tmhare pass srf dekhne ka access h toh tum dosre ko wahan par rehne ka access kaese de skte ho. Same is the case with pointers.
+
+
+* int const * p = &i; //mnz p is a pointer pointing to a constant integer. So if i is also constant then i's value can't be changed either from i or from p. But if i is not const then i can change its value but in the first line(of this point), p is promising that p will not change the value of i.
+we can do p = &j; //so now p will not be able to change j's value; valid
+(*p)++; //not valid
+
+
+* int * const p = &i; //mnz p is a constant pointer pointing at integer value. So in this case p can change i's value but p cannot point to any other integer.
+(*p)++; //valid
+p = &j; //not valid
+
+
+* int const * const p = &i; // mnz p is a constant pointer pointing to a constant value.
+(*p)++; //not valid
+p = &j; //not valid
+
+
+* Recursion is used when one problem's solution depends on the exactly same type of smaller problem. Like n! = n * (n-1)!
+n! is a problem and its soln = n * exactly same smaller problem which is (n-1)!
+
+
+* Segmentation fault comes when we are accessing extra memory and maybe system doesnt have it.
+
+
+* Three steps for recursion: 
+	handle the base case
+	calculate the smalloutput by calling that function again
+	return the final output by calculating the output using smalloutput
+Second and the third step can interchange according to the requirement.
+
+We just have to apply PMI, we dont have to think that how our final output will gonna come. We just have to believe that the small output will come correctly(if base case is handled properly) and then we just have to calculate final output using small output.
+
+
+* In the case of string input from cin, if we want to give a string including spaces in it, compiler will assume after space string as new input and will not take it if we are taking input in a single string variable.
+So to give a spaced string(eg: Full Name) in a string variable then we can use getline(cin, s); //where s is a string variable name.
+In case of character array, cin.getline(variableName, maxLength);
+
+
+* string functions:
+	string str = abcdefghi;
+	str.size();//9
+	str.substr(2);//cdefghi; from
+	str.substr(2,4);//cdef; from,length
+	str.find("ef");//4
+
+
+* In insertion sort, we assume that the very first element is in another array and bcz that element is alone in that array so its obviously sorted. Then we go to the second element of our array and compare it with the first element and swaps if second element is smaller than the first, if not then we just move to the third element.
+We can assume that we are inserting an element one by one in a sorted array.
+
+
+* In selection sort, we find minimum from the whole array, then swap it with the first index of the array, then we repeat the same process from the second element of the array, as first element is already in its final location.
+
+
+* In space complexity, we need to figure out at what time maximum space is used and what is that space.
+
+
+* Inbuilt stack: 
+#include<stack>
+stack<int> s1; 
+s1.push(10);
+s1.top();//10
+s1.pop();
+s1.size();//0
+s1.empty();//1
+
+
+* vectors internally increases its size according to the number of elements we go on entering through push_back.
+It doesnt increases its size if we insert elements through index position.
+So we will use the index position(myvector[index]=) for two functions, update(not insert) and get.
+
+
+* If we will access any index out of the vector's size through myvector[index], it will print the garbage value present there.
+but if we will use the predefined function, myvector.at(index) then it gives the error which is safer.
+Vector's capacity increases by doubling from 0 to 1 to 2 to 4 to 8 to 16 and so on as we keep on inserting elements.
+
+
+* Complete Binary tree: Binary tree in which all the levels should be completely filled and the last level should be filled from left to 
+
+
+* In Heap sort if we will use max heap property then we will get array elements in increasing order (ascending order) if we will use min heap property then we will get array elements in decresing order (decending order).
+to implement heap sort first we convert input array to heap array(particular order which will depict heap) then we will remove elements one by one(basically we will keep the removed element in the last of the array).
+
+
+* Inbuilt priority queue is implemented with max heap and functions which we get are size, empty, push, top, pop and its implemented by using queue header file and declared like priority_queue<int> pq;
+
+
+* k-sorted array is a non-sorted array whose each element is maximum k-1 positions far from its final position. 
+
+
+* for inbuilt min priority queue we need to declare priority_queue<int, vector<int>, greater<int>> pq;
+with just this, compiler will give us min priority queue/heap. Internally with greater<int> it changes the comparision.
+In max priority queue swaping happens when parent < child, after adding greater<int> swapping will happen when parent > child.
+
+
+* unordered_map: we can insert with
+unordered_map<string, int> myMap;
+pair<string, int> p("abc", 1);
+myMap.insert(p);
+OR
+myMap["abc"] = 2;
+
+can find by:
+myMap["abc"] //2
+OR
+myMap.at("abc") //2
+
+if that key doesn't exists in the map then myMap["ghi"] will insert "ghi" and will give 0 as the value and will return 0 whereas myMap.at("ghi") will through an execption that key "ghi" doesn't exists.
+
+so what if we want to check any key's presence in the map that it exists in our map or not, for that we can use:
+myMap.count("abc") which will return 0 or 1 as map will only contain one value for one key if we will try to insert same key twice then it will return the previous value.
+
+there is one more way to check whether a key value pair exists or not, which is by using myMap.find("abc") function which will return iterator pointing to that key value pair and if that key value pair doesn't exists then it will return myMap.end() which mnz iterator will be pointing after the last element of the unordered_map and unordered_map will not add that key value pair like myMap["ghi"]
+
+to check map's size we can use myMap.size()
+to remove the particular key value pair myMap.erase("abc"), we can pass iterator too in erase function and also a range of iterator too (like myMap.erase(myMap.begin(), myMap.end()) or myMap.erase(it, it+4)) this will erase key value pair at it, it+1, it+2 and it+3
+
+
+* Iterator for unordered_map
+unordered_map<string, int>:: iterator it = myMap.begin();
+while(it != myMap.end()){
+	cout<<"Key: "<<it->first<<" Value: "<<it->second<<endl; //as unorderd_map stores pair
+	it++;
+}
+//as name tells we will get key value pairs in any random order
+
+
+* Iterator for vector
+for vector every thing will be same as unordered_map, just to access the value we can access it by *
+
+
+* For implementing hashmap by our own, we will have to pass our key though a hash function which will return a index in which we will keep our key-value pair bcz what we need is a index position on which we will store bcz we want O(1) time complexity.
+Hash function will contain hash code and compression function, hash code will convert the string into an integer and as that integer could be any number but we will obviously keep our array of limited size, we wont be making array of length 10382683. So for that we passes that integer into compression function which will compress that integer between 0 and size of the array-1 and then we will store that key-value pair at that index.
+In most of the cases we will use integer value % size of array as our compression function.
+hash code can be anything according to the key, for integer key, hash function can just return that same integer without doing anything, for string for eg. "abcd", hash function can be a*p^3 + b*p^2 + c*p^1 + d*p^0 where we mostly keep 'p' as any prime number bcz it distributes the key-value pairs nicely. For any class object as key, hash function can convert object's address into integer.
+
+
+* It can happen that compression function might return same index for more than one different keys so collision will occur and to handle that collision we can use any one of the two methods, which are Closed hashing and open addressing.
+In Closed Hashing we will keep all the keys with same index position at that index only and that array will contain linked list at every position. So one key-value pair will be pointing to another key-value pair at same index. This is also called Seperate Chaining.
+In Open Addressing, we find next empty index of the array for our key-value pair if index which we got the first time if filled. For finding the next empty index, there are many methods which are:
+1) Linear Probing-In this we will find the next empty index by checking the i+1 index and so on 
+2) Quadratic Probing-In this we will check hash index + i^2 index for eg for 1st attemp we will check (hashIndex + 1^2)%size and for second attempt (hashIndex + 2^2)%size for 3rd (hashIndex + 3^2)%size and so on 
+3) Double Hashing-In this we will again apply hash code 
+etc there can be any number of our own technique
+
+We will implement Closed hashing only its almost similar to open addressing and closed hashing is also comparitively easier.
+
+
+* IMPORTANT: out of integer limit solution
+(n1 * n2 * n3) % r = ((n1%r) * (n2%r) * (n3*r)) % r
+In worst code in LHS n1*n2*n3 might go out of range of integer so our program will give error, so we can do what we have done in RHS we can take % with any number of the seperate numbers and then can apply the calculation which we want to apply and answer will come the same.
+
+This is also helpfull in calculating the hashcode, character*p^x can be bigger so what we can do is we can take % of p^x with array size and then can multiply it with our character. Our answer will be same what we might have got without %.
+
+
+* Load Factor in hashMap = n/b where n=number of key-value pairs in hashMap and b=number of buckets in the array
+and to make time complexity of various operations O(1) we make sure that load factor remains < 0.7
+If load factor remains less than 0.7 then according to research there will be very less elements in one bucket which can be assumed as 1 when compared to number of elements in the array.
+
+
+* We consider Trie for dictionary over hashMap bcz Trie uses much less space than hashMap, time complexity of both of them comes same. With the help of trie we can also implement auto suggestion functionality at the time of search of the word.
+
+
+* Types of tries:
+Compressed tries: In this if there are no branch of the two or more characters then we club them into one node. It increases the complexity as after after insertion we need to check the branches and also if the club has already been done and if new word will be adding a branch to that club string then we need to open that club.
+
+Suffix tries: If we want to know the suffix of a string that is that suffix is present in the trie or not (for 
+eg: if our trie contains bend then if we want to search is end or nd or d is present in our trie or not basically pattern matching) then for that case we will use suffix tries. In this we will store all the suffix of our string in our normal trie.
+If string to be inserted is bend then we will also insert end, nd and d.
+
+
+* For Huffman Coding please refer the video G:\Coding Ninjas\16. Tries and Huffman Coding\7 Huffman Coding
+It is basically required to compress the data to save the storage.
+
+
+* Memoization is a top down approach in which we saves our calculated answer which is used next time when we will need that value's answer. In this we use recursion. 
+
+
+* Dynamic Programming: is a bottom up approach, in this too we will use previously calculated values but everything will be done iteratively.
+
+
+* Memoization uses more space bcz of multiple function call and also it might give soln in 2n time complexity whereas DP gives soln in n time complexity.
+
+
+* To prevent our integer values from going out of the integer limit we can take mod of our ans with 10^9+7.
+ans % 10^9+7
+as discussed above we can take this mod anywhere any number of times. This is used when we are not doing mod normally. This won't change our final ans.
+
+
+* pow function returns ans of type double so we can't use it in place of array index. We have to first typecast it.
+
+
+* If we are multiplying two integers and if those integers can be very big after multiplying(out of range of integer) and we are performing more calculation on that so that multiplication will be first saved to buffer and that buffer will also be of integer type so it will spill off the value. To resolve that we should first typecast any one of multiplying value to long so now our multiplied value will be stored in buffer of type long and then we can take mod with 10^9+7 to make it under integer and then we can typecast it again in int to get our final int value.
+
+
+* num=num>>1 right shift num is equivalent to num=num/2
+
+
+* Dynamic array of class type needs a default constructor(even empty default constructor).
+
+
+* sort() function
+It generally takes two parameters , the first one being the point of the array/vector from where the sorting needs to begin and the second parameter being the length up to which we want the array/vector to get sorted. The third parameter is optional and can be used in cases such as if we want to sort the elements lexicographically.
+
+By default, sort() function sorts the element in ascending order.
+sort(arr, arr + n);
+
+sort(arr, arr + n, greater<int>()); //will sort in descending order
+
+How to sort in particular order? 
+We can also write our own comparator function and pass it as a third parameter. This “comparator” function returns a value; convertible to bool, which basically tells us whether the passed “first” argument should be placed before the passed “second” argument or not. 
+For eg: In the code below, suppose intervals {6,8} and {1,9} are passed as arguments in the “compareInterval” function(comparator function). Now as i1.first (=6) > i2.first (=1), so our function returns “false”, which tells us that “first” argument should not be placed before “second” argument and so sorting will be done in order like {1,9} first and then {6,8} as next. 
+
+bool compareInterval(Interval i1, Interval i2)
+{
+    return (i1.start < i2.start);
+}
+int main(){
+	//array initialise
+	//Interval is a class
+	sort(arr, arr + n, compareInterval);
+}
+
+
+* Trees/ other implementation/ questions
+ If we want to implement another method in case of trees (other than recursion), we can use stack or queue bcz our main concern in the case of trees are if we go down then how can we come up. So stack and queue help us to store the root/parent.
+
+
+* Space complexity/ Binary tree/ nodes at a level
+For a full binary tree, the leaf level has n/2 nodes.
+If we insert nodes of a binary tree in a queue/stack in BFS fashion then every time queue/stack will have at max level number of nodes at one time(if we keep on poping the front/top nodes) and maximum number of nodes is in leaf/last level in worst case. So queue/stack will be taking that much space when maximum filled at one time.
+
+
+* Boyer-Moore Voting Algorithm
+Intuition
+
+If we had some way of counting instances of the majority element as +1 and instances of any other element as -1, summing them would make it obvious that the majority element is indeed the majority element.
+
+Algorithm
+
+Essentially, what Boyer-Moore does is look for a suffix suf of nums where suf[0] is the majority element in that suffix. To do this, we maintain a count, which is incremented whenever we see an instance of our current candidate for majority element and decremented whenever we see anything else. Whenever count equals 0, we effectively forget about everything in nums up to the current index and consider the current number as the candidate for majority element. It is not immediately obvious why we can get away with forgetting prefixes of nums - consider the following examples (pipes are inserted to separate runs of nonzero count).
+
+[7, 7, 5, 7, 5, 1 | 5, 7 | 5, 5, 7, 7 | 7, 7, 7, 7]
+
+Here, the 7 at index 0 is selected to be the first candidate for majority element. count will eventually reach 0 after index 5 is processed, so the 5 at index 6 will be the next candidate. In this case, 7 is the true majority element, so by disregarding this prefix, we are ignoring an equal number of majority and minority elements - therefore, 7 will still be the majority element in the suffix formed by throwing away the first prefix.
+
+[7, 7, 5, 7, 5, 1 | 5, 7 | 5, 5, 7, 7 | 5, 5, 5, 5]
+
+Now, the majority element is 5 (we changed the last run of the array from 7s to 5s), but our first candidate is still 7. In this case, our candidate is not the true majority element, but we still cannot discard more majority elements than minority elements (this would imply that count could reach -1 before we reassign candidate, which is obviously false).
+
+Therefore, given that it is impossible (in both cases) to discard more majority elements than minority elements, we are safe in discarding the prefix and attempting to recursively solve the majority element problem for the suffix. Eventually, a suffix will be found for which count does not hit 0, and the majority element of that suffix will necessarily be the same as the majority element of the overall array.
+
+public int majorityElement(int[] nums) {
+        int count = 0;
+        Integer candidate = null;
+
+        for (int num : nums) {
+            if (count == 0) {
+                candidate = num;
+            }
+            count += (num == candidate) ? 1 : -1;
+        }
+
+        return candidate;
+    }
+
+
+
+* Dutch National Flag Algorithm:
+In this we maintain flags(index positions) and work accordingly on the array by incrementing/decrementing the flag value and iterating the array.
+
+
+* Gap method:
+This helps in merge two sorted arrays. What you have to do is, take gap = ceil((n+m)/2) and put one pointer at 0 and another at index=gap and compare both the index positions and swap if smaller index is greater than the gap's index, just increment if smaller.
+Repeat this till gap index reaches out of scope of the second array.
+change gap value to gap = ceil((previous gap value)/2) and repeat the above steps and change the gap till gap = 1. After that you will get the eventual array and now you just add the second array after the first array.
+PS. After pointer reaches end of the first array, shift the pointer to second array.
+
