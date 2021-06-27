@@ -1,0 +1,7 @@
+* Regex
+	var regex=/^[a-zA-Z]+$/;
+    if (!x.match(regex))
+    {
+        alert("Must input string");
+        return false;
+    }
