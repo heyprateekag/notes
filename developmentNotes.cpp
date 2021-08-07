@@ -37,3 +37,24 @@ add this constructor in AppModule class
 now terminate the terminal and run ng serve again
 then use font-awesome icons with this tag
 <fa-icon [icon]="['fas', '<icon-name>']"></fa-icon>
+
+
+* use moment.js in angular
+
+npm install --save moment
+import * as moment from 'moment'; //in file in which you want to use
+let myMoment: moment.Moment = moment("someDate"); //ready to use; this is just for reference
+
+
+* for getting first object from array of object by comparing value
+
+var result = jsObjects.find(obj => {
+  return obj.b === 6
+})
+
+
+* for getting all the objects with compared value (returns array)
+
+var result = jsObjects.filter(obj => {
+  return obj.b === 6
+});
