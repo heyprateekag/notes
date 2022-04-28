@@ -457,3 +457,16 @@ background: linear-gradient(110deg, #fdcd3b 60%, #ffed4b 60%);
 
 * for gradient background with image:
 background: linear-gradient(-70deg, #fa7c30 30%, rgba(0, 0, 0, 0) 30%), url('planets.jpg');
+
+
+* to apply line between some element of the design
+
+.departments li:nth-child(5) {
+  border-right: 2px dashed #811d77;
+  padding-right: 14px;
+  width: 14.1%;
+}
+
+.departments li:nth-child(6) {
+  margin-left: 11.75px;
+}

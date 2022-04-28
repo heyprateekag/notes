@@ -130,3 +130,20 @@ ngClass allows us to dynamically add or remove CSS class. It takes a JS object i
 
 
 *HostListner reacts to any event. (eg. if we hover over any thing then its color gets changed)
+
+
+*pipes are used to transform the data shown to user, it changes the data how its shown and doesn't change data's actual value.
+{{name | uppercase}} //AMAN
+//uppercase is a built-in pipe
+//name is still Aman
+
+
+*how to pass parameter into a pipe
+{{startDate}} //date is printed with Mon Nov 15 2021 21:11:42 GMT+0530 (India Standard Time)
+{{startDate | date}} //Nov 15, 2021
+{{startDate | date:'fullDate'}} //Monday, November 15, 2021
+//fullDate is passed as an argument in pipe date, another argument can be passed after fullDate(here) with : (colon) in between
+
+
+*how to use multiple pipes
+{{startDate | date:'fullDate' | uppercase}} //it executes from left to right

@@ -5,3 +5,9 @@
         alert("Must input string");
         return false;
     }
+
+
+* get dateobject from combinations of month, year, date
+https://www.w3schools.com/js/js_dates.asp
+
+*ng generate module logout --route logout  --module app.module
