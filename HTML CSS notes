@@ -470,3 +470,6 @@ background: linear-gradient(-70deg, #fa7c30 30%, rgba(0, 0, 0, 0) 30%), url('pla
 .departments li:nth-child(6) {
   margin-left: 11.75px;
 }
+*when we dont want to increase the size of the div after applying padding in that div
+
+apply box-sizing:border-box; in that div which will not increase size of that div
