@@ -228,6 +228,7 @@ s1.size();//0
 s1.empty();//1
 
 
+
 * vectors internally increases its size according to the number of elements we go on entering through push_back.
 It doesnt increases its size if we insert elements through index position.
 So we will use the index position(myvector[index]=) for two functions, update(not insert) and get.

@@ -2,20 +2,26 @@
 
 *CSS(Cascading Style Sheets): used for styling html elements.
 
-*home page is usually given a name index.html, the page which gets loaded in the very beginning.
+*home page is given a name index.html, the page which gets loaded in the very beginning when we hit our domain.
 
 
 *DOCTYPE tells the browser which kind(HTML5, XHTML, any version) of document it is. HTML5 is a standard. This must be the very first line in the html file.
 <!DOCTYPE html> indicates HTML5 document. All versions have its own doctype.
 
 
-*ctrl+/ or ctrl+k+c for comment
+*<head></head> tag contains information about your page not any display content of a webpage.
+
+
+*anything which you want to show in the webpage, is placed inside <body></body> tag.
+
+
+*ctrl+/ or ctrl+k+c  for comment
 
 
 *to write the basic structure of html automatically in vs code, write ! then press enter, emmet will automatically write the structure of html code.
 
 
-*to automatically load the html file in browser, whenever you save your html file, install vs code extention with name Live Server by Ritwick Dey and then click Go Live from bottom right of the vs code.
+*to automatically load the html file in browser, whenever you save your html file, install vs code extention with name Live Server by Ritwick Dey and then click Go Live from bottom right of the vs code or right click on the file and then select Open with live server.
 
 
 *meta tag doesnt appear on the page, they just tell details about the page.
@@ -26,34 +32,42 @@
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge"> this is for browser compatibility.
 
-<meta name="description" content="This is my website description"> this meta tag is quite important, this is not default one. When someone searches about your website then in your search engine, this description is displayed where your website link appears.
+<meta name="description" content="This is my website description"> this meta tag is quite important, this is not default one. When someone searches about your website then in your search engine, this description is displayed below to where your website link appears.
 
 <meta name="keywords" content="app, app development"> this tag gives keywords to the website/page, years and years ago keywords used to hold a lot of importance in SEO but now they doesn't hold much importance, now SEO includes a lot of different things.
 
 <meta name="robots" content="NOINDEX, NOFOLLOW"> this meta tag is included if we don't want our website/page to come up in any search engine.
 
+*<title> is important as most of the time whenever someone searches something on google then different site link comes and that link is made of the title of the page most of the time, so ideally you should give such keyword as your title with which you want your user to come to your webpage.
+
+*to write in the next line by creating another line without going to the last of the current line, press ctrl+enter from wherever you are in current line.
 
 
-*to write in the next line by creating another line without going to the last of that line, press ctrl+enter from wherever you are in previous line.
+*it is a good practice to give one h1 heading per page which could be any (heading for your page content for eg.)
 
 
-*it is a good practice to give one h1 heading per page which could be any (title of the page for eg.)
+*if one want to add dummy words to check a feature then we can write lorem+enter to write random number of words, for writing n number of words shortcut, lorem19+enter this will add 19 random words and we can add any number of words in place of 19.
 
 
-*if one want to add dommy words to check a feature then we can write lorem+enter to write random number of words, for writing n number of words shortcut, lorem19+enter this will add 19 random words and we can add any number of words in place of 19.
-
-
-*<strong> text in this tag will make that text bold, though we can change strong tag's property
-<em> text in this tag will make that text italic, though we can change emphasis tag's property
+*<strong> text in this tag will make that text bold, though we can change strong tag's property in our css file
+<em> text in this tag will become italic, though we can change emphasis tag's property as well
+<br> line break tag, changes the line of the text after it
 <hr> tag will change the line and also adds the horizontal line in next line.
-<b> <u> <i> <s> tags are now depricated
-<del> tag adds the strike to the text inside that tag.
+<b> <u> <i> <s> tags are now depricated as html is not meant for styling
+<del> tag adds the strike to the text inside it.
 
+*if you want to copy the current line to next line then do shift+alt+down arrow key
+*if you want to take your cursor beyong a word then use ctrl+right arrow key or left arrow key if you want to go back
+*if you want to take current line to any other line then while being on the line press alt+down/up arrow key
 
 *<a> is an inline element which mnz it will not change the line after it. The opposite is the block element which changes the line after it.
 We don't want user to go away from our website, so we should make sure if a user clicks on a link then that link should open in new window. For that we have to write a target attribute in <a> tag.
 <a href="https://www.google.com" target="_blank">Google on new tab.</a>
 we can also link another html file from our system in this <a> tag.
+# in href means user will remain in the same page after clicking that link.
+
+*for remote random images add this link in your src of img tag https://source.unsplash.com/random/1920x1080/?wallpaper,cartoon
+you can change keywords passed according to your requirement
 
 
 *<!-- Unordered List (generally used) -->
@@ -65,8 +79,26 @@ we can also link another html file from our system in this <a> tag.
   </ul>
 
 to remove the default bullets or to change the bullets styling:
-list-style: none;//for no bullets in ul tag styling
+list-style: none;//for no bullets in ul tag style attribute
 
+*for ordered list
+<ol> tag is used and rest is same as ul tag
+type is the attribute of <ol> which defines the order 
+type="a" for a,b,c,... "A" for A,B,C,.... "i" for i,ii,iii,iv,... "1" for 1,2,3,... "I" for I,II,III,IV,....
+<ol type="a"></ol>
+
+*nested list can be created inside any list tag
+<ul>
+	<li> Item 1 </li>
+	<li> Item 2
+		<ul>
+			<li> Item 2.1 <li>
+		</ul>
+	</li>
+	<li> Item 3 </li>
+</ul>
+
+*for printing same thing for multiple lines, type li*4 for 4 li tags in 4 different lines
 
 *Table
   <table>
@@ -102,7 +134,10 @@ list-style: none;//for no bullets in ul tag styling
 
 *input type contains text, number (which will contain increment and decrement arrow by default), date (which will contain date picker by default), radio (which will give the option to select just one option), checkbox (its like radio but in checkbox we can select more than one option)
 dropdown is added with select tag
-button contains type submit, reset
+button contains type submit, reset(it will reset the form)
+
+*if you want to select multiple occurences of the same text, select that text and press ctrl+d for next occurence of that text, cursor will point to both the locations, so that if you want to change at multiple locations then you just have to change once.
+*if you want to move multiple lines/single line back tab position then select those lines and press shift+tab, if you want to move forward tab position then just press tab after selecting required lines.
 
 
 *<p> has a styling by default which adds a margin after it by default.
@@ -113,10 +148,12 @@ button contains type submit, reset
 
 *the only differnce between span and div is that span is inline element and div is a block element.
 
+*block level elements means elements which take whole row. element next to it will come in next row.
 
-*&nbsp; is used to add one whitespace in the dom. We can use n number of &nbsp; to add n number of whitespaces.
-&gt; is used for greater than angle bracket bcz some browsers will not be able to read angle bracket as they indicate start or end of any tag.
-
+*&nbsp; is used to add one whitespace in the dom. We can use n number of &nbsp; to add n number of whitespaces. FullForm: Non Breaking SPace
+&gt; is used for Greater Than angle bracket bcz some browsers will not be able to read normal angle bracket as they indicate start or end of any tag.
+&gt = &#62, &lt = &#60
+These are known as HTML entities. You can search them, there are many.
 
 *if one wants to add a code snipet in the dom then he can use <code> tag to write his code in this tag which will look like a code in dom.
 
@@ -124,14 +161,15 @@ button contains type submit, reset
 *to show keyboard keys, one can use <kbd> tag 
 
 
-*from ES5, <header>, <footer>, <nav>, <main>, <section>, <main>, <article>, <aside> are used instead of using <div> everywhere.
+*Semantic tags: from ES5, <header>, <footer>, <nav>, <main>, <section>, <main>, <article>, <aside> are used instead of using <div> everywhere. Those tags are known as Semantic Tags.
+They doesn't add any styling by default, it's just that html code look much organized and readable after using these tags as it also gives idea about the content inside it.
 
 
-*<style> tag is added inside <head> tag and after <title> tag if using inline css.
+*<style> tag is added inside <head> tag and after <title> tag if using Internal css.
 selecter {
 	property: value;
 }
-selector can be the tag name, class, id, pseudo selector.
+selector can be the tag name or class or id or pseudo selector.
 
 
 *to link external css, write <link> tag in <head> tag
@@ -156,6 +194,23 @@ for class, .className{}
 }
 This mnz apply styling in class 'class3' of id 'id2'
 
+*default font size of a <html> is 16px.
+*Times New Roman is the default font family used if you don't mention any font-family
+
+
+*1px = (1/96)th of 1 inch
+*
+%: to Parent element
+em: to font size of Parent element
+rem: to font size of root element
+vw: to 1% of viewport width
+vh: to 1% of viewport height
+
+
+*web safe font-family used as comma seperated names means that if browser doesn't recognize first font-family then it should take second if it doesn't recognize that too then the
+third and so on but last font is very general so it will anyways take that
+eg: font-family: Verdana, Geneva, Tahoma, sans-serif;
+
 
 *we can change the line height of the text by applying styling:
 line-height: 1.6em
@@ -164,10 +219,14 @@ for italic text, we can use font-style: italic;
 
 
 *to write color in rgb:
-color: rgb(0to255, 0to255, 0to255); (red, blue, green)
+color: rgb(0to255, 0to255, 0to255); (red, blue, green) 
+if we will give first parameter 255 and others 0 then it will mean red and if there will be other parameters then it will mean the combination of those among red, blue, green
+all 0s will be black and all 255s will be white
 hexadecimal code
 color: #ff0000 (this is also rgb; first 2 for red, second 2 for green, last 2 for blue)
-color-hex.com is a nice website for selecting color
+we can use single characters as well, #f00 for red instead of #ff0000
+all 0s will be black and all fs will be white
+color-hex.com or htmlcolorcodes.com is a nice website for selecting color
 
 
 *border-top-left-radius: 10px; for curving top left border
@@ -179,7 +238,7 @@ background-image: url('./img/stars.jpg');
 if our image dimensions are small then it will repeat by default. If one don't want that then use
 background-repeat: no-repeat;
 background-position: center center; can be used to set the position of the image
-backgound-size: cover; is used if we want whole image to cover and not crop by default.
+backgound-size: cover; is used when our image is big but we are applying it in smaller area and we want whole image to cover and not crop by default.
 
 we can write all the properties and its values in one line as
 background: url('./img/stars.jpg') no-repeat center center/cover;
@@ -194,14 +253,17 @@ backgound-attachment: fixed;
 		padding: 0;
 	}
 	* for reseting every tag's default styling
+	* can give any styling here which you want to set for all tags like color etc, but gets overriden by our own css, it just overrides the default styling
 
-
+IMP
 *green color indicates padding and orange indicates margin in dev tools of browser window.
 
 
-Important
-*if we apply width to a element and also apply padding then its total width will be width+padding. If we want fixed width which we gave and adjust the inner elements according to that then in the reseting block we need to give:
+IMP
+*if we apply width to a element and also apply padding then its total width will be width+padding. If we want fixed width which we gave and adjust the inner elements according to that
+then in the reseting block or in any tag in which we don't want default behavior(its just that in reseting block it will apply in all) we need to give:
 box-sizing: border-box;
+Mostly it happens that we give width according to our requirement but when we apply padding or margin then it goes out of our width, which should not happen
 
 
 *if we have more than one same properties then further descriptive/down property (padding-top, padding-left, etc) will override the further up property (padding, etc)
@@ -210,22 +272,36 @@ box-sizing: border-box;
 *we can give descriptive property in one line as well:
 padding: top right bottom left;
 if we have same top, bottom and same left, right then,
-padding: top/bottom left/right;
+padding: top/bottom left/right; eg. padding: 10px 20px; //top and bottom will be 10px, left and right will be 20px
+
+
+EXTRA
+if we write same styling with different value bottom to the first styling then below one will override the above one
+padding: 29px
+.
+.
+.
+padding: 49px //this will override 29px padding
 
 
 Important
 *if one want to put something in center, then cover that in a container like <div class="container"></div> then 
 give the following styling properties to the class
 max-width: 960px;(or any other desired width)
-margin: auto;
+margin: auto; //it will give equal margin from left and right
+
 
 then it will move the elements inside container to the center
-one should use max-width instead of width bcz if we will use width then even in small devices, its width will be the same so it will go outside of the view.
-when max-width is used then in the view greater than that width, elements will acquire that width but in the view with lesser width than given width, elements will squeeze by itselft according to the view width.
+one should use max-width instead of width bcz if we will use width then even in small devices, its width will be the same so content will go outside of the view.
+when max-width is used then in the view greater than that width, elements will acquire that width but in the view with lesser width than given width, elements will squeeze by itselft
+according to the view width.
+if we want the container to use width according to screen size then we can use value in % eg. max-width: 50% //this will keep the width of the container 50% to the screen no matter 
+screen size but in px it will take the maximum width which it can take upto the mentioned width (960 in this case)
 
 
 *if we want to align the text then text-align: property is used.
-text-align: justify; is a suggestion bcz it will align the text to center but will keep the last line aligned left so it is a combination of align left and align center(better than either one).
+text-align: justify; is a suggestion bcz it will align the text to center but will keep the last line aligned left so it is a combination of align left and align center(better than 
+either one).
 
 
 *one should not use float nowadays as now we have things like flexbox and grid with which we can attain the same results. Flexbox and grid will be discussed later. Float creates problem in responsive view.
@@ -267,6 +343,9 @@ These are known as different states of the link, active is also the one.
 }
 
 
+*float:left applied to list items will put all items side by side in one line
+
+
 *sometime applying float to the elements inside the div, hides the background styling of the div, to show the styling of the div, we should do overflow: auto in that div styling
 
 
@@ -274,6 +353,7 @@ These are known as different states of the link, active is also the one.
 display: block;
 
 
+IMP
 *margin: auto; moves the items to the center only if the element in which it is applied is block level.
 inline element won't go to the center if applied margin: auto
 
@@ -298,7 +378,8 @@ Sticky: positioned based on scroll position. Position can be set when scrolled l
 *positioning is not done that much nowadays bcz it creates problem in the mobile devices/responsive view.
 
 
-*When we don't want something to show in the dom at a certain condition then we should use the property visibility: hidden; instead of display: none; bcz display: none; will not even take its space and other elements will overtake its space but in visibility: hidden; its space will be taken by the element but it will not be visible on the dom.
+*When we don't want something to show in the dom at a certain condition then we should use the property visibility: hidden; instead of display: none; bcz display: none; will not take
+its space and other elements will overtake its space but in visibility: hidden; its space will not be taken by other element but it will not be visible on the dom.
 We can use any according to our requirement
 
 
@@ -314,7 +395,13 @@ color: blue !important;
 *we can't use negative padding. We should avoid negative margin.
 
 
-*we have to give color to the links specially, giving color to its div might not work.
+*we have to give color to the links specially, giving color to its div might not work. eg. if inside some div, I have a tag texts and I mention a color styling for that div, so it won't
+work for the links present in that div, to set particular color to those links we have to target them seperately like .divClass a { color } or id/class of that <a> tag
+
+
+*to get high quality images for your project:  www.pexels.com
+*to get themes for your webpage/website you can refer www.themes.getbootstrap.com
+or you can search for bootstrap themes
 
 
 *following methods can be used to get responsive design:
@@ -473,3 +560,31 @@ background: linear-gradient(-70deg, #fa7c30 30%, rgba(0, 0, 0, 0) 30%), url('pla
 *when we dont want to increase the size of the div after applying padding in that div
 
 apply box-sizing:border-box; in that div which will not increase size of that div
+
+
+*To use font-awesome icons in your website, include this link in your header
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+You can take the latest link from https://fontawesome.com/how-to-use/customizing-wordpress/snippets/setup-cdn-webfont
+
+
+*when we add opacity in any div, then it is also applied to its text, image or any other element inside it. To avoid it, we need to use overlay which we will discuss later.
+
+
+
+*If we want to change the border color when any input field is focused then we can do:
+#contact-form input:focus,
+#contact-form textarea:focus {
+	outline: none;
+	border-color: #3o83jk;
+}
+
+
+*Following are the ways through which we can achieve responsive view:
+-Set the viewport/scale
+-Use fluid(max/min) widths as oppose to fixed.
+-Media queries: Different CSS styling for different screen sizes
+-Rem units over px
+-Mobile first method
+
+
+*diagrams.net can be used to make flowcharts.

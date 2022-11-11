@@ -1,0 +1,6 @@
+*Components are useful because it helps in Reusability(we can use the same component any times in our code, without have to repeat code of
+that component multiple times) and it keeps Seperation of concerns(one file doesn't need to contain all the code, each function/tasks can be
+divided into different components and therefore will have their code seperate).
+
+*In React, we don't have to define/declare our dom elements in the file like plain JS, we instead make our final dom page and react just uses
+that page elements

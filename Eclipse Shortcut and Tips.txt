@@ -1,0 +1,28 @@
+*Search in a file: ctrl+F
+
+*Search a file in whole project with filename: ctrl+shift+T
+
+*Search a text in whole project: Search in the menu -> Search option (It also allows multiple other search options as well for eg. Search files from its type, search in the present 
+git repository, search with method name etc)
+
+*See declaration of the method call: select method name -> right click -> select open declaration
+
+*See where all a method is called: select method name from its definition -> right click -> References -> Workspace
+
+*See method call hierarchy (from where everything started calling till the current method): Selecct method name -> right click -> Open Call Hierarchy
+
+*Generate parameterized constructor: inside the class right click -> Source -> Generate Constructor using Fields
+
+*Generate getters and setters: inside the class right click -> Source -> Generate Getters and Setters
+
+*Override methods: inside the class right click -> Source -> Generate/Implement Methods (eclipse will give you options of the methods which you can override)
+
+*To get code templates: In eclipse menu Select Window -> Preferences -> Java -> Editor -> Templates (table will be provided from which one can see the keyword of the code template
+which one wants to use, to implement just type that keyword then press ctrl+space)
+
+*To format(correct indentation) complete code of a file: Right click in that file -> Source -> Format
+
+*Refactor code (for ideal code without warnings): eg. Select constant used -> Right click -> Refactor -> Extract Constant
+eg 2. If we want to put any calculation inside any local variable: Select calculation -> Right click -> Refactor -> Extract Local Variable
+eg 3. If we want to put any piece of code into some new method can call that method instead of all that piece of code: Select lines of code -> Right click -> Refactor -> Extract method 
+eg 4. If we want to rename any variable name or method name and wants the new name to be displayed everywhere in the code: Select method/variable name -> Right click -> Refactor -> Rename

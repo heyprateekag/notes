@@ -342,9 +342,10 @@ animals.isEmpty();
 
 *Queue
 Queue<String> animals = new LinkedList<>();
-animals.offer("tiger"); //it inserts the element into the Queue
+animals.offer("tiger"); //it inserts the element into the Queue, animals.add("tiger") will also work
 animals.poll(); //it removes the first element of the Queue as well as returns that removed element
 animals.peek(); //it returns the first element of the Queue
+animals.size(); //it checks the size/length of the Queue
 
 *PriorityQueue
 Queue<Integer> pq = new PriorityQueue<>(); //internally it implements min heap by default
@@ -442,16 +443,44 @@ Collections.max(list);
 Collections.frequency(list, 9); //returns the number of times 9 is present in the collection used
 Collections.sort(list);
 Collections.sort(list, Comparator.reverseOrder());
-Collections.reverse(mylist);
+Collections.reverse(mylist); //returns void; converts mylist to its reverse order, does not return anything 
+Collections.swap(ArrList, 1, 2); //will swap index 1 and 2 with each other of ArrayList "ArrList"
+
+*merge two lists
+l1.addAll(l2); //l1=l1+l2
+
+*to get the absolute (-4 to 4, 4 to 4)
+Math.abs(num); //will return the absolute of num
 
 
+*int to String | Integer to String
+int i = 10;
+String str = String.valueOf(i); //"10"
 
 
+*String functions
+String a = "abc";
+String b = "xyz";
+String c = a.concat(b); //abcxyz
+
+String d = a.replace("a", "A"); //Abc
 
 
+*If you want to copy part of one array into another array
+int b[] = Arrays.copyOfRange(a, 0, pos); //this will copy array "a" from position 0 to pos-1 to "b"
 
 
+*Custom Comparator
+//add following class
+class Sortbyroll implements Comparator<Student> {
+ 
+    // Method
+    // Sorting in ascending order of roll number
+    public int compare(Student a, Student b)
+    {
+ 
+        return a.rollno - b.rollno;
+    }
+}
 
-
-
-
+Collections.sort(ar, new Sortbyroll()); //this will sort ArrayList<Student> "ar" wrt rollno
