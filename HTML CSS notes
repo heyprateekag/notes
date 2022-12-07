@@ -412,36 +412,66 @@ or you can search for bootstrap themes
 	-mobile first method
 
 
-*@media (max-width: 500px) {} screens with width 500px or less
+*@media (max-width: 500px) {} screens with width 500px or less (anything under 500px) (generally used for smartphones) 
 styling for that screen width can be written in this block
 
 @media (min-width: 501px) and (max-width: 768px){} //screens with width 501px to 768px
 768px is the width generally used for tablet
 
-We should be writing a general styling which should be applied to those elements whose styling is not mentioned in the given screen sizes.
-We can give min/max-height in place of width and can apply styling for a particular height or a range of height.
+normal screen size lands between 769 to 1200 generally (not hard and fast rule)
+
+@media (min-width: 1201px) {} for widescreens anything above 1200px width
+
+
+*We generally see written @media only screen and (max-width: 500px) here only screen just indicates that media type is screen
+not speech, but that is not very much required to mention therefore we can skip as well
+
+
+*We should be writing a general styling which should be applied to those elements whose styling is not mentioned in the given 
+screen sizes.
+We can give min/max-height in place of width and can apply styling for a particular height or a range of height for landscape 
+mode.
 
 
 *We can also create a different stylesheet for a particular width range
 <link rel="stylesheet" media="screen and (max-width: 768px)" href="fileName.css">
-this should be after the main stylesheet.
+this link tag should be after the main stylesheet.
+In this case, this css file will get loaded into the browser when screen hits mentioned size
 
 
 *px is a fixed unit, number of px will be same for all the screen sizes.
 whereas em and rem units are relative to different things:
 em unit is relative to its parent element and rem unit is relative to its root parent element
 
-if parent element has font-size of 20px then if we provided font-size 2em then its equivalent px size will be 2*20=40px.
-root parent(html) element has font-size of 16px.
-but em becomes very confusing due to its behavior with its parent therefore its better to use rem as it will have only one parent i.e html.
+if parent element has font-size of 20px then if we provide any value(font-size, margin etc) as 2em then its equivalent px size 
+will be 2*20=40px. 
 
-*Find benefit of rem and em units, the only benefit which I think is that by using rem and em units, if we want to increase or decrease the size of all the text then we just have to decrease the size of the parent element and the font size of all the other texts will change on its own. If we don't give em or rem units then we individually have to increase or decrease the font size of all the elements.
+root parent(html) element has font-size of 16px. If we have not mentioned font-size in any parent then it will take root parent.
+every element (like h1, p, etc) has predefined font-size value in em (1.1em for h1, 1em for p), but we can change them explictly.
+but em becomes very confusing due to its behavior with its parent therefore its better to use rem as it will have only one 
+parent i.e html.
+
+We can just html tag have it's font size and we can give font-size to other child elements in the form of rem according to our
+size requirement. They will be in multiple of 16px by default (if we have not changed font-size of html tag)
+to make it responsive we can give font-size to html in % (62.5% will be 10px)
+
+
+*Find benefit of rem and em units, the only benefit which I think is that by using rem and em units, if we want to increase or 
+decrease the size of all the text then we just have to decrease the size of the parent element and the font size of all the 
+other texts will change on its own. If we don't give em or rem units then we individually have to increase or decrease the font
+ size of all the elements.
 
 It said that these sizes are responsive but even if I give font size in px then too if I decrease the screen size, font size will decrease.
 If we change the font size of the browser (from browser) then em units will not be affected bcz they are taking size from their parent element and changing the font size of the browser changes the font size of the root element
 
 
-*vh/vw: viewport height/width is the height/width of the browser. A browser is divided into 100 parts horizontally and vertically. We can give height/width from 1-100vh/vw if we give 50vh then that element will take half of the browser's size.
+*vh/vw: viewport height/width is the height/width of the browser. A browser is divided into 100 parts horizontally and vertically.
+ We can give height/width from 1-100vh/vw if we give 50vh then that element will take half of the browser's size. If we increase
+ or decrease size of our browser, it will still cover half of that remaining size of the browser.
+ Those 100 parts gets shrink down on decreasing the browser.
+
+
+*If we add any value in percentage, then it takes that % space of it's container not the browser screen.
 
 
 *How JS works behind the screen is to be studied and make notes of it.
@@ -452,10 +482,12 @@ To keep them vertically, we need to add flex-direction: column;
 
 
 *flex-wrap: wrap; moves the contents to the next line if screen size is reduced. Basically it adds responsiveness automatically.
-Without this property, elements will gonna shrink. If we dont want a particular element to shrink then we can add flex-shrink: 0; to its styling
+Without this property, elements will gonna shrink. If we dont want a particular element to shrink then we can add flex-shrink: 0; 
+to its styling
 
 
-*flex-grow: 1; will automatically set the width to cover all the remaining space. If this is kept in all the elements then all will take equal width and will cover the width of the container.
+*flex-grow: 1; will automatically set the width to cover all the remaining space. If this is kept in all the elements then all 
+will take equal width and will cover the width of the container.
 
 
 *we can combine all the values in one property i.e flex: grow shrink basis; flex: 1 0 200px;
@@ -588,3 +620,286 @@ You can take the latest link from https://fontawesome.com/how-to-use/customizing
 
 
 *diagrams.net can be used to make flowcharts.
+
+
+*div p {
+//styling
+}
+targets p tag inside the div, but it will target all the p tags inside div including any <p> tag which is under any other
+element, like <p> inside any <li> tag which is inside the div
+<div>
+	<p>styling applied to me</p>
+	<ul>
+		<li><p>styling will be applied for this as well</p></li>
+	</ul>
+</div>
+if we don't want that, we just want to target <p> which is/are directly under <div>, we can achieve that by
+div > p {
+//styling
+}
+
+
+*for targetting just next sibling/element
+div + p {
+	//styling
+}
+if we want to target <p> which is just after <div>
+<div>
+	//other stuff
+</div>
+<p>I will get targetted</p>
+
+
+*If we want to style something with it's attribute, like if we want to target all the anchor tag <a> having attribute target
+a[target]{
+	//styling
+}
+to target any attribute with specific value
+a[target='_blank']{
+	//styling will be applied to all the anchor tag having target value as _blank
+}
+
+
+*CSS Grid provides 2-D grid layout to dom, it is similar to flexbox but more powerful, we can use align-items & justify-content
+just as we use in flexbox.
+
+display: grid; //creates grid
+All direct child items are grid items
+
+difference between flex and grid layout is that flex is not capable of 2D layouts, either it can set along a row or a column
+with grid we can have 2D layouts
+Its good to use grid for the outer layout of whole page
+
+whatever style we will apply to grid will obviously affect our grid-items and that would be our requirement as well
+
+<div class="parent">
+	<div></div>
+</div>
+
+.parent{
+	display: grid; //this alone will not do anything unline flex which moves the direct elements to one line
+	grid-template-columns: 200px 200px 200px; //this will align direct child elements in three columns of 200px, if we will
+											  //if we will have more than 3 direct child elements then they will go to next row
+											  //and if we will have less than 3 columns then remaining columns will remain
+											  //empty
+	grid-template-columns: 200px auto 200px; //this will cover whole row making first and 3rd column of 200px width and middle
+											 //column will take rest of the space of the window
+	grid-template-columns: auto auto auto; or repeat(3, auto); //will give equal width to all the three rows and will cover
+															   //complete row
+	grid-template-columns: 1fr 2fr 1fr; //we generally use size in grid in fractions(fr), this will also cover whole row making
+										//second column of double the size of 1st and 3rd
+	grid-gap: 1rem; //to give margin space around grid items(top, bottom, right, left)
+}
+											
+Rows:
+.parent{
+	display: grid;
+	grid-template-rows: 1fr 2fr 3fr; //this will set direct children of the parent element, 1st element to particular default
+									 //height second to it's double height, third it's triple height, if there will be more
+									 //direct elements then they will be in their default height
+	grid-auto-rows: 3fr; //this will set all the remaining child elements to three times of the default size
+}
+
+
+*For 2D, we will have to use both columns and rows
+.parent{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 2fr 3fr;
+	grid-auto-rows: 3fr;
+}
+//this will create 2 columns of equal width covering whole width of the browser window, will give 1 times width to the first row
+//2times to second row, three times to the third row, if there will be more than 6 items then they will get 3times height bcz of
+//grid-auto-rows: 3fr
+
+
+*If we don't want a regular, consistant layout but we want one item with our desirable column and row span
+we can apply styling to that particular item by targetting it, other items will be set according to our regular layout
+
+.particular-child-item{
+	grid-column-start: 1;
+	grid-column-end: 4; //this will start that item from first column and will take it till 4th column
+	grid-row-start: 1;
+	grid-row-end: 3; //this will start the item from first row and will take the item till 2nd row
+}
+it consider lines from the layout start, if we keep 4 as column end that 4 will be 4th line column wise, which will be starting
+of 4th column
+it will consider lines of our set regular layout
+
+
+*In order to make it responsive or setting minimum and maximum columns width/row height
+.parent{
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+this will not set the number of columns (bcz of auto-fit) but will set the minimum(300px here) and maximum (1fr here)
+where ever it will see that window width is decreasing then it will send items to next row, keeping atleast 300px width of the
+items, if window size is enough then it will set equal width of all the items
+
+it is good for some usecases like image galary but not good for many usecases as no one would want 3 items in one row and 2 
+items in another
+
+
+*if we want to set our layout more easily, we can do that with grid-template-areas
+.parent{
+	display: grid;
+	grid-template-areas:
+		'h h h'
+		'c c s'
+		'b1 b2 b3'
+		'f f f';
+}
+
+.header {
+	grid-area: h; 
+}
+similarly we can point our keyword same as mentioned in grid-template-areas with the classes of the direct child elements like
+content, sidebar, boxes, footer
+it makes easy to plan out grid layout.
+
+We can use media queries with grid layout as well, redefining our layouts, column widths in media queries according to the 
+requirement.
+
+
+*SASS(Syntactically Awesome StyleSheets) is CSS preprocessor/precompiler which enhances the functionality of CSS, other
+preprocessors include Less, Stylus etc. It allows CSS to work like a programming language, cut down repeated code etc.
+
+It uses .scss(preferred) or .sass file extensions, browser doesn't read SASS file as it reads .css file by adding link to the 
+html file, it must be compiled down to regular css and then browser reads it 
+TODO: complete remaining section of SASS, I'm leaving it for now as it is not a required section but is advanced/add on section
+
+
+*CSS animation(transform, transition) don't work with display property.
+
+
+*animate modal: Following will bring the modal from above from fading and again send above while fading out on close of modal
+.modal{
+	//other styles
+	transition: all 0.3s ease-out; 
+}
+this says whenever any property changes, animate .modal in 0.3 seconds with ease-out transition, below properties are changing
+conditionally that's when animation will be applied
+
+.modal-open{
+	opacity: 1;
+	transform: translateY(0);//this will bring modal from 0 of the Y-axis
+}
+.modal-close{
+	opacity: 0;
+	transform: translateY(-100%); //this will send modal up while closing
+}
+
+this is a nice way but limits the animation, if above is our usecase then it will work find
+
+
+*if we want some more flexibility in animation, we have more control on animation, then we can use the following:
+In following we will get our modal from top but it will go little bit lower than our mid point and then animate back to mid point
+It will bounce back to desired position
+
+.modal{
+	//other styling
+	transition: all 0.3s ease-out;
+}
+
+.modal-open{
+	animation: openModal 0.4s ease-out forwards; 
+}
+//forwards will make make our modal stay to the final styling, otherwise modal will go back to initial state
+.modal-close{
+	animation: closeModal 0.4s ease-out forwards;
+}
+
+@keyframes openModal {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%); //this will make modal to come from above of the page on Y-axis
+    }//this tells how our modal should be in starting state while opening
+    50% {
+        opacity: 1;
+        transform: translateY(90%); //this will make our modal go more down than the middle
+    }//this tells how our modal should be in middle of opening
+    100% {
+        opacity: 1;
+        transform: translateY(0); //this will make modal to again come up to the middle
+    }//this tells how our modal should be in end after opening
+}
+
+@keyframes closeModal {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translateY(60%);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+}
+
+
+*for rotating the element (I'm not sure what media query is used for in the following)
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+*for downloading free png files https://www.pngegg.com/en/search?q=education
+
+
+*few options to opt for verticle middle alignment:
+Set the display to "grid" for the grid container, and "flex" for grid items.
+
+verticle-align: middle
+
+margin: auto
+
+display: flex
+align-items: center
+
+
+*flex items overflowing outside div?
+apply flex-wrap: wrap on the container
+
+*FEW TOPICS TO READ ABOUT*
+
+*viewport
+*babel
+
+
+*If you don't want your background opacity to be applied to child elements, use rgba color code for background-color
+and in fourth parameter, pass the opacity
+
+
+*for svg/vector logos & many more about logos visit:  https://logotyp.us/
+
+
+*to make url open in new tab, add anchor tag like below
+
+<a href='www.google.com' rel="noreferrer" target="_blank">Google</a>
+
+
+*for free HD wallpapers https://www.wallpaperflare.com/
+
+
+*for converting data into JSON format: https://json-generator.com/
+
+
+*to get the link of the image/pdf or any other file stored in firebase storage
+open that file in storage of firebase -> on right window would have opened of the file -> in that window, goto file location section -> copy access token, it
+will copy the download url/access url of that file
+we can directly use that file in our code url attribute in case of image file

@@ -1,0 +1,4 @@
+-------Practice Que (number indicating how much imp it is to practice that question 1 being least imp 10 being most imp)-------
+
+*Insertion sort (4)
+You might forget to increment or decrement some index or might get confuse with the logic

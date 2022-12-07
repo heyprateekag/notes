@@ -208,12 +208,6 @@ In case of character array, cin.getline(variableName, maxLength);
 	str.find("ef");//4
 
 
-* In insertion sort, we assume that the very first element is in another array and bcz that element is alone in that array so its obviously sorted. Then we go to the second element of our array and compare it with the first element and swaps if second element is smaller than the first, if not then we just move to the third element.
-We can assume that we are inserting an element one by one in a sorted array.
-
-
-* In selection sort, we find minimum from the whole array, then swap it with the first index of the array, then we repeat the same process from the second element of the array, as first element is already in its final location.
-
 
 * In space complexity, we need to figure out at what time maximum space is used and what is that space.
 

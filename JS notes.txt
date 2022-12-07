@@ -100,6 +100,10 @@ Symbol(from ES2015): Value that is unique and cannot be changed.
 BigInt(from ES2020): Larger integers than the Number type can hold.
 
 
+*Referance type values like object, array contains pointer to the location where it's value is present in the heap, that
+pointer/address gets stored in stack.
+
+
 *JS has dynamic typing: We do not have to manually define the data type of the value stored in the variable. Instead data types are determined automatically. Whereas in other languages
 you need to determine the datatype of the variable. In JS it is the value that has type, not the variables. So variables simply store the values that have type. That is why we can 
 assign a Number value to a variable and later we can assign String value to that variable without any error.
@@ -704,8 +708,12 @@ We cant change the whole object, we can change its property or can add or remove
 
 
 *const objectCopy = Object.assign({}, objectName);
-this makes a shallow copy of the object objectName, which mnz that if we change a normal value of that object then it will be just changed 
-for that object, not for both the objects. But this doesn't work with objects under these objects. (confusing)
+this makes a shallow copy of the object objectName, which mnz that if we change a normal value of that object then it will be 
+just changed for that object, not for both the objects. But this doesn't work with objects under these objects. For eg, if we
+have array in the first object (objectName here) so for object objectCopy, new array won't be made, pointer to the same array
+in heap will be pointed by the key of objectCopy as well. Therefore if we will do any changes in the array of the first obj
+then that change will still be displayed to the current object.
+to make shallow copy of array, var myHobbies = person.hobbies.slice();
 
 
 *Traversing array arr
@@ -1239,3 +1247,16 @@ Function.prototype.myBind = function(...args) {
 
 let functionName = func.myBind(obj, "abc", "def");
 functionName("ghg"); //these arguments will go to args2
+
+
+*to get index of the element in which traversing it by .map:
+projects.map((project, index)=>{
+	//code which can use index
+	});
+	
+	
+*to get index in case of forEach loop
+
+projects.forEach((project, index) => {
+    //code which can access project and index
+});

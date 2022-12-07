@@ -1,19 +1,21 @@
-*Components are useful because it helps in Reusability(we can use the same component any times in our code, without have to repeat code of
-that component multiple times) and it keeps Seperation of concerns(one file doesn't need to contain all the code, each function/tasks can be
-divided into different components and therefore will have their code seperate).
-
-*In React, we don't have to define/declare our dom elements in the file like plain JS, we instead make our final dom page and react just uses
-that page elements
-
-
 *to create a new starter basic react app: npx create-react-app your-app-name
 NOTE: it's npx not npm
 
 
-*command to download dependencies(node_modules) of react app: npm install
+*command to download dependencies(node_modules) of react app: npm install (though above command will automatically download 
+node_modules
 
 
 *command to run a react app: npm start
+
+
+*Components are useful because it helps in Reusability(we can use the same component any times in our code, without have to repeat code of
+that component multiple times) and it keeps Seperation of concerns(one file doesn't need to contain all the code, each function/tasks can be
+divided into different components and therefore will have their code seperate).
+
+
+*In React, we don't have to define/declare our dom elements in the file like plain JS, we instead make our final dom page and react just uses
+that page elements
 
 
 *index.js file is the first file which gets executed in our react project.
@@ -674,7 +676,9 @@ Route is the component which we can import from react-route-dom which helps in s
 But from react-router-dom 6, we pass component not as child but value to the element attribute of <Route> eg. <Route path='/welcome' element={<Welcome/>}/>
 
 To activate routes we also have to import BrowserRouter in index.js from react-router-dom and will have to wrap <App /> within <BrowserRouter>.
-To navigate to the path dynamically, we can add /pageName to the href of anchor tag as well. But that behaviour will reload our application while opening another page,
+
+
+*To navigate to the path dynamically, we can add /pageName to the href of anchor tag as well. But that behaviour will reload our application while opening another page,
 therefore we will loose our existing states. To prevent that we can apply click events and then prevent default, but react-router-dom provides Link component which does
 the same thing internally, we just have to import it and instead of href in Link tag, we will have to use 'to' attribute, rest everything remains same.
 
@@ -682,6 +686,7 @@ If we are using this Link in the navigation bar and we want to add styling to th
 Link and it has one special attribute 'activeClassName' which takes the class which we wants to apply when that link is active.
 But activeClassName attribute is no longer available from @6.
 From @6 we can add class as <NavLink className={(navData) => navData.isActive ? classes.active : ''} to='/welcome' />
+nothing else needs to be added, just the above line will work, we just have to give styling in .css for .active
 
 
 *When we mention path in Route tag, we can also pass any value to the url which can be used inside the component which gets rendered by that Route, with which component
@@ -731,11 +736,12 @@ However from @6 same can be done with <Route path='/ element={<Navigate replace 
 added then new page will be pushed automatically (replace, push logic will work here), though I don't find any such usecase for push
 
 
-*Programmatic (Imperative) navigation: the navigation between pages through routes which we do in react program, not in JSX.
+*Programmatic (Imperative) navigation(navigate on any event): the navigation between pages through routes which we do in react program, not in JSX.
 We can use hook provided by react-router-dom useHistory which returns the object which in turn have functions push, replace. Difference between push & replace is that 
 'push' navigates to the page from which we can come back from the browser back button whereas with 'replace' we can't. Basically replace won't save the previous path
 in the history therefore when we click back then nothing will happen but if we click back again then it will take more back to the history of pages won't take to just
 previous page. We can use this when we don't want user to come back to the page directly (when we want user to come to that back page with some steps, not directly).
+
 After @6 useHistory doesn't exist anymore, instead of that we have useNavigate hook which returns an object which we can use as 
 const navigate = useNavigate();
 navigate('/welcome', {replace: true});
@@ -806,3 +812,93 @@ stores.
 
 *JS trick: 
 let isLoggedIn = !!token; //RHS will check whether token is true or false (mnz have valid value or not) accordingly will return true or false
+
+
+*NextJS: is the framework build over React, to make our react applications production ready. It also gives fullstack capabilities
+to our application.
+1.
+In normal implementation, basic html page layout gets rendered first and then data is fetch from the server. Which is not good
+for SEO as SEO can't read any data from our html page and therefore won't suggest our page to normal user.
+Which can be okay if our application needs user to login into our application and then only content of the page is provided.
+That depends on our usecase, but it is not really good for our UX as well as user might have to wait for a moment to see our content
+he/she might have to see a loader until our data arives from the server.
+
+NextJS provides server side/pre rendering of the webpage which will be good for UX, react itself provides that too but it can be
+little complex to implement with just react.
+
+If we see source code of a webpage from browser of our react application, that would be almost empty page as react renders the 
+code inplace of some tags in the background which a user can't see in the browser's code, but with NextJS we can see the content
+of our webpage in the source code bcz it will be pre-rendered. 
+
+2.
+NextJS provides File-based Routing, it defines pages and routes with files and folders instead of code. Therefore less code,
+less work, highlt understandable.
+
+3.
+With NextJS we can add backend code into our react application. Storing data, getting data, authentication etc can be added to 
+the react project. We will have to know some Node.js concept for that. But we don't have to make seperate backend application in
+that case.
+
+
+*23
+
+
+Dynamic Routing has two folders pages or api. To stay on the front-end or client-side put your JavaScript / React DOM code in 
+pages. The back-end or server-side of Next.js is with the api folder. The api JavaScript code is not executed in the browser but
+with Node.js so this is not safe for static page generation. When Next.js is hosted in the cloud with Vercel then your 
+server-side JS will render, but on Netlify or other static hosts the api folder will be ignored or throw errors. It's like 
+running Express.js code in the browser the JIT rendered will fail.
+Anything which has node server can deploy our Next.js projuct, AWS can also work, or maybe our own server.
+
+TODO: This Next.js topic seems an advanced topic, therefore leaving it for now.
+
+
+*To download react icons: npm install react-icons
+react icons contains font-awesome library as well along with some other
+You can get icon names from https://react-icons.github.io/react-icons/
+to use font-awesome icons in react app, use import statement: import { IconName } from "react-icons/fa";
+then use <IconName/> in your code where you wanna place the icon
+
+these icons acts like fonts therefore we can style them as fonts with styling like color, font-size
+
+
+*To change default port 3000 of react app
+add 
+set PORT=3006 && 
+to the start key in scripts object of package.json
+
+
+*React component renders twice when it is in strict mode in development, it won't render twice in production. Strict mode can’t automatically detect side 
+effects for you, but it can help you spot them by making them a little more deterministic. This is done by intentionally.
+
+
+*If you have html code in the form of string coming from db or anywhere, it won't be read as a html code normally in JSX code by react compiler, it will be printed
+as a string, to read it as a html code,
+run npm i html-react-parser
+then import parse from 'html-react-parser'; in your component
+<div>{parse(variableName)}</div>
+now string in variableName will be interpreted as html code by react
+
+
+*to make url open in new tab, add anchor tag like below
+
+<a href={url} rel="noreferrer" target="_blank">CV/Resume</a>
+
+
+*to open any url from js code (on click for eg) in new tab
+
+const onClickHandler = (url) =>{
+        window.open(url, '_blank');
+    }
+	
+	
+*to pass parameter in onclickHandler, pass it through arrow function as following
+
+<button onClick={()=> onClickHandler('https://github.com/heyprateekag')}>Open Github</button>
+
+
+*to check if a input is touched or not, you can use onBlur event on that input field which hits on click of that input field or on clicking outside it
+
+
+*Good guide to deploy react web app on through firebase: https://dev.to/guillerbr/deploy-reactjs-on-firebase-hosting-4mpj
+

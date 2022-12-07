@@ -401,6 +401,7 @@ Map<String, Integer> num = new HashMap<>();
 num.put("One", 1);
 num.put("Two", 2);
 num.put("One", 5); //this will override value of key "One"
+num.get("One"); //returns 5
 num.containsKey("Two"); //returns boolean and tells whether that key is present in the HashMap or not
 num.containsValue(3);
 num.putIfAbsent("Two", 3); //enters key value pairs only if that key is not present from before

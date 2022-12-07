@@ -1,0 +1,95 @@
+*Do keep in mind whether your code can give /0 (divided by 0) error/exception or not.
+You were doing one question in which you had to divide a number with it's digits, one of that number's digit can be 0 as well.
+
+
+*In questions with big number you need to make sure whether that number can go out of range
+You had to reverse a number, so when the number was not reversed then it was under range of int but when we reverse it then it goes out of range.
+
+
+*Double to int in java
+int x = (int)2.3;
+
+
+*If you use ' ' inside print statement, then it will be taken as a space character, if it will be used with integer then it will give result as integer value + 
+32 (space character value) if used as System.out.print(2 + ' '); //34 in this case
+therefore use " " to write any string or even space character, here it will be considered as a string and single quotes denote char.
+System.out.print('y'+'k'); //121+107 //228
+System.out.print("A"+'n'); //An //string + char = string
+System.out.print('n'+"A"); //nA //char + string = string
+
+
+*Sum of cubes of first N Natural numbers = 1^3 + 2^3 + 3^3 + 4^3 + .... + N^3 = (N^2 * (N+1)^2) / 4
+
+Sum of sqaures of first N Natural numbers = (N * (N+1) * (2*N + 1)) / 6
+
+
+*ArrayList in java
+long d = 1;
+ArrayList<Long> li = new ArrayList<>();
+li.add(d);
+
+
+*Factorial of 5 = 1*2*3*4*5 = 120
+
+
+*Length of array in java = arr.length
+Length of String in java = str.length()
+The length variable of the array is used to find the total number of elements present in the array. Since the Java String class uses this char[] array 
+internally; therefore, the length variable can not be exposed to the outside world. Hence, the Java developers created the length() method, the exposes the 
+value of the length variable. One can also think of the length() method as the getter() method, that provides a value of the class field to the user. The 
+internal implementation clearly depicts that the length() method returns the value of then the length variable.
+
+
+*initialise integer array: int arr[] = new int[5];
+
+
+*taking input:
+Scanner sc= new Scanner(System.in);
+int x = sc.nextInt(); //this will work fine for space seperated input as well when taken within loop for integer array
+String str= sc.nextLine();   
+
+
+*replace a particular character with another in string
+eg. spaces are to be removed from a string
+str = str.replace(" ", "");
+
+
+*string to character array:
+char ch[] = str.toCharArray();
+
+
+*getting character from index position in string
+str.charAt(index);
+
+
+*convert string to Uppercase or Lowercase
+str = str.toUpperCase(); //camel case method name
+
+
+*Hashmap in java:
+Map<String, Integer> num = new HashMap<>();
+num.put("One", 1);
+num.containsKey("Two"); //returns boolean
+num.get("One");
+
+//for iterating the map
+for(Map.Entry<String, Integer> e: num.entrySet()){
+	System.out.println(e.getKey());
+	System.out.println(e.getValue());
+}
+
+
+* In selection sort, we find minimum from the whole array, then swap it with the first index of the array, then we repeat the
+same process from the second element of the array, as first element is already in its final location.
+
+
+*In bubble sort, we compare first two elements, if first element is greater then we swap both elements, if not then we skip
+then we compare second and third element and repeat the process till end, after this iteration, largest element will be at the
+last index of the array. We repeat the same process in iteration two but skip the comparision with the last element.
+Similarly we keep on skipping the last i elements as they will be getting to their final position of sorted array.
+
+
+* In insertion sort, we assume that the very first element is in another array and bcz that element is alone in that array so 
+its obviously sorted. Then we go to the second element of our array and compare it with the first element and swaps if second 
+element is smaller than the first, if not then we just move to the third element.
+We can assume that we are inserting an element one by one in a sorted array.
