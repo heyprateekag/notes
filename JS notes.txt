@@ -9,6 +9,23 @@ browser which we then call web applications.
 High-level languages are human-friendly. They are, thus, very easy to understand and learn by any programmer. Low-level languages are machine
 -friendly. They are, thus, very difficult to understand and learn by any human.
 
+
+*Js is highlevel language: which mnz that in languages like C, we have to manually manage the memory by asking for memory from computer but
+ in JS we do not have to manage these resources at all. But the downside is, JS program can never be as fast as C.
+
+
+*JS also cleans up the memory used by our program. We don't have to do it manually.
+
+
+*JS is an interpreted or Just-in-time compiled language.
+
+
+*JS is a multi-paradigm language, which mnz it follows all the 3 paradigm/approaches: Procedural Programming, OOP, Functional Programming.
+
+
+*JS Engine is a program that executes JS code. It consists of call stack and memory heap.
+
+
 With JS one can also make websites on web server by using node js, which doesn't need any browser at all which helps us to make backend 
 applications, which interacts with db. With simply javascript and browser, we create frontend applications. 
 
@@ -130,9 +147,6 @@ IMPORTANT
 *Variables defined with let cannot be Redeclared.
 Variables defined with let must be Declared before use.
 Variables defined with let have Block Scope.
-
-
-* 2 ** 3 = mnz 2 to the power of 3 = 2 * 2 * 2
 
 
 *String can be initialised either with single quotes or with double quotes. When we want to use single quotes in our sentence then we can use 
@@ -436,8 +450,8 @@ const types = [];
 
 
 *A better way to do a manual testing is done through Sources tab of developer tools. By setting the breakpoints, we can see the values being
-passed and set at each step live which program is running. It will be a type of dry run only just we don't have to write values at every step.
-We can put a breakpoint in our code by writing 
+passed and set at each step live while program is running. It will be a type of dry run only just we don't have to write values at every step.
+We can also put a breakpoint in our code by writing 
 debugger:
 at that point where we want to add breakpoint.
 
@@ -448,7 +462,7 @@ There are other ways of selecting elements as well.
 For input field, we use .value instead of .textContent
 
 
-*Remember to use .(dot) before the class name in the selector.
+*Remember to use .(dot) before the class name in the selector. We don't use .(dot) and #(hash) in getElementByClassName and getElementById respectively.
 
 
 *DOM Manipulation: It is basically a process where .js file interacts with the dom(browser window).
@@ -460,7 +474,7 @@ DOM is not the part of JS language. Web apis include Dom methods and properties 
 
 
 *Event Listener: document.querySelector('.itsClassName').addEventListener('click', function(){
-	//logic to run after clicking that button
+	//logic to run after clicking that button or element on which click event is attached
 });
 This function here will be called event handler, which handles the click event.
 
@@ -470,7 +484,7 @@ This function here will be called event handler, which handles the click event.
 
 *Change styling from .js file:
 document.querySelector('body').style.backgroundColor = '#342321'; 
-We have to assign a string, no matter what value we have to assign
+We have to assign a string, no matter what value we have to assign to the style property
 If we have two words in style property then in .js file we should write in camelCase notation.
 document.querySelector('.number').style.width = '30rem';
 These are the inline styles
@@ -502,22 +516,6 @@ document.addEventListner('keydown', function(e){
 *imageElementVariable.src= "image.png";
 
 
-*Js is highlevel language: which mnz that in languages like C, we have to manually manage the memory by asking for memory from computer but
- in JS we do not have to manage these resources at all. But the downside is, JS program can never be as fast as C.
-
-
-*JS also cleans up the memory used by our program. We don't have to do it manually.
-
-
-*JS is an interpreted or Just-in-time compiled language.
-
-
-*JS is a multi-paradigm language, which mnz it follows all the 3 paradigm/approaches: Procedural Programming, OOP, Functional Programming.
-
-
-*JS Engine is a program that executes JS code. It consists of call stack and memory heap.
-
-
 *JS use just-in-time compilation which is combination of both compilation and interpretation. This approach compile the whole code at once 
 and then run it right away but it doesnt produce the portable file(machine code) in between. It optimises the part of a code and executes 
 it and in that time optimises another part of the code in another thread.
@@ -527,27 +525,28 @@ it and in that time optimises another part of the code in another thread.
 
 
 *Execution Context: Environment in which a piece of JS code is executed. Stores all the necessary information for some code to be executed. 
-This contains environment variable(let, const and var declarations, functions, argument object), scope chain, this keyword.
+This contains variables(let, const and var declarations, functions, argument object), scope chain, this keyword.
 
 
-*IMPORTANT: EC of arrow functions do not have argument object and this keyword.
+*IMPORTANT: EC of arrow functions do not have argument array and this keyword but we can pass individual arguments normally as we do.
 
 
 *then execution of top-level code(inside global EC) happens. Finally the Execution of functions and waiting for callbacks and EC are created
  for all the functions.
 
 
-*JS follows Lexical scoping(scoping is controlled by placement of functions and blocks in the code).
+*JS follows Lexical scoping(scoping is controlled by placement of functions and blocks in the code from top to bottom).
 
-
-*Variable lookup: it is the process in which compiler looks for a variable in the outer scope if inner scope has used that variable. 
+IMPORTANT
+*Variable lookup: it is the process in which compiler looks for a variable in the outer scope if inner scope has used that variable and 
+doesn't have that variable in inner scope. 
 If compiler finds that variable in the outer scope, then it will use its value and if not then it will look more outer of that outer scope 
 and if compiler still doesnt finds that variable till the global scope then it will throw an error.
 
 
-*var variable is function scoped which mnz that even if a var variable is declared inside a block, it will be accessible in the function in 
+*var variable is function scoped which mnz that even if a var variable is declared inside a block, it can be accessible in the function in 
 which that block is. But let/const variable declared inside a block will only be accessible in that block, not in the function in which that
- block is.
+block is.
 
 function checkScope(){
   if(true){
@@ -586,7 +585,9 @@ function first() {
 
     function second() {
         var c = 'Hey!';
-        console.log(a + b + c);//undefinedHi! Hey!
+        console.log(a + b + c);//undefinedHi! Hey! a is undefined bcz we have defined a in this function therefore EC of this function
+		//contains a with value as undefined as we have initialised 'a' after this line, until which a will hold undefined in EC, so 
+		//compiler found 'a' in inner scope itself but with a value undefined
         var a = 'Bhak';
     }
 }
@@ -594,17 +595,17 @@ function first() {
 
 *functions are also block scoped. But this is only true for strict mode.
 
-
+IMPORTANT
 *Hoisting: Makes some types of variables accessible/usable in the code before they are actually declared. "Variables lifted to the top of 
 their scope". But behind the scenes before execution, code is scanned for variable declarations, and for each variable, a new property is 
-created in the variable environment object.
+created in the variable environment object(or global EC).
 
 
 *Function Declarations are hoisted and is blocked scope.
 
 IMPORTANT
 *var variable is also hoisted, it is function scoped, and its initial value is undefined. That mnz if you use a var variable before its 
-declaration, then it can be accessed but its value will be undefined.
+declaration/initialisation, then it can be accessed but its value will be undefined.
 
 
 *let and const variables are blocked scoped. Actually it stays in temporal dead zone(TDZ) in its scope. If you use a 
@@ -649,12 +650,12 @@ In the first example, since the first operand is a string, all operands are trea
 *variable created with var makes its property in window object whereas let and const doesn't. (Just an info doesn't really mean bcz var is 
 not used in modern JS).
 
-
+IMPORTANT
 *'this' is not static. It depends on how the function is called, and its value is only assigned when the function is actually called.
 
 
 *'this' points to window's object everywhere except inside the object. Inside an object, if 'this' is accessed then it will point to the 
-object. Still if 'this' is accessed inside the function which is inside the object, this will point to window's object.
+object.
 
 	1: function is called by an object.
 	const jonas = {
@@ -683,11 +684,11 @@ object. Still if 'this' is accessed inside the function which is inside the obje
 
 *Note: 'this' never point to the function in which we are using it and also never to the variable environment of the function.
 
-
+IMPORTANT
 *curly braces in object creation doesn't creates a scope, its just the way by which we define object.
 
 
-*In this example, the code changes the content of its own element
+*In this example, the code changes the content of its own element as eventlistner points this to the it's dom element
 <button onclick="this.innerHTML = Date()">The time is?</button>
 
 
@@ -698,7 +699,6 @@ let length = text.length;
 
 *Comparing two JavaScript objects always returns false.
 
-
 *let text = "HELLO WORLD";
 text[0] = "A";    // Gives no error, but does not work
 //you can just read character at position 0
@@ -707,33 +707,40 @@ let x = text[0]; //H
 
 *string methods: https://www.w3schools.com/js/js_string_methods.asp
 
-
+IMPORTANT
 *If we dont know how many arguments are gonna be passed into our function then we can use 'arguments' array in that function or can loop 
 through that array and it stores the arguments passed into that function in different index positions. But arguments keyword/array does not
- exist in arrow functions.
+exist in arrow functions.
 
 
-*Primitives: Number, String, Boolean, undefined, null, symbol, bigint. They are called primitive types. They are stored in call stack(to be 
-precise, execution context).
-Objects: Object literal, Arrays, Functions and many more. They are called reference types. They are stored in heap.
+*Primitives are stored in call stack(to be precise, execution context).
+Objects: Object literal, Arrays, Functions and many more. They are called reference types. Their values are stored in heap.
 
-
+IMPORTANT
 *value at a certain memory position cannot be changed, if we change value of a variable then a new memory is generated and new value is kept
 in call stack.
 
 
 *const reference variable's value can be changed later. As reference variable has value = address where its value is stored in heap. So by 
 changing the value of the const reference variable, we change the value in call heap, we don't change its address(which can't be changed of 
-const reference variable). What needs to remain constant is the value its holding in call stack, which we are not changing. (doubtful, confusing)
+const reference variable). What needs to remain constant is the value its holding in call stack, which we are not changing.
 We cant change the whole object, we can change its property or can add or remove a property from that object.
 
-
+IMPORTANT
 *const objectCopy = Object.assign({}, objectName);
 this makes a shallow copy of the object objectName, which mnz that if we change a normal value of that object then it will be 
 just changed for that object, not for both the objects. But this doesn't work with objects under these objects. For eg, if we
 have array in the first object (objectName here) so for object objectCopy, new array won't be made, pointer to the same array
 in heap will be pointed by the key of objectCopy as well. Therefore if we will do any changes in the array of the first obj
 then that change will still be displayed to the current object.
+
+If we think logically then it is very obvious, as in both primitive types or reference types(arrays) new object's keys will point to the value
+in call stack, when we change any primitive value of the old object, then that new value is given a new memory in call stack and key of the
+previous object starts pointing to that new location, key of the new object is still pointing to the old location and therefore that old
+value is not deleted from the memory whereas in the case of arrays or reference types, new key is pointing to the address to the array as
+in the case of primitive type, but now if previous object will change array element then address in callstack won't change therefore that
+changed value is reflected in new object as well.
+
 to make shallow copy of array, var myHobbies = person.hobbies.slice();
 
 
@@ -794,10 +801,6 @@ we can use spread operator on all Iterables, it spreads each character of string
 Spread operator also works on objects
 
 
-*document.getElementById("demo").innerHTML = "Hello JavaScript";
-document.getElementById("demo").style.fontSize = "35px";
-
-
 *Using document.write() after an HTML document is loaded, will delete all existing HTML. Example if we will write document.write() on click of
 a button then after click of that button, all the existing HTML will get deleted from the browser window and just that document.write() will
 display it's output.
@@ -813,12 +816,12 @@ JavaScript does not interpret LET or Let as the keyword let. JS is case sensitiv
 *You can call the window.print() method in the browser to print the content of the current window.
 
 
-*JavaScript will try to convert strings to numbers in all numeric operations
+*JavaScript will try to convert strings to numbers in all numeric operations except in +(addition)
 let x = "100";
 let y = "10";
 let z = x / y; //10 
 console.log(typeof(z)); //number
-//but JS uses + operator to concat the strings
+//JS uses + operator to concat the strings
 
 
 *let x = 100 / "Apple"; //NaN, number
@@ -827,7 +830,7 @@ let x = 100 / "10"; //10, number
 
 *All about numbers, https://www.w3schools.com/js/js_numbers.asp
 
-
+IMPORTANT
 *fixed number of decimals:
 let x = 9.656;
 x.toFixed(0); //10
@@ -839,9 +842,11 @@ x.toFixed(6); //9.656000
 *In case of our custom function in sort,
 const points = [40, 100, 1, 5, 25, 10];
 points.sort(function(a, b){return a - b});
-When the sort() function compares two values, it sends the values to the compare function, and sorts the values according to the returned (negative, zero, positive) value.
+When the sort() function compares two values, it sends the values to the compare function, and sorts the values according to the returned 
+(negative, zero, positive) value.
 
-If the result is negative, a is sorted before b.
+If the result is negative(which means b is greater than a, by default functionality is to sort ascending, therefore if we want sorting in
+descending order then we can return b - a in this case), a is sorted before b.
 
 If the result is positive, b is sorted before a.
 
