@@ -1250,11 +1250,25 @@ arr.reduce(function (result, current) => {
 doesn't support some of these methods
 
 
+*Prototype: is a technique through which javascript binds properties of one object into other object/variable/method. Normally when we call
+arr.length then how does our array 'arr' get access to 'length' that is because JS has attached the properties of object '__proto__' to our
+array in this case
+
+
+*prototype chain: arr.__proto__ = Array.prototype
+				  arr.__proto__.__proto__ = Object.prototype
+				  arr.__proto__.__proto__.__proto__ = null
+we should never modify our prototype normally as it hampers our application performance to great extent
+if we access any property on an object, it will first search for that property inside the object, if it doesn't find that property then it
+will search it in that object prototype (i.e obj.__proto__) if not then again on one above level (i.e obj.__proto__.__proto__)
+
+
 *Function.prototype.methodName = function(){}
-if we write any function as Function.prototype then all the methods in our JS code has access to that method
-when we call this prototype method with any other method (like otherMethod.prototypeMethodName()) then 'this' inside that prototype method
-will point to that otherMethod
-this concept helps in polyfill of any method
+if we write any function as Function.prototype then all the methods(as we have made Function.prototype, we can make Object.prototype as well)
+in our JS code has access to that method when we call this prototype method with any other method (like otherMethod.prototypeMethodName()) 
+then 'this' inside that prototype method will point to that otherMethod this concept helps in polyfill of any method
+This stores our methodName to the Function.prototype therefore whenever any random function will try to access methodName then JS will search
+it in the scope of that function if not found then it will find it inside the scope of our function.__proto__ which is Function.prototype
 
 
 *Polyfill of .bind function
@@ -1281,3 +1295,195 @@ projects.map((project, index)=>{
 projects.forEach((project, index) => {
     //code which can access project and index
 });
+*Function Currying: is the method of converting function with multiple arguments to functions with single arguments. We can do that by two
+methods, one by .bind method and second method is through closures
+
+let multiply = function(x, y) {
+	console.log(x*y);
+}
+
+let multiplyByTwo = multiply.bind(this, 2); //this is known as function currying by bind
+multiplyByTwo(3); //6
+
+let multiply = function(x) { //this is known as function currying by closures
+	return function(y){
+		console.log(x*y);
+	}
+}
+let multiplyByTwo = multiply(2);
+multiplyByTwo(3); //6
+
+
+*Debouncing: is a technique of retricting the call of a time consuming function frequently, by delaying the execution of that function and
+canceling the last function call if it is called again frequently to avoid unnecessary CPU cycles, API calls and improve performance.
+
+eg. when we search anything in the search bar, then for the suggestions we have to call an api but if api will be called at every key stroke
+then it will highly affect the performance, in this case we can use debouncing, to restrict the api call, we can call the api everytime
+when there is a particular delay in the next key stroke.
+
+Logic behind it will be, at every key stroke we will send a function to setTimeout with particular delay and at every next key stroke we
+will clearTimeout of the last setTimeout, if the next keystroke will be after that particular delay then it obviously can't clear the last
+timeout and therefore last api call will be done but if next key stroke will be hit before that particular delay then it will clear the
+last timeout.
+
+const getData = () => {
+	//main function
+	console.log("Fetching Data from API..."+);
+}
+
+let magicFn = (d) =>{
+	let timer;
+	return function(){
+		//function that is making debouncing possible
+		clearTimeout(timer);
+		timer = setTimeout(()=>{
+			getData();
+		}, d);
+	}
+}
+
+let betterFn = magicFn(300);
+
+Other usecases involve, on scrolling of the page, on resizing the browser window etc
+
+
+*Throttling: is also the process of limiting the function calls which happens very frequently otherwise and hampers the app performance.
+In this we make another api call after a particular time period, we don't consider the time in which user enters the value.
+
+Usecase would be when we want to know how much time user has resized the browser window, if we do that normally then on one resize, resize
+event gets called 100s 1000s of times and therefore our method will be called 100s 1000s of times.
+It will execute the method the first time when event occurs then it will ignore all the events occured between that time period and will
+again execute our method after that particular time period
+
+Another better usecase can be when a user is clicking a button multiple times very frequently, then in the case of debouncing, we won't be
+able to call our method for a longer time until user stops as the time between the next click of the button would be very small in most of
+the cases, here Throttling will perform better, no matter how fast user will click the button, throttline will call our method after a
+particular time.
+Same eg can be of a shooting game, as gun have a particular time after which they can be fired after a particular shot, so in that case as
+well, no matter how fast a user is shooting that gun, it will only fire bullet(or our method) after that particular time.
+
+const throttle = (fn, limit) => {
+	let flag = true; //this will not reinitiase the variable everytime
+	console.log("before return"); //this will be only called once at the time of compilation of the whole code, this will return the function to the place where it is used
+	return function(){
+		console.log("value entered!");//this will be consoled at every key pressed
+		if(flag){
+			getData();
+			flag = false;
+			setTimeout(()=>{
+				flag = true;
+			}, limit);
+		}
+	}
+}
+
+
+*async, defer are the boolean script attributes which are used in script tag to aptimise the load of external script to the web page
+When you load a webpage, there are two things happening in your browser, 1. HTML parcing 2. Loading of the script(which again is divided into
+two steps one is fetching the script from network second is executing the script line by line)
+
+1. normal scripts: while html parcing is going on, browser encounters the script tag, html parcing will stop, browser will fetch the script
+and when scripts are fetched, browser will execute them, then after execution of the scripts browser will continue with the html parcing.
+
+2. scripts with async: while html parcing is going on, when browser encounters the script tag, browser will start fetching the scripts from
+server along with html parcing, when fetch will be completed, html parcing will stop and browser will execute the scripts, html parcing will
+continue once execution of the scripts is done.
+
+3. scripts with defer: while html parcing is going on, when browser will encounter the script tag, it will start fetching the scripts along
+with html parcing, once html parcing is completed then only browser will start the execution of those scripts.
+
+async attribute doesn't garentuee the sequence of the execution of the scripts, if we have multiple scripts and all have async attribute in
+it and mostly are interdependent but as async doesn't guarantee the sequence so our code might break
+but defer does guarantee the sequence, so we should use defer in above senario, in most of the cases defer is preferred
+
+
+*Question: How would you implement a function which if called like this sum(1)(2)(3)(4)....() returns me the sum of all the numbers passed?
+
+Solution: let sum = function(a){
+						return function(b){
+									if(b){
+										return sum(a+b);
+									}
+									return a;
+								}
+					}
+this is a recursive function which will terminate when no argument will be passed.
+
+
+*whenever client wants to do any post call to the server side then first a preflight call is made by the browser which is also known as
+options call, then server's responsibility is to verify that whether that api call is valid or not, if it is valid then server will set some
+additional http headers with which browser will know that the api call is valid and then browser will let client do the actual api call
+most common headers are Accept-Contol-Allow-Origin: which contains the urls or * which means that url can make api call to that server,
+Accept-Control-Allow-Method: which contains the methods which are allowed like get, put, post etc
+
+But browser doesn't do this option/preflight call for every api call, it does that only for some specific api calls
+When we get CORS error then it is because server has not set those headers, if server sets them then we don't get CORS error
+CORS: Cross Origin Resource Sharing
+
+
+*In cookies we can just store 4000 bytes of data but in session storage we can store 5 Mb of data, local storage is same as session storage
+it's just that local storage doesn't clears itself automatically unlike session storage even if he closes the browser tab/browser/his system
+local storage won't get cleared for that origin(protocol(http),host(flipkart.in),port(8080)) for which it is set
+local storage has the highest memory capacity
+
+generally the information which are not that relevant to store into the server are stored in local storage for the optimization of the app
+bcz server calls will be reduced and data can be easily taken from local storage.
+
+
+*If we want to store object inside local storage then we can do that by storing JSON.stringify(obj);
+When we will fetch that obj then we can do that by JSON.parse(localStorage.getItem(key)); //this will convert the string stored to object
+
+
+*Event Bubbling & Capturing/Trickling are two methods of propogating down the DOM tree.
+In Event Bubbling, if user clicks the child div then first onClick event of child gets hit first then onClick event of it's parent gets hit
+then onClick event of it's grandparent gets hit
+In Event Capturing/Trickling, if user clicks the child div then first grandparent's onClick event gets hit then parent's then child's
+
+Developer can select which method they want to follow according to the usecase, third argument in the addEventListener method denotes a
+boolean value which is useCapture, if we pass true as the third argument then Capturing/Trickling will be followed whereas if we pass false
+or we don't pass anything then then Bubbling will be followed.
+
+according to w3c, Capturing/Trickling happens first and then bubbling happens, so if we use mix of the third parameter eg true for some div
+and false for some other, so when first capturing will be happening then if that event will have useCapture as true then it will get hit
+otherwise it will get hit when after capturing is finished and bubbling will be happening then that useCapture=false event will get hit
+
+but this has a performance issue as if we have multiple sub divs and all/most of the divs has such events then all those will be hit
+if we don't want these propogation then we can put the method e.stopPropogation(); inside the event method after which we don't want
+propogation to happen where e is the event(parameter which can be set to the callback function).
+but if we don't want propogation and we are clicking the child div and we are in capturing mode then we can't stop propogation if we want
+our child click event to occur, as in capturing, propogation will be starting from the grandparent and if we stop propogation after 
+grandparent then child click event won't hit
+
+
+*Event Delegation: is the method of handling events in a better way, it is based upon event bubbling. It helps in the case when we have too
+many same events on divs. It says that instead of attaching event listeners to each and every child div, event listener should be attached
+to the parent div. We obviously get the event hit of the parent after it happens in the child in case of bubbling, so we can run main code
+on the event hit of the parent. We don't have to add a event to the child, bubbling will still hit event of it's parent.
+element parameter of the callback function of the parent event will tell us on which child event occured with the help of event.target.
+
+usecase: if we have multiple tiles of the brands on the ecommerce website and we don't know before hand that which category will have how
+many number of brands and anyways even if we know that, still applying events to all the tiles won't be a good option to take, instead of
+that we can apply event Listener to it's parent div and in parent div event callback function we can know which brand is selected and then
+we can perform the required action for that brand.
+Another usecase can be when we want to perform any same action on the form input fields like check validation or make entered values in
+uppercase, in that case as well we can do it on the parent div, instead of applying same individual events.
+
+pros: memory saved, cleaner/lesser code, DOM manipulation (dynamically multiple events won't be required to add)
+cons: all events are not bubbled up like blur, focus, resizing of the window etc, in case of stop propogation event delegation won't work.
+
+
+*Callback hell: callback inside callback inside another callback or any number of callbacks creates a callback hell. This structure of
+something inside something else and so on is known as pyramid of doom.
+There is one more issue of callback, Inversion of control which occurs when we pass the control of callback function to another function
+eg. passing callback fn to the api call then wait for that api to call that callback function, we loose control of that function and we don't
+know whether that callback function will be called or not.
+
+
+*Promises: are used to handle asynchronous operations without the issues which callback creates. Technically promise is nothing but a empty
+object {data: undefined}. Value in it gets filled whenever we get response from an api call, that response will get stored in the promise
+object (as promise object will be initialised by that api call) but at the starting of the execution of the code, JS puts up a empty object.
+
+const promiseVariable = createObject(cart); //where api will be called inside createObject function and api response will be returned from it.
+cart is just any value which we wish to send to api
+We can apply our callback function on the promise object with promiseVariable.then(()=>{//code}); which will be called when promise gets a
+response from the api call.
