@@ -2,38 +2,44 @@
 * alert('Hello World!')
 shows the alert box in the browser window
 
-*JavaScript is a high-level, object oriented, multi-paradigm programming language. It helps to add dynamic and interactive effects to any webpage. It is also used to manipulate the 
-content or the CSS, load data from remote servers and really build entire applications in the browser which we then call web applications.
+*JavaScript is a high-level, object oriented, multi-paradigm(patterns) programming language. It helps to add dynamic and interactive effects 
+to any webpage. It is also used to manipulate the content or the CSS, load data from remote servers and build entire applications in the
+browser which we then call web applications.
 
-With JS one can also make websites on web server by using technology called node js, which doesn't need any browser at all which helps us to make backend applications, which interacts
-with db. With simply javascript and browser, we create frontend applications. 
+High-level languages are human-friendly. They are, thus, very easy to understand and learn by any programmer. Low-level languages are machine
+-friendly. They are, thus, very difficult to understand and learn by any human.
+
+With JS one can also make websites on web server by using node js, which doesn't need any browser at all which helps us to make backend 
+applications, which interacts with db. With simply javascript and browser, we create frontend applications. 
 
 We can also build native mobile apps with JS and also desktop applications with the help of react native, ionic, electron.
 
 ES(s) are the versions of the JS and ES stands for ECMAScript and from ES6 to today, its called modern JS. There was big change from ES5 to ES6
 
 
-*If we write any operation in console, then it will print its result automatically as at that time we are in console. But if we write that operation in <script> tag then it will not 
-automatically give the result as at that time we are in script tag and to print something on console, we need to put a bridge between script and console and console.log('message'); 
-acts like that bridge.
+*If we write any operation in browser's console, then it will print its result automatically as at that time we are in console. But if we 
+write that operation in <script> tag then it will not automatically give the result as at that time we are in script tag and to print 
+something on console, we need to put a bridge between script and console and console.log('message'); acts like that bridge.
 
 
-*Inline Script: In this we write all the JS code in html file itself, its only advantage is that we don't have to create another file for JS but we should use external file for JS 
-logic.
+*Inline Script: In this we write JS code in html file itself, its only advantage is that we don't have to create another file for JS but we 
+should use external file for JS logic.
 write like this anywhere in your html file
 <script>
-        console.log('Hello World! from inline code.');
-    </script>
+    console.log('Hello World! from inline code.');
+</script>
 
-To link js logic file to html file, we usually do that at the end of the <body> within <script src="script.js"></script>
+To link js logic file to html file, we usually do that after the end of the <body> within <script src="script.js"></script>
 we need to write the location of the file, if file is in same folder then only name of that file will work.
-If we will write code inside script tag then that code will not get executed, code which is in that file will only get executed.
+If we will write code inside script tag along with .js file attached with html file then that code will not get executed, code which is in 
+that file will only get executed.
 scripts can be placed in the <body>, or in the <head> section of an HTML page, or in both. 
 
 Placing scripts at the bottom of the <body> element improves the display speed, because script interpretation slows down the display.
 
 
-*We generally use camelCase notation to name a variable in JS. Variable name cannot start with a number. It can only contain letters, numbers(in between or last), underscore, dollar
+*We generally use camelCase notation to name a variable in JS. Variable name cannot start with a number. It can only contain letters, numbers
+(in between or last), underscore, dollar
 sign and we can't use reserved JS keyword as variable names.
 Another convention of writing constants variable name is by writing all the letters as uppercase.
 JS Reserved words: https://www.w3schools.com/js/js_reserved.asp
@@ -43,8 +49,8 @@ JS Reserved words: https://www.w3schools.com/js/js_reserved.asp
 	These unique names are called identifiers.
 
 
-*You can't name a variable "name" in JS in global scope because without any enclosing scope, var name is window.name, which is a native property which cannot be replaced or overridden
-. You can assign a string to it.
+*You can't name a variable "name" in JS in global scope because without any enclosing scope, var name is window.name, which is a native property
+which cannot be replaced or overridden. You can assign any value to it.
 In a local scope you can use "name" as your variable name.
 > name
 < "[object Object]"
@@ -74,7 +80,7 @@ bcz = has right to left associativity and + has more precedence
 so 2+4 will be 6 and 6 will be assigned to y and then x will be equal to y which is 6
 So both will be 6
 
-*In JS every value is either object or primitive.
+*In JS every value is either object or primitive type.
 
 
 *There are 7 primitive data types:
@@ -84,7 +90,7 @@ let y = 123e5;      // 12300000
 let z = 123e-5;     // 0.00123
 String: Sequence of characters (used for text, single quotes or double quotes both will work)
 Boolean:
-Undefined: Value taken by a variable that is not yet defined ('empty value') (let children;) 
+Undefined: Value taken by a variable that is not yet defined ('empty value') (let children; //children variable will contain value as undefined) 
 	typeof that variable is undefined.
 
 	var test = undefined;
@@ -104,23 +110,23 @@ BigInt(from ES2020): Larger integers than the Number type can hold.
 pointer/address gets stored in stack.
 
 
-*JS has dynamic typing: We do not have to manually define the data type of the value stored in the variable. Instead data types are determined automatically. Whereas in other languages
-you need to determine the datatype of the variable. In JS it is the value that has type, not the variables. So variables simply store the values that have type. That is why we can 
-assign a Number value to a variable and later we can assign String value to that variable without any error.
+*JS has dynamic typing: We do not have to manually define the data type of the value stored in the variable. Instead data types are determined
+automatically. Whereas in other languages you need to determine the datatype of the variable. In JS it is the value that has type, not the 
+variables. So variables simply store the values that have type. That is why we can assign a Number value to a variable and later we can assign
+String value to that variable without any error.
 
 
-
-*typeof operator: tells the datatype of the value or value holding by a variable. (typeof true; typeof firstName, typeof 34)
-
+*typeof operator: tells the datatype of the value or variable holding a value. (typeof true; typeof firstName, typeof 34)
 
 
-*let and const were introduced in ES6. const variable can never be mutated/changed. Initialization is required in const variable declaration, without giving a value, const variable 
-can't be declared. One should generally use const to declare a variable instead of let, its a good practice. let should only be used when we are sure that that variable's value will 
-be changed in future. var is the old way of declaring variables, it is prety much same as let, difference is that var is function scoped and let is block scoped.
-We can also give value to a variable without actually declaring it with let, const or var. But in that case JS will actually use that variable as a property which will have global 
-scope.
+*let and const were introduced in ES6. const variable can never be mutated/changed. Initialization is required in const variable declaration, 
+without giving a value, const variable can't be declared. One should generally use const to declare a variable instead of let, its a good 
+practice. let should only be used when we are sure that that variable's value will be changed in future. var is the old way of declaring 
+variables, it is prety much same as let, difference is that var is function scoped and let is block scoped.
+We can also give value to a variable without actually declaring it with let, const or var. But in that case JS will actually use that variable
+as a property (of window object(not sure)) which will have global scope.
 
-
+IMPORTANT
 *Variables defined with let cannot be Redeclared.
 Variables defined with let must be Declared before use.
 Variables defined with let have Block Scope.
@@ -129,19 +135,19 @@ Variables defined with let have Block Scope.
 * 2 ** 3 = mnz 2 to the power of 3 = 2 * 2 * 2
 
 
-*String can be initialised either with single quotes or with double quotes. When we want to use single quotes in our sentence then we can use double quotes to initialize our string 
-and vice versa.
-const sen = "I'm " + year + ' years old.'; //is perfectly fine; JS will convert year number to string and will concatinate it with other strings; we can use single quotes and double 
-quotes at the same time. The only thing which is to keep in mind is if you open with single quotes then close with single quotes.
+*String can be initialised either with single quotes or with double quotes. When we want to use single quotes in our sentence then we can use 
+double quotes to initialize our string and vice versa.
+const sen = "I'm " + year + ' years old.'; //is perfectly fine; JS will convert year number to string and will concatinate it with other 
+strings; we can use single quotes and double quotes at the same time. The only thing which is to keep in mind is if you open with single 
+quotes then close with single quotes.
 
 IMPORTANT
-*In the last example, to manage all the spaces and + is a problematic work so to avoid this, we should use TEMPLATE LITERAL. 
+*In the last example, to manage all the spaces and + is a problematic work so to avoid this, we can use TEMPLATE LITERAL. 
 eg. const sen = `I'm ${year} years old.`; //so we use backticks in this, Automatic replacing of variables with real values is called string
 interpolation.
 
 
 *We can use backticks for a regular string as well.
-
 
 
 *console.log('string\nwith multiple\nlines');
@@ -173,11 +179,12 @@ console.log(Number(year) + 18);//type conversion
 console.log(Number('Prateek'));//NaN
 NaN (Not a Number): is an invalid number
 
+IMPORTANT
 console.log('23'-'10'-3); //10; type coersion
 In the operators other than +, JS will convert string to number implicitly 
 
-let n = '1' + 1; // 11; type conversion from number to string
-n = n-1; //11-1; type conversion from string to number
+let n = '1' + 1; // '11'; type coersion from number to string
+n = n-1; //11-1; type coersion from string to number
 console.log(n); //10
 
 2+3+4+'5' = "95"
@@ -185,7 +192,7 @@ console.log(n); //10
 
 
 *falsy values: 0, '', undefined, null, NaN
-these are the values which become false when converted to boolean implicitly or explicitly. Everything else converts to true.
+these are the values which become false when converted to boolean implicitly or explicitly. Everything other value converts to true.
 false is normally a falsy value.
 
 
@@ -195,13 +202,13 @@ if(age){} //JS will convert age to Boolean; if age = 0, null, undefined, Nan, ''
 
 * === is the strict equality operator, it doesn't do type coersion.
 
-'18' == 18 //true bcz JS will do type coersion
+'18' == 18 //true bcz JS will do type coersion just to compare
 '18' === 18 //false bcz in strict equality operator, type coersion doesn't occur.
 For bug less code, prefer strict quality operator and not loose equality operator.
 
 
 *To take a value from frontend in short, we can use prompt
-const favouriteNumber = prompt("What's your favourite number?"); //favouriteNumber variable will contain the entered string
+const favouriteNumber = prompt("What's your favourite number?"); //favouriteNumber variable will contain the entered value as string
 
 
 *switch statement does strict comparision.
@@ -209,7 +216,7 @@ switch can contain string in the case and also the logical expressions (age>13 &
 
 
 *An expression is something which produces a value. Eg. 1991, 2+4, true || false, etc.
-Statement is a piece of code which doesn't produces a value. Eg. if else statement, switch statement
+Statement is a piece of code which doesn't produces/returns a value. Eg. if else statement, switch statement
 
 
 *ternary operator
@@ -230,9 +237,9 @@ But JS is not forward compatible. Means code from 2089 won't work in today's bro
 
 IMPORTANT
 Transpiling: process of reducing the version of our code to ES5 bcz user's browser can be of old version and if we have made our code with 
-the latest browser then it might create problem in our users browser as we don't have any control over their browser. Babel is the tool to 
-reduce the version to ES5 as ES5 is supported by all the browsers. That version conversion can be done before deploy of the app to the 
-server which is when our user will be able to use our website.
+the latest browser then it might create problem in our users browser as we don't have any control over their browser. 
+Babel is the tool to reduce the version to ES5 as ES5 is supported by all the browsers. That version conversion can be done before deploy of 
+the app to the server which is when our user will be able to use our website.
 
 
 *to activate strict mode for the .js file, we just have to write
@@ -259,7 +266,7 @@ where we have used that word. eg: private, interface
 
 *syntax of a function:
 //this is function declaration
-function age(birthYear){//any number of parameters can be there
+function age(birthYear){
 	return currentYear - birthYear;
 }
 console.log(age(1998));
@@ -295,15 +302,20 @@ to know the number of elements in the array, words.length
 to get an element at index position 2, arrayName[2]
 to print the array, we can directly use its name
 
+IMPORTANT
 *here we can change a particular element of the array, you must be thinking how bcz words array is const and const can't be changed, but 
 const primitive values can't be changed and array is not primitive.
 Therefore you can keep in mind that arrays can be mutated even though it is declared const. But we can't replace the entire array, we can 
-change any number of elements.
+change any number of elements. 
+Because array(words(here)) hold the address to a location in head where our elements are present and if we add more elements or changes element
+then that location of the array doesn't changes therefore value of the array words doesn't change whereas if we assign completley different
+array then that array will have different location in head therefore it is not allowed.
 
 
 *we can keep any type of value in the same array, JS just expects an expression (which gives a value).
 const words = ['hello', 'c'+'at', variableName]; is perfectly fine.
 
+IMPORTANT
 *to add a new element in the last of the array, we can use push function and that function call returns the length of the updated array. 
 words.push('betty');
 to add in the starting, words.unshift('betty');
@@ -335,6 +347,7 @@ to print its property:
 console.log(prateek['lastName']);//here we can write any expression which gives the property lastName
 console.log(prateek.lastName);
 
+IMPORTANT
 if we will extract a property name which doesnt exists in the object, then it will return undefined
 
 we can use bracket notation when we will be extracting the property or taking the property lastName from dom but we can't use the variable name 
@@ -345,22 +358,25 @@ console.log(prateek.property); //undefined
 console.log(prateek[property]); //Agarwal
 
 
-*to give another property after the initialisation,
+*to give another property(key-value pair) after the initialisation,
 objectName.newPropertyName = value;
 objectName['newPropertyName'] = value;
 
 
 *objects can also have object, function expression inside it.
-we can use the property of that same object inside its function by this keyword/object name, but we should prefer this keyword as we should not repeat ourself in the code.
+we can use the property of that same object inside its function by this keyword or object name, but we should prefer this keyword as we should
+not repeat ourself in the code. 
+Other reason is if object name is changed in future then we will have to change it inside the fn as well, but if we will use this then we don't
+have to change anything inside the fn
 
 
 *another way of creating an object
 var objJane = new Object();
-objJane.firstName = 'Jane'; and so on we can give different key-values
+objJane.firstName = 'Jane'; and so on we can give different key-value pairs
 This is called new object syntax
 
 
-*we can also add a function expression in the object.
+*we can add a function expression in the object as follows:
 var objJohn = {
 	firstName: 'John',
 	lastName: 'Smith',
@@ -381,22 +397,26 @@ calcAge: function(){
 
 
 *method borrowing: if we want one object's method to be same as the other object's method then we borrow another object's method.
-mike.calculateAge = john.calculateAge; //where calculateAge is defined in john object and at this line mike will also have the method named calculate age and will be same as john's calculateAge method.
+mike.calculateAge = john.calculateAge; //where calculateAge is defined in john object and at this line mike will also have the method named 
+calculateAge and will be same as john's calculateAge method.
+
+IMPORTANT
 we can also call john object's method as if it is part of mike object like john.calculateAge.call(mike); //this will call calculateAge with
 'this' pointing to mike object as we have passed mike object as the argument
 
+IMPORTANT
 with the call method to any function, we can pass the object in the arguments, that method's this will point to that passed object, we don't 
 need to add any parameters to that function. If we want to pass any other argument to that function, then we can pass it normally after the
 first argument which will always be the object which 'this' will be pointing to, in the function definition we just have to add parameter for
 the second argument
 eg.
 let printFullName = function (country) {
-	console.log(this.firstName + " " + this.lastName + " from " + country);//this will point to mike object, country will be India
+	console.log(this.firstName + " " + this.lastName + " from " + country);//this will point to mike object, country will be India as called below
 }
 
 printFullName.call(mike, "India");
 
-
+IMPORTANT
 *.apply is just same as .call only difference is along with object we need to pass array of other arguments instead of individual values.
 
 
@@ -404,7 +424,8 @@ printFullName.call(mike, "India");
 method, it will just return the function which can be called later
 
 
-*we can call functions(push, pop) on an array, so we can say that array also has property as functions. This means array is also an object. So we can say that array is a special type of object (about which we will discuss later).
+*we can call functions(push, pop) on an array, so we can say that array also has property as objects. This means array is also an object. So 
+we can say that array is a special type of object (about which we will discuss later).
 
 
 *how to create an empty array:

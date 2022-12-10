@@ -1,0 +1,25 @@
+*to write in the next line by creating another line without going to the last of the current line, press ctrl+enter from wherever you are in 
+current line.
+
+
+*ctrl+/ or ctrl+k+c  for comment
+
+
+*to write the basic structure of html automatically in vs code, write ! then press enter, emmet will automatically write the structure of html
+code.
+
+
+*if one want to add dummy words to check a feature then we can write lorem+enter to write random number of words, for writing n number of words
+shortcut, lorem19+enter this will add 19 random words and we can add any number of words in place of 19.
+
+
+*if you want to copy the current line to next line then do shift+alt+down arrow key
+*if you want to take your cursor beyong a word then use ctrl+right arrow key or left arrow key if you want to go back
+*if you want to take current line to any other line then while being on the line press alt+down/up arrow key
+
+
+*for printing same thing for multiple lines, type li*4 for 4 li tags in 4 different lines
+
+
+*if you want to select multiple occurences of the same text, select that text and press ctrl+d for next occurence of that text, cursor will point to both the locations, so that if you want to change at multiple locations then you just have to change once.
+*if you want to move multiple lines/single line back tab position then select those lines and press shift+tab, if you want to move forward tab position then just press tab after selecting required lines.
