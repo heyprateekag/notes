@@ -877,7 +877,7 @@ The ?. operator returns undefined if an object is undefined or null (instead of 
 
 *If default is not the last case in the switch block, remember to end the default case with a break.
 
-
+IMPORTANT
 *A JavaScript Set is a collection of unique values. Each value can only occur once in a Set.
 
 You can create a JavaScript Set by:
@@ -892,7 +892,7 @@ const letters = new Set();
 // Add Values to the Set
 letters.add("a");
 
-
+IMPORTANT
 *A Map holds key-value pairs where the keys can be any datatype. A Map remembers the original insertion order of the keys.
 
 You can create a JavaScript Map by:
@@ -933,7 +933,7 @@ function myFunction() {
   }
 }
 
-
+IMPORTANT
 *Arrays with named indexes are called associative arrays (or hashes). But JS doesn't allow array with named indexes.
 
 
@@ -971,8 +971,8 @@ key-value pairs.
 2: Thread of Execution (Code component) where whole code is executed one line at a time in a synchronous manner (in certain order) in single
 thread at a time.
 Execution context is created in two phases, first phase is known as memory creation phase.
-In the first phase, JS stores undefined as a value of all the variables present globally and stores function name and whole function body.
-second phase is the code execution phase: in this phase JS runs code line by line and allocates value to the variable(if defined) in 
+In the First phase, JS stores undefined as a value of all the variables present globally and stores function name and whole function body.
+Second phase is the code execution phase: in this phase JS runs code line by line and allocates value to the variable(if defined) in 
 Variable Environment(Memory Component).
 That mnz even before code is executed in JS, memory is allocated to the variables and functions.
 
@@ -980,7 +980,7 @@ When we invoke a function in our JS code and when JS goes to that line, a brand 
 acts like a small program in our JS program.
 In function's execution context, parameter of a function is also considered as a variable and therefore undefined is kept as a value in it's
 first phase.
-Once JS runs the return statement of the function in the second phase, after that it deletes the execution context of that function.
+Once JS runs the return statement of the function in the second phase, after that it automatically deletes the execution context of that function.
 
 JS manages these Execution context with the help of a call stack, keeping global Execution context in the bottom.
 Call stack manages the order of execution of Execution Context.
@@ -989,8 +989,8 @@ Call stack manages the order of execution of Execution Context.
 *If we console log the function name then it will print complete function(body)
 
 
-*In case of arrow functions and function defined with var, first phase of execution context treats arrow function as a normal variable and therefore initialise it with
-undefined.
+*In case of arrow functions and function defined with var, first phase of execution context treats arrow function as a normal variable and 
+therefore initialise it with undefined.
 Whole body of function goes as a value of the function name to the memory allocation phase only for normal function definition.
 All this is known as Hoisting. What value variable stores and function stores before the execution of the code all defines Hoisting.
 
@@ -1003,7 +1003,7 @@ Whenever we create any variable or function in global space then they get attach
 
 
 *undefined acts like a placeholder to our variable until that variable is initialised(given value).
-not defined comes when a variable is not assigned any memory in phase 1 of Execution Context.
+not defined comes when a variable is not assigned any memory in phase 1 of Execution Context or we can say it was not declared in that scope.
 
 
 *JS is a loosely/weakly typed language, which means that a variable is not strictly given a type, if a variable is given boolean value at 
@@ -1017,10 +1017,10 @@ Global Execution Context have null as it's address of lexical environment of it'
 
 This chain of Lexical Environment is known as the Scope Chain.
 
-
+IMPORTANT
 *let and const are also Hoisted, but they are not assigned memory space in Global Execution Context.
 They are assigned memory somewhere else which we cannot access with global object util it is initialised with a valid value in our code.
-Temporal Dead Zone is the time between which a let/const variable is assigned memory(Hoisted) and the time at which it is initialised.
+Temporal Dead Zone is the time between which a let/const variable is assigned memory(Hoisted) and the time at which it is declared.
 That mnz Temporal Dead Zone for a variable ends after initialisation of that variable.
 You can't access a variable in it's Temporal Dead Zone.
 
@@ -1492,3 +1492,6 @@ const promiseVariable = createObject(cart); //where api will be called inside cr
 cart is just any value which we wish to send to api
 We can apply our callback function on the promise object with promiseVariable.then(()=>{//code}); which will be called when promise gets a
 response from the api call.
+
+
+*

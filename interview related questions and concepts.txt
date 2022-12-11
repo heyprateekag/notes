@@ -1,0 +1,76 @@
+*If we want to increase the value of each element of an array by 2 and we are using forEach loop to do so
+
+arr.forEach((ar, index) => {
+	ar = ar+2; //this won't do the needfull as 'ar' is like a temp variable which is just holding the array element one by one, therefore only
+	//the value of temporary(ar) variable is getting increased
+	arr[index] = ar+2;
+	arr[index] = arr[index] + 2; //both the above one and this statement will do the work as this will update the array element
+});
+
+
+*let flattenedArr = [].concat(...arr); this will flaten the array 'arr' to one level
+if we want to do it without concat function then we can do one level by simple forEach loop as well as follows:
+let flattenedArr = [];
+arr.forEach((ar)=>{
+    flattenedArr.push(...ar);
+});
+
+*to flaten the array to multiple level we have a predefined method .flat
+let flattenedArr = arr.flat(2); //if we want to flat the array 'arr' to two level
+
+Custom flat method can be written in two ways, one with use of .concat and another without that, both of the methods you can see below
+
+const customFlatFunction1 = (arr, depth) => {
+    let resultArr = arr;
+    for(let i=0; i<depth; i++){
+        const tempArr = [];
+        resultArr.forEach((ar, index)=>{
+            if(typeof ar === "object")
+                tempArr.push(...ar);
+            else
+                tempArr.push(ar);
+        });
+        resultArr = tempArr;
+    }
+    return resultArr;
+}
+
+//with .concat
+const customFlatFunction2 = (arr, depth) => {
+    let resultArr = arr;
+    for(let i=0; i<depth; i++){
+        resultArr = [].concat(...resultArr);
+    }
+    return resultArr;
+}
+
+
+*output question
+for(var i=0; i<3; i++){
+	setTimeout(function log(){
+		console.log(i);
+	}, i*1000);
+}
+
+output:
+3
+3
+3
+
+//why, bcz var is function scoped so everytime callback will store reference to the variable, so after the loop is finished and callback fn
+comes back to the callstack then it will point to the current value of 'i' which is 3
+
+
+In case of i being declared with 'let', let being block scope, it will send its scope with the callback function, which will then print
+0
+1
+2
+
+*features of react
+*difference between virtual dom and real dom
+*what is babel
+*difference between map and forEach
+*difference between null and undefined
+*explain event delegation
+*difference between var, let and const
+*project showcase and questions on it
