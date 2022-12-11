@@ -11,7 +11,7 @@ node_modules
 
 *Components are useful because it helps in Reusability(we can use the same component any times in our code, without have to repeat code of
 that component multiple times) and it keeps Seperation of concerns(one file doesn't need to contain all the code, each function/tasks can be
-divided into different components and therefore will have their code seperate).
+divided into different components and therefore will have their code seperated).
 
 
 *In React, we don't have to define/declare our dom elements in the file like plain JS, we instead make our final dom page and react just uses
@@ -40,11 +40,11 @@ The code which we are using in react JS file won't run normally, it only works i
 background which transforms our code into basic html, JS and then runs it on the browser, to make our work easy.
 
 
-*component is just our custom html elements, written inside js function in js file which then gets exported from that component's js file.
+*component is just our custom html element, written inside js function in js file which then gets exported from that component's js file.
 App component will be our root component, other components will be inside this root component.
 component file name and fn name should be like ComponentName, basically upper camelcase.
 we then add <ComponentName></ComponentName> where ever we want to use our component.
-Component is A JS function that typically returns some HTML (or, to be precise: JSX) code which will be shown on the screen when that
+Component is a JS function that typically returns some HTML (or, to be precise: JSX) code which will be shown on the screen when that
 component is used.
 
 
@@ -53,6 +53,7 @@ component is used.
 
 *Don't forget to import your component css file in the js file as in react we need to tell the compiler to use the css in the component from the 
 imported css file.
+eg. import styles from './componentName.module.css';
 In react we use 'className' instead of 'class' to give class to any html element, as class is a reserved word in JS but class will still work in html
 element in our js file but still it's good practice to use className instead of class.
 
@@ -62,26 +63,20 @@ in DOM
 
 
 *props: are the properties which we can send to our custom components to make them reusable with different component. Basically it 
-helps in sending data from one component to another. It is custom html attributes.
+helps in sending data from one component to another. They are custom html attributes.
 <CustomComponentName title={value1} amount={value2}></CustomComponentName>
+//here title and amount are the props passed to CustomComponentName component.
 function CustomComponentName(props){
-//code
+//code which can access title and amount by props.title and props.amount respectively
 }
 //here in custom component js file we just get one parameter(props here, we can give any name though) which is object and contains 
 key-value pairs where keys will be the properties(title, amount here) which we have set in the html code where we have called/attached our component.
 
 
-*to get date in proper format you can use
-const month = props.date.toLocaleString('en-US', {month: 'long'}); //Feburary, December
-const year = props.date.getFullYear(); //2022
-const day = props.date.toLocaleString('en-US', {day: '2-digit'}); //02, 21
-this is basic JS, you can search more about it
-
-
 *Wrapper components: components which are added as our custom html elements just to give some common styling into multiple components
 or divs. eg. Card component can be one such wrapper component which we can add in our code.
 in that wrapper component js file we will have to add props.children between the div which we return from wrapper component, so that it can add all
-the html elements
+the child html elements
 which are added between Card element wherever that wrapper component is used. children is the reserved property, we don't have to define it
 anywhere in the main component, it will automatically refer to the html elements between <Card></Card>
 One more thing which we need to take care is className, whatever className we will add into the <Card> won't work until we add those 
@@ -91,13 +86,16 @@ return (
 	<div className="{classes}">{props.children}</div>
 );
 
+basically className which we have used above in <Card> is just a props which we are passing into Card component as <Card> is a custom html
+element which we have defined and obviously className won't work normally with custom html elements as it does in normal html elements.
+
 
 *With React.js, you define the "goal" (i.e. what should be shown on the screen) and let React figure out how to get there. Which is known as
 declarative JS code. Declarative approach mnz You define the target "state" (UI) and React figures out which JS commands need to be executed
- to bring that result to life.
+to bring that result to life.
 
 
-*In the click event, in html element you have to just pass the function as a value, you don't have to call the function
+*In the click event, in html element you have to just pass the function name as a value, you don't have to call the function
 <button onClick={btnClickedHandler}>Click Me</button>
 wheree btnClickedHandler is a function
 If you will add paranthesis to the function then it will call the function even when JS will render JSX code to the dom, which will be too early.
@@ -108,12 +106,12 @@ not necessary but a good practice with the help of which you can make out which 
 our logic.
 
 
-*normally if we update our variable then react will not update it's state/dom elements again, for that to happen we have to update our variable
-with the help of useState
+*normally if we update our variable then react will not update dom elements again, for that to happen we have to update our variable
+with the help of useState hook
 
 *useState hook is called DIRECTLY inside react component function which updates the changed state of the JSX code. Inside useState() call,
 we pass the initial value of changed variable and it returns an array which contains the changed variable and the updating function.
-By calling that updating function inside our event handler we can pass the updated value.
+By calling that updating function inside our event handler or any other function, we can pass the updated value.
 
 const [title, setTitle] = useState(props.title);
 const clickHandler = () => {
@@ -121,9 +119,10 @@ const clickHandler = () => {
 	console.log("title updated");
 	};
 this setTitle won't change the value right away but will schedule the update, if you will use title after that setTitle, it will still show the old value.
-Whole component function gets re-executed when we change state of any variable, but useState variables, functions doesn't get reinitialised bcz of that.
-The initial value which we pass in useState is only given the first time, not everytime when state is changed, react does that for us behind the
-scenes.
+Whole component function gets re-executed when we change state of any such variable, but useState variables and functions doesn't get 
+reinitialised bcz of that.
+The initial value which we pass in useState is only given the first time when component is loaded, not everytime when state is changed, 
+react does that for us behind the scenes.
 
 
 *onChange event is applied on input fields which gets hit everytime something is entered or removed from the input field, we can use the
@@ -143,7 +142,7 @@ operator and the updated key-value pair as well (in case of updating variable is
 eg in which new state is dependent on the old state
     const [counter, setCounter] = useState(1);
     ...
-    setCounter(counter + 1); //not good approach
+    setCounter(counter + 1); //not good approach because sometimes counter doesn't host the current value of the counter(all that process is underway)
     setCounter((prevCounter)=>{
 	return prevCounter+1
                 }); //good approach, though we can give any name in place of prevState

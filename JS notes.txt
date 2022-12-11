@@ -86,6 +86,14 @@ In a local scope you can use "name" as your variable name.
 }
 
 
+IMPORTANT
+*to get date in proper format you can use
+const month = (new Date()).toLocaleString('en-US', {month: 'long'}); //Feburary, December
+const year = (new Date()).getFullYear(); //2022
+const day = (new Date()).toLocaleString('en-US', {day: '2-digit'}); //02, 21
+this is basic JS, you can search more about it
+
+
 *operator precedence table is at:
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
 https://www.w3schools.com/js/js_precedence.asp
@@ -1025,11 +1033,11 @@ That mnz Temporal Dead Zone for a variable ends after initialisation of that var
 You can't access a variable in it's Temporal Dead Zone.
 
 
-*In case of reference error, JS runs the code above the line at which reference error is coming, but in case of syntax error, JS won't run
-a single line of code and will just through that error.
+*In case of reference error, JS runs the code till the line at which reference error is coming, but in case of syntax error, JS won't run
+a single line of code and will just throw that error.
 
 
-*We can redeclare same 'var' variable in the same scope but we can't do that with 'let' and 'const', JS will through a syntax error in case
+*We can redeclare same 'var' variable in the same scope but we can't do that with 'let' and 'const', JS will throw a syntax error in case
 of let and const.
 
 
@@ -1044,16 +1052,17 @@ block scope mnz what all variables and functions we can access inside that block
 inside a block/function are assigned memory in a seperate space(Block in inspect).
 
 
-*we can shadow a var variable with a same let variable inside block but we cannot do vice versa. To explain that even better, we
+*we can shadow a var variable with a same let variable inside block scope but we cannot do vice versa. To explain that even better, we
 can say that if a variable is shadowing any other variable then the shadowing variable should not cross the boundries/limits of the shadowed
 variable. Therefore as let/const is strict(have some boundries/limits) but var is flexible, var cannot shadow let/const variable so it crosses
-let/const variable's boundry. This is known as illegal shadowing.
+let/const variable's boundry. This is known as illegal shadowing. One more reason could be that we cannot redeclare let/const variable but 
+we can do that with var variable. 
 
 
 *but var can shadow let/const inside function scope. That is not illegal shadowing.
 *all the scope rules working for functions, works the same way for arrow functions.
 
-
+IMPORTANT
 *Function along with its lexical scope is known as Closure.
 
 
@@ -1078,12 +1087,13 @@ is still holding it's lexical scope address.
 *setTimeout(function(){
 	console.log(i);
 	}, 3000);
-JS will run function after 3000, when JS will run the setTimeout line then it will send the fn somewhere in the memory for that particular
-time(3000 mili secs here) and move ahead, after 3000 mili secs this function will come back into the call stack, then JS will run this fn.
+JS will run function after 3000ms, when JS will run the setTimeout line then it will send the fn somewhere in the memory for that particular
+time(3000 mili secs here) and move ahead with its execution, after 3000 mili secs this function will come back into the call stack if call
+stack is empty otherwise it will wait in queue until call stack gets empty, when it will come in call stack then JS will run this fn.
 
-
+IMPORTANT
 *function x(){
-	for(int i=1; i<=5; i++){
+	for(var i=1; i<=5; i++){
 		setTimeout(function(){
 			console.log(i);
 		}, i*1000);
@@ -1119,7 +1129,7 @@ outer();
 //so in this case, JS engine will clear the space occupied by 'y' after 'outer' function scope is over, but not 'x' as it is used in 'inner'
 function and it is forming closure with 'outer' function.
 
-
+IMPORTANT
 *Function Statement/Function Declaration:
 function a(){
 	console.log('a called');
@@ -1131,10 +1141,10 @@ var b = function(){
 }
 
 difference between them comes at the time of hoisting. If we call both of them before their definition, then 'a' will be called normally but
-'b()' will give error because at the time of hoisting, b is given value as undefined as it is a variable in the first phase of Execution
+'b()' will give error because at the time of hoisting, b is given value as undefined as it is a var variable in the first phase of Execution
 Context.
 
-
+IMPORTANT
 *Named Function Expression
 var b = function x(){
 	console.log('hello');
@@ -1168,15 +1178,15 @@ function attachEventListner(){
 }
 attachEventListner();
 //JS holds on the clousure and it's scope as anytime that button can be clicked and that count will be required. Which is a overhead.
-Better practice is to remove the event listeners.
+Better practice is to avoid too many event listeners.
 
 
 *DOM Apis: all the calls with document.call() are DOM Apis. Eg. document.getElementById()
 
-
+IMPORTANT
 *As we know that in setTimeout, JS engine sends the callback fn to setTimeout web API of the browser and api sends the callback function to
 web api's environment and attach timer to it. After that timer gets expired then that callback function is sent to callback queue then
-after that Event Loop checks the callback queue and whatever it finds, it sends to the call stack and then it gets executed.
+after that, Event Loop checks the callback queue and whatever it finds any callback fn, it sends to the call stack and then it gets executed.
 In the background, call stack creates the execution context of the callback function and then executes it in it's second phase.
 
 
@@ -1200,7 +1210,7 @@ on and on for sometime, then in that case callback fn from callback queue will n
 Starvation for callback fns in callback queue.
 
 
-*Where ever you want to run your JS code, you will need Javascript Runtime Environment, which contains JS Engine, APIs, Event Loop, callback
+*Wherever you want to run your JS code, you will need Javascript Runtime Environment, which contains JS Engine, APIs, Event Loop, callback
 queue, microtask queue etc.
 
 
