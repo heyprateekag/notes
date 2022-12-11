@@ -159,18 +159,17 @@ event.preventDefault(); function call in the onSubmit/onClick handler function.
 *Two-way binding is when we change the state/value of any input field then in two-way binding we also change the value of the field for DOM
 we can achieve that by giving value attribute to the input field. eg. value={enteredTitle} where enteredTitle will be getting updated in the code.
 
+IMPORTANT
+*Lifting State Up is the process of sending data from child component to parent component
 
-*When we have to pass data from child component to parent component, then we make our custom event handlers, in which we will write
-handler function in parent component mentioning that in child component's call
+When we have to pass data from child component to parent component, then we make our custom event handlers, in which we will write
+handler function in parent component mentioning that in child component's call as a prop
 <childComponent onSaveExpenseData={saveExpenseHandler}></childComponent>
 in parent component saveExpenseHandler will take an argument from child component which will contain the updated value, with the help of
-which we will update another variable in parent component
-In Child component whereever data will be getting updated, we will call handler function with the help of prop mentioned in it's call
+which we will update another variable in parent component from child component
+In Child component wherever data will be getting updated, we will call handler function with the help of prop mentioned in it's call
 (onSaveExpenseData here) like
 props.onSaveExpenseData(expenseData);
-
-
-*Lifting State Up is the process of sending data from child component to parent component
 
 
 *controlled component is one which is just providing the UI and some change handlers but no logic is there, it is just getting the data which it
@@ -183,7 +182,7 @@ any other reason.
 
 *smart/stateful components are one which sets or handles state of any variable using useState()
 
-
+IMPORTANT
 *showing array content in DOM:
 {props.expenses.map((expense) => {
 	return <ExpenseItem title={expense.title} amount={expense.amount} date={expense.date}></ExpenseItem>
@@ -196,8 +195,8 @@ then react will get to know that array has got updated so it will render whole a
 element in DOM, which affects the performance and also if any particular element is in a different state then that state will be replaced with 
 default updated array.
 
-to solve that, we should add attribute key={expense.id} in list html element, with which react comes to know which element is newly added into the
-array, so it only adds that element in DOM.
+to solve that, we should add attribute key={expense.id} in html element which are rendered from an array, with which react comes 
+to know which element is newly added into the array, so it only adds that element in DOM.
 
 
 *to render any content conditionally, we should include that in { } as well using ternary operator, result of which will be html element which we
@@ -296,15 +295,16 @@ export default CourseInput;
 *A cleaner way to keep css only for it's own component is to use CSS Modules, react project configured with create-react-app is already configured
 with CSS Modules, otherwise we have to configure it seperately. It in background transforms our code before rendering it to browser for our purpose.
 For which we will have to name our css file as ComponentName.module.css
-ans will have to import it in js file as
+and then will have to import it in js file as
 import styles from './ComponentName.module.css'; //where styles(any name can be given) will be object and will contain all the css classes as 
-properties which are used in .css file. (NOTE: styles should not be inside {})
+properties which are used in .css file. (NOTE: styles should NOT be inside {})
 then to use it in JSX
+<button type={props.type} className='button' onClick={props.onClick}>//if we don't use CSS modules
 <button type={props.type} className={styles.button} onClick={props.onClick}></button>//after using CSS modules; styles object containing button class
 under which styles are mentioned in .css file.
-<button type={props.type} className='button' onClick={props.onClick}>//before using CSS modules
 
-this will also give unique className to the html element and will define all the styles mentioned in .css file to that unique class automatically.
+this will also give unique className to the html element automatically by react and will define all the styles mentioned in .css 
+file to that unique class automatically.
 eg of unique class: ComponentName_className_uniqueHashCode
 
 
@@ -314,11 +314,12 @@ eg of unique class: ComponentName_className_uniqueHashCode
 *Everything returned from an input field is a string no matter what type we are using in <input/>.
 
 
-*At time of comparing string to a number we can do that as if(+enteredAge < 1) this + will forcefully convert string to a number.
+*At time of comparing string to a number we can do that as if(+enteredAge < 1) this + will forcefully convert string to a number for comparision.
 
 
-*When we have more than one adjacent html elements to return as our JSX code then we usually put them in one <div> element and then return it, but
-that is not a ideal method as if we follow the same in bigger project then we will have too many surrounding divs unessasarity in our final html code.
+*When we have more than one adjacent html elements to return as our JSX code then we usually put them in one <div> element and then return it
+(bcz we can't return multiple elements/values directly), but that is not a ideal method as if we follow the same in bigger project
+then we will have too many surrounding divs unessasarily in our final html code.
 To fix that we can create a Wrapper(you can give any name) component, which will just return props.children therefore our multiple elements.
 We can use that Wrapper component just as we use any other component in place of wrapping <div>.
 It won't add any extra element into our final html code.
@@ -332,7 +333,7 @@ or
 or
 <Fragment></Fragment>
 
-
+IMPORTANT
 *React Portals is a method to improve the semantics of the final rendered HTML code, the popups/modals or similar elements which we use in our code
 can sometimes affect styling of other elements as well as they are not rendered normally but comes with a overlay and conditionally into our project.
 It's better if we have them seperately into our final rendered html code so that they don't disturb other element's styling.

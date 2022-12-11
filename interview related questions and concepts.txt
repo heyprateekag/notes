@@ -66,6 +66,84 @@ In case of i being declared with 'let', let being block scope, it will send its 
 1
 2
 
+
+*Function composition is an approach where the result of one function is passed on to the next function, which is passed to 
+another until the final function is executed for the final result.
+compose function is a predefined function in some libraries which returns a function which we can use to perform multiple action at once
+function addFive(a){
+	return a+5;
+}
+function subtractTwo(a){
+	return a-2;
+}
+function multiplyFour(a){
+	return a*4;
+}
+const evaluate = compose(addFive, subtractTwo, multiplyFour); //evaluate will contain the function returned from compose fn
+console.log(evaluate(5)); //23
+
+what compose does is, when we pass parameter in it's returned function then first it will send that parameter to the last parameter
+function (5 will go to multiplyFour) then result of that function is then passed to the next function (20 will go to subtractTwo)
+similarly result keeps on going left and at last result is finally returned
+
+
+*Pollyfill of compose function
+function compose(...arguments){
+	return (value)=>{
+		let args = [...arguments];
+		for(var i=args.length-1; i>=0; i--){
+			value = args[i](value);
+		}
+		return value;
+	}
+}
+
+as compose goes from back to front, there is one more function which is pipe which executes the function from start till end.
+
+
+*Reverse the words in the provided sentence:
+let abc=’My love is Javascript’;
+console.log(abc.split(” “).reverse().join(” “))
+OUTPUT:Javascript is love My
+
+
+*Remove first character from the string
+let str=”Hello,How are you”;
+console.log(str.substring(1,str.length))
+OUTPUT:ello,How are you
+
+
+*Remove the duplicate elements from an array.
+const arr = [1, 2, 3, 4, 4, 5,6];
+const newArr = […new Set(arr)];
+console.log(newArr);
+OUTPUT:[1,2,3,4,5,6]
+
+
+*How to prevent new properties from being added to an object
+Object.seal(objName);
+
+
+*Remove the duplicacy of the objects in an array
+const arr=[{id:1,name:’one’},
+{id:2,name:’two’},
+{id:1,name:’one’},
+{id:2,name:’two’},
+{id:3,name:’three’}];
+const map = {};
+const newArray = [];
+arr.forEach(el => {
+if(!map[JSON.stringify(el)]){
+map[JSON.stringify(el)] = true;
+newArray.push(el);
+}
+});
+console.log(newArray);
+OUTPUT:[ { id: 1, name: ‘one’ },
+{ id: 2, name: ‘two’ },
+{ id: 3, name: ‘three’ } ]
+
+	
 *features of react
 *difference between virtual dom and real dom
 *what is babel
@@ -74,3 +152,8 @@ In case of i being declared with 'let', let being block scope, it will send its 
 *explain event delegation
 *difference between var, let and const
 *project showcase and questions on it
+*explain call, apply & bind methods
+*infinite currying
+*Implement promise.all
+
+

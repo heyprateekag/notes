@@ -1286,6 +1286,18 @@ This stores our methodName to the Function.prototype therefore whenever any rand
 it in the scope of that function if not found then it will find it inside the scope of our function.__proto__ which is Function.prototype
 
 
+*if we don't know how many arguments will be passed into our function then we can put array in the parameter which will contain
+all the arguments passed starting from index 0 as follows:
+function myFun(...args){
+	//here we can use array args to get the arguments
+}
+
+*to remove spaces from left or right size of the string
+let str = "   Hello ";
+console.log(str.trim()); //Hello
+this will not change the original string, it will just return a new string
+
+
 *Polyfill of .bind function
 Function.prototype.myBind = function(...args) {
 	let fn = this;
