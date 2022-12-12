@@ -143,6 +143,18 @@ OUTPUT:[ { id: 1, name: ‘one’ },
 { id: 2, name: ‘two’ },
 { id: 3, name: ‘three’ } ]
 
+
+*Question: How would you implement a function which if called like this sum(1)(2)(3)(4)....() returns me the sum of all the numbers passed?
+
+Solution: let sum = function(a){
+						return function(b){
+									if(b){
+										return sum(a+b);
+									}
+									return a;
+								}
+					}
+this is a recursive function which will terminate when no argument will be passed.
 	
 *features of react
 *difference between virtual dom and real dom
@@ -155,5 +167,5 @@ OUTPUT:[ { id: 1, name: ‘one’ },
 *explain call, apply & bind methods
 *infinite currying
 *Implement promise.all
-
-
+*Implement debouncing (with arguments)
+*Implement throttling

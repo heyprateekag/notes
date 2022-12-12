@@ -337,74 +337,74 @@ IMPORTANT
 *React Portals is a method to improve the semantics of the final rendered HTML code, the popups/modals or similar elements which we use in our code
 can sometimes affect styling of other elements as well as they are not rendered normally but comes with a overlay and conditionally into our project.
 It's better if we have them seperately into our final rendered html code so that they don't disturb other element's styling.
+
 To implement it, we need to add <div> (for every type of such html code) with id to identify it (where we will define that html code) in index.html
 file as that file is the root file and our aim is to add such html code to the very top (seperate to all the other html elements) of the final
 rendered html code.
+
 Then we can create seperate component for modal(or any other) if that html code is reusable or we can create seperate function returning that piece
 of html code, whereever we want to use it, use like {ReactDOM.createPortal(<Backdrop/>, document.getElementById('backdrop-root'))} in our JSX code
-where ReactDOM is imported from react-dom and Backdrop is the name of that component or function which is returning code of modal(or any other),
+where ReactDOM is imported from react-dom and Backdrop is the name of that component or function which is returning code of backdrop of a modal(or any other),
 backdrop-root is the id which we mentioned in the div in index.html
 
 We can do all the communications between those components normally as we would do otherwise, react just pick that component in the very end to just
 render it, we don't have to do any other extra thing to communicate between them just because it is rendered to the top in index.html
 
 
-*ref or references are used to connect any html element with the js code. We mostly use it to connect <input> tag value with our js code but they can
-be used with any html element.
-const nameInputRef = useRef(); //useRef is inported from react, we can name anything in place of nameInputRef
+*ref or references are used to connect any html element with the js code. We mostly use it to connect <input> tag value with our js code but 
+they can be used with any html element.
+const nameInputRef = useRef(); //useRef is a hook which can be imported from react, we can name anything in place of nameInputRef
 <input ref={nameInputRef}/>
 
 nameInputRef will contain the dom element it is attached to, nameInputRef.current.value will contain value entered in it
 this is better than attaching onChange event as onChange event gets hit everytime any character gets entered in the input field which is redundant, 
-whereas we can use nameInputRef on submit button click or any other event.
+whereas we can use nameInputRef after submit button click or any other event.
 
 
-*this process of controlling input components or in that case any component with the help of refs is known as uncontrolled components as we are not
-using react to control those components instead of that we are accessing dom element to control it (or it's value)
-when we use useState or onChange to get the value of the component or for any other thing then it's a controlled component as we are using react to 
-control our component.
+*this process of controlling input components or in that case any component with the help of refs is known as uncontrolled components as we are
+not using react to control those components instead of that we are accessing dom element to control it (or it's value)
+when we use useState or onChange to get the value of the component or for any other thing then it's a controlled component as we are using react 
+to control our component.
 
 
-*Effect or Side Effect: An effect(known as side effect) which should occur on change of any other effect. Main job of react is to evaluate and render 
-JSX, take the input, re-render updated JSX code, manage state and props.
+*Effect or Side Effect: An effect(known as side effect) which should occur on(change of) any other effect. 
+Main job of react is to evaluate and render JSX, take the input, re-render updated JSX code, manage state and props.
 But there are other jobs as well like sending http request, manage timers, storing data to browser storage, all these comes under Effects(or side 
-effects) these are not directly a work of react. These tasks must happen outside of normal component as a normal component might render multiple times
-but sending http request and set timer everytime when component re-render is not a good thing.
+effects) these are not directly a work of react. These tasks must happen outside of normal component as a normal component might render multiple 
+times but sending http request and set timer everytime when component re-render is not a good thing or not what we want.
 
-These side effects are handled with the help of useEffect() hook, in which first parameter is a function which should be executed everytime
-dependencies(which is it's second parameter in array) gets changed.
-The function gets executed the very first time when whole code runs because then dependencies gets created and at every reload. So if there is no
-dependency still function executes at start and at every reload of the page.
+These side effects are handled with the help of useEffect() hook, in which first parameter is a callback function which should be executed 
+everytime dependencies(which is it's second parameter in array) gets changed.
+The function gets executed the very first time when whole code runs because then dependencies gets created and at every reload. 
+If there is no dependency still callback function executes at start and at every reload of the page.
 
 
 *localStorage.setItem('isLoggedIn', '1');
 localStorage.getItem('isLoggedIn');
 localStorage.removeItem('isLoggedIn');
+localStorage.removeAll();
 
-
-*You learned, that you should add "everything" you use in the effect function as a dependency - i.e. all state variables and functions you use in there.
+IMPORTANT
+*You learned, that you should add "everything" you use in the effect function, as a dependency - i.e. all state variables and functions you use in there.
 That is correct, but there are a few exceptions you should be aware of:
-You DON'T need to add state updating functions (as we did in the last lecture with setFormIsValid): React guarantees that those functions never change,
+You DON'T need to add state updating functions: React guarantees that those functions never change,
 hence you don't need to add them as dependencies (you could though)
 You also DON'T need to add "built-in" APIs or functions like fetch(), localStorage etc (functions and features built-into the browser and hence 
 available globally): These browser APIs / global functions are not related to the React component render cycle and they also never change
 You also DON'T need to add variables or functions you might've defined OUTSIDE of your components (e.g. if you create a new helper function in a 
-separate file): Such functions or variables also are not created inside of a component function and hence changing them won't affect your components 
-(components won't be re-evaluated if such variables or functions change and vice-versa)
+separate file): Such functions or variables also are not created inside of a component function and hence changing them won't affect your component
+(component won't be re-evaluated if such variables or functions change and vice-versa)
 So long story short: You must add all "things" you use in your effect function if those "things" could change because your component (or some parent
 component) re-rendered. That's why variables or state defined in component functions, props or functions defined in component functions have to be 
 added as dependencies!
 
 We can return a function from useEffect first argument function as well which mostly acts as a cleanup function, it doesn't runs the very first time
 when application gets loaded but it runs everytime dependent value is getting changed and it runs before the first parameter function.
-And when there is no dependency(empty array) then it gets executed when component is removed.
+And when there is no dependency(empty array) then it gets executed when component is removed. (it indicates cleanup fn)
 When there is no second parameter then useEffect function gets run on every state change of the component.
 
 
-*Debouncing: is something which we do not on every key stroke in the input field but we check the time for which key is not pressed and if it is more
-than the decided time then we hit an api call or anything else.
-
-
+IMPORTANT
 *useReducer: is a hook which can be used as a replacement of useState in complex scenarios not always. It is used to store state of interdependent 
 variables or the variables which are changing simultanously. eg. storing email and isEmailValid are two dependent variables
 
@@ -421,8 +421,8 @@ reducerFn will have two parameters (state, action) among which 'action' will con
 the last state
 
 
-*React context: helps us to transfer the required data directly to the component which need it, instead of going through a long prop chain of other
-components in between.
+*React context: helps us to transfer the required data directly to the component which need it, instead of going through a long prop chain of 
+other components in between.
 For this we have to create another js file for the context which will store that value which should be passed (eg. authToken, isLoggedIn)
 and that file will return any variable which will contain React.createContext(obj);
 All the components which will be surrounded by that <variable.Provider> and it's child components can use the variables defined in that context.
@@ -462,7 +462,10 @@ Though this will be very least used and ideally one should not use it. But still
 arn/lecture/25599276#announcements
 
 
-*Debouncing:
+*Debouncing: is the concept in which we do not perform a certain active on every key stroke in the input field because that would not be 
+efficient but we check the time for which key is not pressed and if it is more than the decided time then we hit an api call or perform any 
+other action.
+Its implementation:
 const [name, setName] = useState("");
 
 const debounce = (func, delay) => {
@@ -484,14 +487,14 @@ const debounce = (func, delay) => {
 
 
 *shortcut to make input tag highly configurable as a seperate component
-when we pass values like id, value, type as a prop to Input custom component then if we will sent it in the form of an object like {min: '2', type: 'number'} and so on
+when we pass values like id, value, type as a prop to Input custom component then if we will send it in the form of an object like input={{min: '2', type: 'number'}} and so on
 it can have multiple input attributes, so when we have to apply it to the input tag in the custom component then we can just use a spread operator to set the attributes
 automatically like <input {...props.input}></input> where input stores that object inside props
 
 
 *In background react creates a virtual DOM and whenever any state or prop changes then react changes it's virtual DOM and then sends the differnce between it's previous
 snapshot of DOM and current virtual DOM to the real DOM and those changes gets loaded on real DOM for optimization. Real DOM will not get completely rerendered.
-React rerenders it's dom whenever state/prop/context gets changed. In the background if we see then context uses state internally to change itself, prop is also changed
+React rerenders it's virtual dom whenever state/prop/context gets changed. In the background if we see then context uses state internally to change itself, prop is also changed
 using state in another component so at last it comes to just state, whenever state changes, react rerenders the virtual dom.
 
 
@@ -499,9 +502,9 @@ using state in another component so at last it comes to just state, whenever sta
 
 
 *If any state gets changed into the parent component, then child component also gets re-evaluated again no matter if props which are being sent to it changes or not.
-But that would be complete waste as even if prop is not getting changed still react have to re-evaluate child component and child's child component, to prevent that from
-happening we can add export default React.memo(ComponentName); instead of normal export of the component, then that child component won't get re-evaluated if prop won't
-change. 
+But that would be complete waste as even if prop is not getting changed still react have to re-evaluate child component and child's child component. To prevent that from
+happening we can add export default React.memo(ComponentName); instead of normal export of the child component, then that child component won't
+get re-evaluated if prop won't change. 
 But that will only work in case of functional component, not in class based component. Optimization in class based component will be covered later.
 If the child is skipped, then child'd child will also get skipped.
 
@@ -514,13 +517,13 @@ If we are passing any function into another component like in the case of onClic
 when parent component re-evaluated then that function will also get set which will in turn make child component re-evaluate.
 
 As said react compares the previous state of props to the new state of props then even if we pass a static object/function/array react will compare the previous state
-of that prop with the latest state and as you know even if we have same object still === will return false. Bcz of which react will still render the child component
+of that prop with the latest state and as you know even if we have same object still === will return false. Bcz of which react will re-render the child component
 in case of non-primitive value passed.
 
 If we want to prevent the re-evaluation of the child component in the case of static function then we will have to use hook useCallback at the time of
 initialization of our function. like const onClickHandler = useCallback(()=>{//code}, [changingDependentVariable]);
 useCallback also needs dependencies in the form of array just like useEffect as a second argument
-This useCallback will make sure that whenever the parent component is getting re-evaluated then react uses the last used position for the function passed in it.
+This useCallback will make sure that whenever the parent component is getting re-evaluated then react uses the last used position for the function passed in it if dependent variable is not changed.
 
 For other non-primitive values (array/object), we use useMemo hook, it will also require function in the first argument which should return the value for that non-primitive
 variable and second parameter will be dependent variables. We can use useMemo to put the high performance affecting tasks at the time of initialization of the variable.
@@ -597,7 +600,7 @@ error. In that case ErrorBoundary component will just have to return this.props.
 
 
 *To convert JSON object to JS object: obj.json() which will return a promise on which we can use .then and can use the data
-obj.json().then(data => {//code});
+obj.json().then(data => {//code which can use data});
 
 
 *For get api call
@@ -614,10 +617,7 @@ act just like .then i.e asynchronously
 It will read the second line once it gets the value in promise from first line.
 It's just that code readability will increase.
 
-
-*Error codes: 200s denotes successfull response(success), 400s denotes issue/error in api (unauthorized, not found), 500s issue from server (bad gateway)
-
-
+IMPORTANT
 *to handle the api response errors, in the case of .then (not async await) we can use .catch after .then (like promise.then(()=>{//code}).catch((err)=>{//code});)
 Whereas in the case of async await, we have to use try catch block
 But fetch api doesn't throw error automatically which we can catch through catch block
@@ -626,14 +626,14 @@ like throw new Error('error message')
 Yes we can throw error in functional component as well, it's just that we won't be able to catch it inside another component, we can catch it inside same component
 
 
-*We can use useEffect in case we want something to happen on load of our component
+*We can use useEffect in case we want something to happen on load of our component by including that task in useEffect and not passing any dependency.
 
 
 *For backend apis we can use google firebase, for get/post and other apis
 for its overview refer: https://bsh-ggs.udemy.com/course/react-the-complete-guide-incl-redux/learn/lecture/25599822#announcements
 
 
-*Hooks are just functions which contains stateful logic. We can create custom hooks as well. Unline regular functions, custom hooks can use other react hooks/state as
+*Hooks are just functions which contains stateful logic. We can create custom hooks as well. Unlike regular functions, custom hooks can use other react hooks/state as
 well. So we can reuse our logic which (works on state) in different components by storing that logic in custom hook(basically a function).
 We can't make a regular function to reuse the logic which contains react hooks within multiple component functions as react hooks can't be used anywhere in the code, they
 should be used on the top of the scope of our component function.
@@ -641,8 +641,8 @@ should be used on the top of the scope of our component function.
 Custom hook function name have to start with useFunctionName and it's better if we keep the custom hook js file seperately so that export/import of it becomes easy.
 
 When we call custom hook into our component function, then states/effects used in that custom hook gets tied to the component function.
-Therefore the number of times we call our custom hooks in different component functions, same number of times states will be created for every component. Just logic is
-shared amoung components not the state.
+Therefore the number of times we call our custom hooks in different component functions, same number of times states will be created for every
+component. Just logic is shared amoung components not the state.
 
 
 *If we don't apply prevent default method on submission of the form then browser sends our form to the server where the website is deployed as the default behaviour. But
@@ -653,6 +653,7 @@ as we handle form differently now therefore we prevent that default behaviour.
 
 
 *In a form if there are multiple buttons but obviously only one button should be able to submit the form, for that you should give type='button' to all the other buttons.
+and type="submit" to the submit button
 
 
 *Redux is a state management system for cross component or app-wide state. Redux does the same work which context do, but context have some disadvantages: it becomes
@@ -670,12 +671,12 @@ sharing the base url of our website and then receiving user will have to end up 
 Routing simply means different urls loading different pages on the browser, basically routes the user to different pages.
 
 There is a third party library react-router which makes routing easy. To install that library run: npm install react-router-dom@5 to download version 5 (6 is the latest)
-Route is the component which we can import from react-route-dom which helps in setting up the urls and which components gets loaded on those urls.
+Route is the component which we can be imported from react-router-dom which helps in setting up the urls and which components gets loaded on those urls.
 <Route path='/welcome'><Welcome></Welcome></Route> Route will make sure our component Welcome gets displayed only when baseURL/welcome gets hit in the url of the browser.
 
 But from react-router-dom 6, we pass component not as child but value to the element attribute of <Route> eg. <Route path='/welcome' element={<Welcome/>}/>
 
-To activate routes we also have to import BrowserRouter in index.js from react-router-dom and will have to wrap <App /> within <BrowserRouter>.
+To activate routes we also have to import BrowserRouter in index.js from react-router-dom and will have to wrap <App /> within <BrowserRouter></BrowserRouter>.
 
 
 *To navigate to the path dynamically, we can add /pageName to the href of anchor tag as well. But that behaviour will reload our application while opening another page,
@@ -692,7 +693,7 @@ nothing else needs to be added, just the above line will work, we just have to g
 *When we mention path in Route tag, we can also pass any value to the url which can be used inside the component which gets rendered by that Route, with which component
 will render data dynamically
 <Route path='products/:productID'><ProductDetail></ProductDetail></Route>
-ProductDetail component will get rendered whenever url will be baseURL/product-detail/anyvalue, whatever value will be passed in place of anyvalue will get into the 
+ProductDetail component will get rendered whenever url will be baseURL/products/anyvalue, whatever value will be passed in place of anyvalue will get into the 
 productID used above.
 This is known as Dynamic Routes with Params.
 react-router-dom provides a hook useParams which returns the object containing the params passed in url.
@@ -732,7 +733,7 @@ That can be achieved by using <Route path='/' exact> <Redirect to='/welcome'></R
 user to the welcome page url when user enters baseURL/anything
 exact is required here in Route as if not added it will match with all the other paths
 For targeting all the other not mentioned paths, we can use <Route path='*'><ComponentName></ComponentName></Route>
-However from @6 same can be done with <Route path='/ element={<Navigate replace to='/welcome'/>}/> Navigate can be imported from react-router-dom, if replace is not
+However from @6 same can be done with <Route path='/' element={<Navigate replace to='/welcome'/>}/> Navigate can be imported from react-router-dom, if replace is not
 added then new page will be pushed automatically (replace, push logic will work here), though I don't find any such usecase for push
 
 
@@ -745,7 +746,7 @@ previous page. We can use this when we don't want user to come back to the page 
 After @6 useHistory doesn't exist anymore, instead of that we have useNavigate hook which returns an object which we can use as 
 const navigate = useNavigate();
 navigate('/welcome', {replace: true});
-we can pass -1 or -2 or inside navigate(-1) inorder to go to the previous page or previous to the previous page or to the forward page.
+we can pass -1 or -2 or +1 inside navigate(-1) inorder to go to the previous page or previous to the previous page or to the forward page.
 
 
 *There is a usecase where we warn user from going away from a focused/partly filled/fully filled form, that data/state might go once user moves away from that page,
@@ -891,7 +892,7 @@ const onClickHandler = (url) =>{
         window.open(url, '_blank');
     }
 	
-	
+IMPORTANT
 *to pass parameter in onclickHandler, pass it through arrow function as following
 
 <button onClick={()=> onClickHandler('https://github.com/heyprateekag')}>Open Github</button>
@@ -901,4 +902,3 @@ const onClickHandler = (url) =>{
 
 
 *Good guide to deploy react web app on through firebase: https://dev.to/guillerbr/deploy-reactjs-on-firebase-hosting-4mpj
-

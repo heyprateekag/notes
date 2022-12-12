@@ -84,3 +84,6 @@ var result = jsObjects.find(obj => {
 var result = jsObjects.filter(obj => {
   return obj.b === 6
 });
+
+
+*Error codes: 200s denotes successfull response(success), 400s denotes issue/error in api (unauthorized, not found), 500s issue from server (bad gateway)
