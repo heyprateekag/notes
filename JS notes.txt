@@ -1445,7 +1445,8 @@ bcz server calls will be reduced and data can be easily taken from local storage
 
 
 *If we want to store object inside local storage then we can do that by storing JSON.stringify(obj) as it will return that object as a string
-When we will fetch that obj then we can do that by JSON.parse(localStorage.getItem(key)); //this will convert thestored string to object
+When we will fetch that obj then we can do that by JSON.parse(localStorage.getItem(key)); //this will convert the stored string(JSON object
+as JSON object is a string at the end) to javascript object(from which we can access key-value pairs)
 
 IMPORTANT
 *Event Bubbling & Capturing/Trickling are two methods of propogating down the DOM tree.
@@ -1501,3 +1502,92 @@ const promiseVariable = createObject(cart); //where api will be called inside cr
 cart is just any value which we wish to send to api
 We can apply our callback function on the promise object with promiseVariable.then(()=>{//code}); which will be called when promise gets a
 response from the api call.
+
+Before promises, if we want to implement asynchronous tasks we used to use callbacks for eg there is one api to createOrder which will return
+orderID and then we have another api to proceedToPayment which takes the orderID which createOrder api will return
+so with callback, we used to give proceedToPayment function to createOrder api assuming when it will come back with the orderID it will call
+our proceedToPayment callback fn, but we don't know the implementation of createOrder api so we don't know whether our proceedToPayment will
+be called or not or whether it will be called once or multiple times (basically we don't have control over it, which is the case of inversion
+of control)
+After promises, our APIs gives us a promise(object initially {data: undefined}) initially but when API returns with a response then it updates
+promise object with value passed to data key automatically
+To call another function or to use the response returned from the API, we put that function/callback fn/commands in 
+promiseReturned.then((data)=>{//code}); 
+IMPORTANT
+and this steps/callback fn will be called only when API returns the response in promise object.
+Promises gives us this garentee that whenever it will get data in promise object then it will call our steps/callback fn once.
+IMPORTANT
+In reality it's not data key, promise object is much more than that but it's true that at first promiseResult is undefined and when API returns
+the response then it will set that promiseResult with that returned response.
+
+There is one more value in promise object which is promiseState which is "Pending" in starting but when it gets response from API then it
+becomes "Fulfilled" another state is "Rejected"
+
+
+*Promise object can't be mutated(changed) which makes our api response safe.
+
+
+*We say promise is resolved when we get response from the API into the promise object.
+
+
+*To define Promise we can say that promise is an object representing future value of aynchronous task or API call.
+
+
+*to delete any key-value pair from an object:
+delete objName.keyName;
+If the property which you are trying to delete does not exist, delete will not have any effect and will return true.
+delete ONLY has an effect on own properties. If a property with the same name exists on the object's prototype chain, then after deletion, 
+the object will use the property from the prototype chain.
+Non-configurable properties cannot be removed. This includes properties of built-in objects like Math, Array, Object and properties that are 
+created as non-configurable
+
+
+*'this' acts different inside arrow functions
+
+
+*Promise Chaining: It is a situation where we have multiple asynchronous taks to perform. Eg. we have one api on success of which we have
+to call another api on success of which we have to call another api or perform any other task. If we are implementing promise chaining
+then do remember to return the promise object then only we can attach .then for next steps.
+
+Over here we were thinking in terms of fetch api which returns the promise, but if we want to perform some asynchronous tasks then we can
+make and return our own promise as well.
+
+To create our own promise,
+const pr = new Promise(function(resolve, reject){
+	//logic
+	//eg. validate cart then create order then get order id
+	//if anything fails then we reject this promise
+	//eg.
+	const err = new Error("Cart is not valid");
+	reject(err); //here that reject funcion comes into picture
+	//if nothing fails, then we resolve the promise
+	//eg.
+	resolve(orderID);
+});
+where resolve and reject are functions which are given by JS to build promises.
+return pr; //whoever will use this promise will either get orderID or err as a response of the promise
+
+
+*In case of promise fulfillment, we can get the response in promise.then((response)=>{//access response});
+but in the case of promise rejection, we will have to attach .catch like below
+promise.then(//all code).catch((err)=>{//handle error by getting error with err.message});
+if we will not handle/catch the error then it will give red color error in browser's console.
+
+*In case of promise chaining, we apply .catch at the very end of the chain and whichever promise will return an error then it will get catched
+to our catch block and chain will break after that promise.then block.
+
+But if we don't want our chain to break, then we can apply .catch block in between of the chain as well. Wherever we will apply .catch method
+it will handle the error of the upper promise block/blocks. In that case even if error comes, it will process with the promise block/blocks
+ahead of it.
+eg.
+promise.then(//callback fn)
+.then(//callback fn)
+.catch(//handle error for first and second .then block)
+.then(//callback fn)
+.catch(//handle error for 3rd .then block);
+
+
+*If we want to restrict user to add any new key-value pair into the object:
+Object.seal(objName);
+but we can update the values of the existing keys
+it won't give error if we try to add any other key-value pair, it will just not add it to the object

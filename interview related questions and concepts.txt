@@ -155,7 +155,150 @@ Solution: let sum = function(a){
 								}
 					}
 this is a recursive function which will terminate when no argument will be passed.
-	
+
+
+*Output question
+let data = {name: "Prateek"};
+console.log(delete data.name); //true
+//if any property doesn't exist, delete will still return true, doing no effect on the object
+//it will only return false if we try to delete which can't be deleted, eg the object itself, to know more refer delete in JS notes
+
+
+*Explain call, apply & bind methods and implement their polyfills
+these are methods used for object sharing, if there is one method which we want to share between objects then we can apply these methods on
+that method(which will be using this.property to use the attached object property)
+
+methodName.call(obj, argument1, argument2); 
+call takes obj as first argument and after that n number of arguments which that method require, it executes the method
+
+methodName.apply(obj, [argument1, argument2]);
+apply takes obj as first argument but it takes array of arguments which will be passed to that function seperately, it also executes the method
+
+const anotherMethodName = methodName.bind(obj, argument1);
+anotherMethodName();
+bind takes obj as first argument and takes n number of arguments which that function needs, it doesn't execute the method instead it just returns
+the method assigning that object with that method, which we can call later.
+
+Their Polyfills:
+
+const person1 = {
+    name: "Prateek",
+    printName: function (age, city) {
+        console.log(`${this.name} is ${age} years old from ${city}.`);
+    }
+}
+
+const person2 = {
+    name: "Aman"
+}
+
+//Polyfill of .call fn
+//we add our custom fn to Function.prototype so that any fn can call our method
+Function.prototype.myCall = function(obj, ...args){
+    console.log(this); //this will print printName function of person1
+    obj.fn = this; //here we are adding person1 function printName to person2 obj for this function's scope
+    obj.fn(...args); //here we are passing the arguments as they must be passed to myCall method
+}
+
+person1.printName.call(person2,25); //Aman is 25 years old
+person1.printName.myCall(person2, 26); //Aman is 26 years old
+person2.fn(27); //Aman is 27 years old
+//bcz now myCall has added printName fn of person1 to person2 obj
+
+//Polyfill of .apply fn
+Function.prototype.myApply = function(obj, args){
+    //here in the parameters we have not used spread operator as we are already getting array of arguments
+    obj.myFn = this;
+    obj.myFn(...args);
+}
+
+person1.printName.apply(person2, [28]); //Aman is 28 years old
+person1.printName.myApply(person2, [29]); 
+
+//Polyfill of .bind fn
+Function.prototype.myBind = function(obj, ...args){
+    obj.myFn = this;
+    return function (){
+        obj.myFn(...args);
+    }
+}
+
+person1.printName.bind(person2, 30)();//we are again calling the fn as .bind doesn't execute the method, it just
+//returns the method by making it ready for passed obj
+
+person1.printName.myBind(person2, 31, "Pilibhit")();
+
+
+*OUTPUT
+let data = {
+    name: "Prateek",
+    age: 24
+};
+
+let info = {
+    city: "Pilibhit"
+};
+
+data = {data, ...info};
+console.log(data); // {data: {name: "Prateek", age: 24}, city: "Pilibhit"}
+
+
+*OUTPUT
+const name = "Prateek";
+console.log(name());//will give TypeError mentioning that name is not a function
+
+
+*OUTPUT
+let data = false || {} || null;
+console.log(data); //{} 
+
+data = false || 0 || null;
+console.log(data); //null
+
+data = false || "Prateek" || {};
+console.log(data); //Prateek
+
+above expression will return the first true value ({} or [] or 2 or "str") which it will find, if it doesn't find any true value then it will
+return the last false value
+just opposite is seen in case of &&, it will return the last true value in case all values are true, first false value which it will find
+
+
+*OUTPUT
+console.log(Promise.resolve(5)); //Promise{<fulfilled>: 5}
+
+
+*OUTPUT
+console.log(`${(x => x)('I Love')} to program.`);
+
+
+*OUTPUT
+console.log(!typeof "hello" === 'object'); //false
+console.log(!typeof "hello" === 'string'); //false bcz first ! will operate then ===
+
+
+*OUTPUT
+let data = ["a", "b", "c"];
+delete data[1];
+console.log(data); //['a', empty, 'c'];
+console.log(data[1]); //undefined
+console.log(data.length); //3
+
+
+*OUTPUT
+let a = 4;
+setTimeout(()=>{
+	console.log(a);
+}, 0);
+a = 100;
+output: 100 //as setTimeout will run after our whole JS code is executed, even if we had any value in setTimeout, it will still print 100
+
+
+*OUTPUT
+let a = 10;
+let A = 20;
+console.log(A); //20
+console.log(a); //10 as java is case sensitive, both variables are different
+
 *features of react
 *difference between virtual dom and real dom
 *what is babel

@@ -659,11 +659,17 @@ and type="submit" to the submit button
 *Redux is a state management system for cross component or app-wide state. Redux does the same work which context do, but context have some disadvantages: it becomes
 complex in big applications, it doesn't perform well in the case of the properties which changes very frequently.
 
-Redux is all about ONE central data(state) store. Components subscribe to that store, whenever data changes, store notifies the components using it. But components can
+Redux is all about ONE central data(state) store which contains all states including app wide state or cross component states. Components 
+subscribe to that store, whenever data changes, store notifies the components using it. But components can
 never directly change the data in the store. Whenever components wants to change the data in the store, they have to change it through Reducer function (not useReducer).
 Components dispatch/trigger some action(JS object which describes which kind of operation reducer function needs to perform), redux forwards that action to the reducer
-function, reads description of that action which reducer function then performs. That's how state gets change in the central store. Then subscribing components got 
-notified about the change.
+function, reads description of that action which reducer function then performs by spitting out new state which replacing the old state in the
+store. That's how state gets change in the central store. Then subscribing components got notified about the change so that they can update
+their UI.
+
+As redux is a library so to install redux: npm install redux
+To import redux: const redux = require('redux');
+const store = redux.createStore();
 
 
 *Routing is necessary in the case when user wants to share any url to some specific function of that website, if our application will not have routing, user will end up
