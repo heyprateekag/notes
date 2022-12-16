@@ -299,6 +299,168 @@ let A = 20;
 console.log(A); //20
 console.log(a); //10 as java is case sensitive, both variables are different
 
+
+*How to know the OS name in JS
+navigator.platform
+it will return Win32 in case of windows
+
+
+*Explaination of very famous question of scope of var & let with for loop
+as var creates a global variable so our variable of callback fn will point to that global variable in it's lexical scope
+whereas let is blocked scope, so for every block of for loop there will be different let variable in lexical scope of every callback fn
+
+
+*var x;
+var x = 10;//this is fine
+
+var x;
+let x = 10;//this will give error as 'x' is already defined
+
+
+*OUTPUT
+const y = 3;
+const x = new Number(3);
+console.log(typeof y); //number
+console.log(typeof x); //object 
+
+
+*OUTPUT
+const sum = eval('10*10+5');
+console.log(sum);//105
+eval converts string passed into it as an expression and executes
+
+
+*OUTPUT
+const obj = {1: 'a', 2: 'b', 3: 'c'};
+console.log(obj.hasOwnProperty('1'); //true
+console.log(obj.hasOwnProperty(1); //true 
+we can keep number as a key and we can access it's value either by same string value or numberic
+
+
+*by default useCapture(third argument in event handler) is false, if not then capturing happens first and then bubbling happens.
+
+
+*OUTPUT
+function sum(){
+    return (()=>0)();
+}
+console.log(sum()); //0
+
+
+*OUTPUT
+function sum(){
+    return ()=>0;
+}
+console.log(sum()); //()=>0
+console.log(typeof sum()); //function
+
+
+*OUTPUT
+console.log(typeof typeof 1);//string
+
+
+*OUTPUT
+const nums = [1, 2];
+nums[5] = 7;
+console.log(nums); //[1, 2, empty, empty, empty, 7]
+console.log(nums[3]); //undefined
+
+
+*OUTPUT
+const nums = [1, 2];
+nums[3] = nums;
+console.log(nums); //[1, 2, empty, [1, 2, empty, [1, 2, empty, ......infinity]]]
+
+
+*setInterval returns a unique id, with the help of which we can stop that setInterval
+setInterval helps us to perform some step after a particular time interval
+
+
+*Promise.race([promiseOne, promiseTwo]).then(res => console.log(res));
+this will print the response of the promise which will return it's response faster
+
+
+*OUTPUT
+const obj = {name: 'Prateek', age: 24};
+for(const item in obj){
+	console.log(item);
+}
+output: 
+name
+age
+
+item will contain key
+
+
+*OUTPUT
+let data = [1, 2, 3].map(num => {
+	if(typeof num === 'number')
+		return;
+	};
+console.log(data); [undefined, undefined, undefined]
+if we don't return anything then it returns undefined
+
+
+*OUTPUT
+function car(){
+	this.brand = 'KIA';
+	return {brand: 'Audi'};
+}
+const myCar = new car();
+console.log(myCar.brand); //Audi
+
+
+*OUTPUT
+function car(){
+	this.brand = 'KIA';
+}
+const yourCar = new car();
+console.log(yourCar.brand); //KIA
+
+
+*OUTPUT
+console.log(typeof x); //undefined
+
+
+*OUTPUT
+(()=>{
+    let x = y = 10;
+})();
+console.log(y); //10 as y gets defined as 'var' as we have not mentioned anything before that
+console.log(x); //error as x is defined with let and let is block scoped
+console.log(typeof x); //undefined, as type of not declared or not initialized variable is undefined
+
+
+*OUTPUT
+let x = 100;
+(() => {
+	var x = 20;
+})();
+console.log(x); //100
+
+
+*OUTPUT
+console.log(!true - true); //-1
+console.log(true + +'10'); //11
+
+
+*str.replace(' ', '_'); //this will return an array replacing first blank space with _ in str string, it will not update str string itself
+str.replaceAll(' ', '_'); //this will replace ALL the black spaces with _
+
+
+*str.substring(1, 10); //will return the string containing characters from index position 1 till 9(including) of str string
+
+
+*to reverse a string in short
+str.split("").reverse().join(""); //this will first convert the string to array with individual characters from the string and will
+then reverse that array and will then join the reversed characters of array to convert it into string
+bcz we cannot directly reverse string, but we can do in case of array
+
+
+*str.trimEnd(), str.trimStart() can be used to trim spaces from starting and ending of the string
+
+*typeof any function is function
+
 *features of react
 *difference between virtual dom and real dom
 *what is babel
@@ -309,6 +471,7 @@ console.log(a); //10 as java is case sensitive, both variables are different
 *project showcase and questions on it
 *explain call, apply & bind methods
 *infinite currying
+*difference between local storage, session storage and cookies
 *Implement promise.all
 *Implement debouncing (with arguments)
 *Implement throttling
