@@ -369,6 +369,10 @@ to print its property:
 console.log(prateek['lastName']);//here we can write any expression which gives the property lastName
 console.log(prateek.lastName);
 
+
+*to check if an object contains a particular key or not
+prateek.hasOwnProperty('firstName'); //will return either true or false 
+
 IMPORTANT
 if we will extract a property name which doesnt exists in the object, then it will return undefined
 
@@ -1188,6 +1192,8 @@ IMPORTANT
 web api's environment and attach timer to it. After that timer gets expired then that callback function is sent to callback queue then
 after that, Event Loop checks the callback queue and whatever it finds any callback fn, it sends to the call stack and then it gets executed.
 In the background, call stack creates the execution context of the callback function and then executes it in it's second phase.
+
+To see event loop in action, you can check out jsv9000.app
 
 
 *Event Loop keeps checking the call stack, callback queue and microtask queue, whenever Event Loop see that call stack is empty and there is 

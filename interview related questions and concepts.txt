@@ -461,6 +461,179 @@ bcz we cannot directly reverse string, but we can do in case of array
 
 *typeof any function is function
 
+
+*name in Window object is empty string, so if we will access any random variable with this keyword in global scope then it will
+return undefined but in the case of this.name where this is pointing to Window object then it will print nothing(empty string)
+
+
+*Implement memoization/caching
+we use memoization/caching when we want to store some value for future use to optimize UX
+
+function myMemoization(fn, context){
+    const result = {}; //this will store result of the heavyFunction according to parameters passed to that function
+    return function(...args){
+        const tempKey = JSON.stringify(args); //this will convert passed parameters into string, so that for same parameters, key can be same
+        if(!result.hasOwnProperty(tempKey)){
+            result[tempKey] = fn.call(context || this, ...args); //this will set the result of the heavyFunction for a particular parameters if not already present 
+        }
+        return result[tempKey];
+    }
+}
+
+const performHeavyAction = (num1, num2) => {
+    for(let i=0; i<10000000; i++){
+        //heavy task
+    }
+    return num1*num2;
+}
+
+const memoizedPerformHeavyAction = myMemoization(performHeavyAction);
+
+console.time("heavy-action");
+console.log(memoizedPerformHeavyAction(23, 2));
+console.timeEnd("heavy-action"); //this will just console the time taken to perform that function call
+
+console.time("same-heavy-action");
+console.log(memoizedPerformHeavyAction(23, 2));
+console.timeEnd("same-heavy-action");
+
+
+*Infinite Currying
+function sum(a){
+    return function(b){
+        if(b){
+            return sum(a+b);
+        }
+        return a;
+    }
+}
+
+console.log(sum(2)(3)(6)(1)());
+
+
+*Implement
+const result = calc.add(10).multiply(3).subtract(10).add(1);
+console.log(result.total);
+
+ans:
+const calc = {
+    total: 0,
+    add: function(value){
+        this.total += value;
+        return this;
+    },
+    multiply: function(value){
+        this.total *= value;
+        return this;
+    },
+    subtract: function(value){
+        this.total -= value;
+        return this;
+    }
+}
+
+
+*Implement folder structure in react from json object
+folderStructure.js
+	export default {
+	  name: "root",
+	  isFolder: true,
+	  items: [
+		{
+		  name: "public",
+		  isFolder: true,
+		  items: [
+			{
+			  name: "index.html",
+			  isFolder: false
+			}
+		  ]
+		},
+		{
+		  name: "src",
+		  isFolder: true,
+		  items: [
+			{
+			  name: "assets",
+			  isFolder: true,
+			  items: [
+				{
+				  name: "folderStructure.js",
+				  isFolder: false
+				}
+			  ]
+			},
+			{
+			  name: "components",
+			  isFolder: true,
+			  items: [
+				{
+				  name: "Folder.js",
+				  isFolder: false
+				}
+			  ]
+			},
+			{
+			  name: "App.js",
+			  isFolder: false
+			},
+			{
+			  name: "index.js",
+			  isFolder: false
+			},
+			{
+			  name: "styles.css",
+			  isFolder: false
+			}
+		  ]
+		},
+		{
+		  name: "package.json",
+		  isFolder: false
+		}
+	  ]
+	};
+	
+Folder.js
+	import { useState } from "react";
+
+	function Folder(props) {
+	  const [openStr, setOpenStr] = useState(false);
+	  const name = props.data.name;
+	  function openFolderHandler() {
+		if (props.data.isFolder) setOpenStr((prevState) => !prevState);
+	  }
+	  return (
+		<div>
+		  <p onClick={openFolderHandler}>{name}</p>
+		  {openStr && (
+			<div style={{ paddingLeft: "20px" }}>
+			  {props.data.items.map((item, index) => (
+				<Folder key={index} data={item} />
+			  ))}
+			</div>
+		  )}
+		</div>
+	  );
+	}
+
+	export default Folder;
+
+App.js
+	import "./styles.css";
+	import Folder from "./components/Folder";
+	import folderStructure from "./assets/folderStructure";
+
+	export default function App() {
+	  return (
+		<div className="App">
+		  <Folder data={folderStructure} />
+		</div>
+	  );
+	}
+
+
+
 *features of react
 *difference between virtual dom and real dom
 *what is babel
@@ -470,8 +643,6 @@ bcz we cannot directly reverse string, but we can do in case of array
 *difference between var, let and const
 *project showcase and questions on it
 *explain call, apply & bind methods
-*infinite currying
-*difference between local storage, session storage and cookies
 *Implement promise.all
 *Implement debouncing (with arguments)
 *Implement throttling
