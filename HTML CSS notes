@@ -148,7 +148,8 @@ one tags, its not a good practice (though we can give if we want, we won't get a
 &gt; is used for Greater Than angle bracket bcz some browsers will not be able to read normal angle bracket as they indicate start or end of 
 any tag.
 &gt = &#62, &lt = &#60
-These are known as HTML entities. You can search them, there are many.
+These are known as HTML entities. You can search them, there are many. As these characters are reserved in html, therefore we use html entities
+in place of them
 
 *if one wants to add a code snipet in the dom then he can use <code> tag to write his code in this tag which will look like a code in dom.
 
@@ -918,3 +919,17 @@ we can directly use that file in our code url attribute in case of image file
 
 
 *to generate favicon for different devices (apple, android, various sizes) visit: https://www.favicon-generator.org/
+
+
+*There is options available in img tag like draggable attribute, ondrop event which will hit when user will drop the image after drag, 
+ondragover event which will hit when user will start dragging the image.
+
+
+*HSL stands for Hue, Saturation, and Lightness respectively. This format uses the cylindrical coordinate system.
+
+Hue: Hue is the degree of the color wheel. Its value lies between 0 to 360 where 0 represents red, 120 represents green and 240 represents a blue color.
+Saturation: It takes a percentage value, where 100% represents completely saturated, while 0% represents completely unsaturated (gray).
+Lightness: It takes a percentage value, where 100% represents white, while 0% represents black.
+h1 {
+    color:hsl(H, S, L);
+}

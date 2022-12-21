@@ -414,11 +414,14 @@ not the current value.
 We can't even use anonymous function inside state update fn as it gives the previous state of the same variable, not the other variable.
 
 const [state, dispatchFn] = useReducer(reducerFn, initialState, initFn);
-where state is the current state of the variables whose state we are managing
-initialState is the initial state of the variables which could be set passing/using object
-dispatchFn will be called by passing the updated state value to hit the reducerFn which will then update the state
-reducerFn will have two parameters (state, action) among which 'action' will contain the updated state passed to dispatchFn and state will contain
-the last state
+where state is the current state of the variables whose state we are managing, we can use this state in our component.
+initialState is the initial state/value of the variables which could be set passing/using object
+dispatchFn will be called(on any event) by passing the action object(which contains 'type' of action and updated state) which hits the reducerFn
+which will then update the state.
+reducerFn will have two parameters (state, action) among which 'action' will contain the updated state(in the key matching to our initial state) 
+and the action which needs to be performed(in 'type' key) passed from dispatchFn and state(which will be passed to it automatically by react) 
+will contain the last state which we can use to update the state. It returns the updated state. We generally keep reducer function outside our
+component function.
 
 
 *React context: helps us to transfer the required data directly to the component which need it, instead of going through a long prop chain of 
@@ -523,12 +526,15 @@ in case of non-primitive value passed.
 If we want to prevent the re-evaluation of the child component in the case of static function then we will have to use hook useCallback at the time of
 initialization of our function. like const onClickHandler = useCallback(()=>{//code}, [changingDependentVariable]);
 useCallback also needs dependencies in the form of array just like useEffect as a second argument
-This useCallback will make sure that whenever the parent component is getting re-evaluated then react uses the last used position for the function passed in it if dependent variable is not changed.
+This useCallback will make sure that whenever the parent component is getting re-evaluated then react uses the last used position for the 
+function passed in it if dependent variable is not changed.
+More about useCallback: https://www.w3schools.com/react/react_usecallback.asp
 
 For other non-primitive values (array/object), we use useMemo hook, it will also require function in the first argument which should return the value for that non-primitive
 variable and second parameter will be dependent variables. We can use useMemo to put the high performance affecting tasks at the time of initialization of the variable.
 Like if any particular prop is getting changed in the child component but we don't want any other high performance affecting initialization to run again and again then
 we can put it into useMemo hook. useMemo is rarely used/required though.
+More about useMemo: https://www.w3schools.com/react/react_usememo.asp
 
 
 *If we have multiple state updates in a single function, in that case react will not re-evaluate the component for every state change, instead react will batch all the
@@ -644,6 +650,42 @@ When we call custom hook into our component function, then states/effects used i
 Therefore the number of times we call our custom hooks in different component functions, same number of times states will be created for every
 component. Just logic is shared amoung components not the state.
 
+eg.
+Following is the code of our custom hook file
+import { useState, useEffect } from "react";
+
+const useFetch = (url) => {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => setData(data));
+  }, [url]);
+
+  return [data];
+};
+
+export default useFetch;
+//it will get the url from the component which wants to use this custom hook
+
+Following is the component function using above custom hook to perform api call
+import useFetch from "./useFetch";
+
+const Home = () => {
+  const [data] = useFetch("https://jsonplaceholder.typicode.com/todos");
+
+  return (
+    <>
+      {data &&
+        data.map((item) => {
+          return <p key={item.id}>{item.title}</p>;
+        })}
+    </>
+  );
+};
+export default Home;
+
 
 *If we don't apply prevent default method on submission of the form then browser sends our form to the server where the website is deployed as the default behaviour. But
 as we handle form differently now therefore we prevent that default behaviour.
@@ -667,9 +709,131 @@ function, reads description of that action which reducer function then performs 
 store. That's how state gets change in the central store. Then subscribing components got notified about the change so that they can update
 their UI.
 
+Basic Redux implementation:
 As redux is a library so to install redux: npm install redux
-To import redux: const redux = require('redux');
-const store = redux.createStore();
+To use it with react application, we install react-redux as well along with just redux.
+We pass the reducer function while creating the store, so that redux know which function will change the state.
+const store = redux.createStore(reducerFunctionName);
+reducer function takes the old state and the action to perform and then it returns new state. Reducer function should be a pure function which
+means for same state and action it should always produce same output state. Therefore we don't perform any http call in reducer or don't take
+anything from browser storage(eg. local storage) which could manipute output state for same input state and action.
+We will have to pass default state in reducer function bcz when store gets created then it calls the reducer function but in start we don't have
+any state, so it will take default state.
+const counterReducer = (state, action) => {
+	//logic which eventually returns new state
+}
+ALWAYS remember to return a new object from reducer function, if you will update the existing object and will return that object then redux 
+will not be able to identify that the state is being changed and therefore it will not subscribe the method and therefore your component will 
+not get reloaded.
+We can use redux with other Programmig languages as well, it is NOT restricted till react/javascript.
+In normal redux implementation(without react)
+In subscriber method we can use store.getState() which is present in redux store which will get the current state of the value after it was updated.
+We pass the subscriber method to store.subscribe(functionName); so that redux know which method to call once state gets changed.
+
+subscriber method will not be called until we dispatch any action.
+We can do that by store.dispatch({type: 'increment'}); here in dispatch method we pass action object which takes action name in type key
+which then calls reducer function and the action object is then passed into the reducer function, redux automatically passes the current state
+to reducer function at the time of dispatch
+
+Redux implementation with react:
+We will have to provide this redux to our react app, for that import { Provider } from 'react-redux';
+then we wrap our root component(<App/>) in between <Provider> <App/> </Provider> in index.js file
+We can provide redux to just nested components if we want, but then redux will be available only to those nested components and its child n child.
+To tell which store we want to provide, we have store prop in <Provider store={storeName}> in which we can pass our store name which we will import
+from our redux store file.
+
+In the component in which we want to use the redux state, we import { useSelector } from 'react-redux'; with the help of which we can extract
+the particular value of the state which is needed from redux store, we don't have to take/manage whole state, bcz in big applications, redux
+state will have multiple values whose state store will be managing.
+we can extract a particular value from state by:
+const counter = useSelector(state => state.counter);
+useSelector will automatically setup the subscription, therefore whenever counter will get increased then our component will get loaded and we
+will get the latest counter value. If we ever remove the component then react-redux will automatically remove the subscription for that component
+as well.
+To dispatch an action we import useDispatch hook like useSelector which returns us a function, which we can call which will then dispatch an
+action against our redux store.
+const dispatch = useDispatch();
+While calling we will have to pass an action object like dispatch({type: 'increment'});
+
+If we want to pass any value to our reducer function then we can pass it within action object with any key of our choice and then we can use
+that value in the reducer function of redux.
+
+Redux implementation with react redux toolkit:
+*To make redux implementation easier, we can use redux toolkit provided by react. normal redux createStore is now depricated.
+To install this run npm install @reduxjs/toolkit, with this we don't need to install redux seperately, it automatically provides redux with it
+it provides a function createSlice which stores pieces of the global unrelated states.
+it takes an object which contains name of that slice, initialState of the state slice, reducers which again has value as object containing
+reducer methods for every action which takes state as a parameter, it doesn't need action as redux will call a particular reducer function on
+particular action.
+In these methods we can mutate the state(update the passed state) unlike normal reducer function. In this case as well, react internally creates
+a new state from our updated state and then gives it to redux.
+In the case where we want any argument value then we can add action parameter as well along with state in reducer method.
+To create store, we use configureStore which takes an configuration object which contains reducer key and value of which will be an object
+containing any number of keys of our choice but value of those keys should be our slice reducer function(sliceName.reducer).
+With that our method of extracting the state in the components will change a bit. In useSelector(state=>state.keyName.propertyName); where 
+keyName is the key which we have provided in configureStore to our slice reducer function.
+Instead of passing the object of various slice reducer fns we can pass just one reducer function as well, as a value of key 'reducer'.
+configureStore eventually adds up all of the slice reducer fns to make global reducer function internally.
+
+sliceName.actions.reducerMethodName() returns us an action object which contains auto generated type which binds our method with that type by
+react. Therefore we don't have to create our own unique action type.
+We can export sliceName.actions along with store, so that we can use that action in our component to call required reducer method on any event/action.
+
+In our component we can then import our action, and inside dispatch we can pass the action.methodName() which will send action object itself.
+Which we did manually in the starting.
+If there is some additional parameter to pass then we can pass normally as an argument to that method call (dispatch(actionName.methodName(arguments)))
+react will store that passed argument as a value to the key 'payload' which we can use in our reducer method inside slice to manipulate the state
+
+In short steps to add redux:
+0. npm i react-redux @reduxjs/toolkit
+1. create file of a slice, in that file createSlice and pass object inside that containing name, initialState, reducers. Where name contains
+name of your slice, initialState contains initial state of your slice, reducers contain another object containing reducer functions.
+Reducer functions will take state(mandatory) and action(optional) as a parameter and will update state inside it.
+2. export that slice.
+3. Create another file for your redux store. In that configureStore inside which pass object containing key as reducer which again takes up an
+object in which we can keep anything as key and value of which will be sliceName.reducer (we will import sliceName from our slice file)
+4. export store and our stateAction(which will be equal to sliceName.actions)
+5. cover <App/> in index.js with <Provider store={store}><App/></Provider> where store is a mandatory prop and value of which will be our store
+which we will import from our store file.
+6. Inside the component, with useSelector(state=>state.keyName.stateKey); get the value of the state which we want in our component. Where
+keyName is the key which we have defined inside reducer while configuring store to our sliceName.reducer, stateKey is the value inside our
+slice state.
+7. get the dispatch function with useDispatch inside the component where we want to dispatch any action(want to perform any change into the state)
+and that function we can call on any event passing the action object like
+const dispatch = useDispatch();
+//inside event
+dispatch(cartActions.reducerFunction()); where we can import cartActions(sliceActionName) from store file and reducerFunction will be the fn
+inside which we are updating the state in slice file while creating slice.
+
+
+***Always remember to import something with { name } which is not exported default. Otherwise it will not work and you will not be able to
+understand error as well.
+
+Now you might think that if reducers are pure functions then how can we perform side-effects/async tasks/api calls with redux.
+
+One way is by using useEffect, Basically the states which redux must be storing, we will want that to be stored permanently (eg. storing 
+cart details etc) so we can do that by tracking the state changes through useEffect in any component, and inside useEffect we can perform api 
+call to store that state(or any value from the state) So that our redux and api call can be in sync.
+
+Thunk: A function that delays an action until something else is completed.
+Another way of performing asynchronous task with redux is by using action object creator function(only benefit of using this approach is that
+our component will stay lean, otherwise work is just the same):
+A action object creator function that does not return the action object itself but returns another function which eventually returns the action 
+object which will then passed to reducer function and it will update our redux store.
+We can put these action object creator function inside the state slice file or create another file for them, even though we will be running 
+async task inside the state slice file still it is outside our reducer function therefore it will remain pure function.
+
+
+*Another benefit of using reducers can be, it decreases the api calls, for eg. in case of sending items to cart, we are storing cart state in
+redux store and sending cart data in db as well through api call. In normal scenario, when we will update cart in db then we will call get api
+as well after put/post api to fetch the latest/updated state of the cart. Whereas in case of redux we are storing cart data in redux store as
+well, so we will get latest/updated cart data from redux store and it will update it in other components as well if used anywhere else.
+We can do get api call only when user reloads the application because if we don't do that then our redux store will become empty. So when user
+reloads the application we can fetch data from db and update redux store which will then reflect in all our components.
+	
+
+*For debugging purpose, we can use redux devtools google extension which helps us to know redux store state at a particular moment, which makes
+debugging very easy.
 
 
 *Routing is necessary in the case when user wants to share any url to some specific function of that website, if our application will not have routing, user will end up

@@ -67,6 +67,17 @@ In case of i being declared with 'let', let being block scope, it will send its 
 2
 
 
+*Interviewer might ask you to print different values of i while variable being 'var' itself
+we can do that with the help of closures
+
+    for(var i=0; i<5; i++){
+        function closure(i){
+            setTimeout(()=>{console.log(i)}, 1000);
+        }
+        closure(i);
+    }
+
+
 *Function composition is an approach where the result of one function is passed on to the next function, which is passed to 
 another until the final function is executed for the final result.
 compose function is a predefined function in some libraries which returns a function which we can use to perform multiple action at once
@@ -635,14 +646,778 @@ App.js
 
 
 *features of react
+*var x = 10;
+let x = 100; //will throw error, we can define global variables again and again but can't define them in seperate area(where let & const reside) again
+
+
+*delete keyword is used to delete just the object properties, it doesn't delete local variables (it won't do any effect no error nothing)
+OUTPUT
+const func = (function(a){
+		delete a;
+		return a;
+		})(5);
+console.log(func);//5
+
+
+*OUTPUT
+const a = {};
+const b = { key: 'b' };
+const c = { key: 'c' };
+
+a[b] = 10; //this will internally as a["[object Object]"] = 10; as js converts b into string with .toString() and then stores value against that
+a[c] = 20;
+console.log(a[b]); //20
+
+
+*OUTPUT
+const obj = {
+	key1: 'a',
+	key2: 'b',
+	key3: 'c'
+};
+const data = JSON.stringify(obj, ['key2', 'key3']); //it will only stringify the passed keys as a second argument in array
+//if we pass any unidentified key then it will just ignore that new key and if we will not pass keys in array then it will ignore the second 
+//parameter and will just stringify whole object
+console.log(data); //{'key2': 'b', 'key3': 'c'} 
+
+
+*'this' keyword inside object points to the window object whereas 'this' keyword inside normal function points to the object
+
+
+*Shallow copy is when we just copy the reference, so if we change anything in new object/array then original object/array also gets changed
+whereas in deep copy whole same new object/array in created in the memory
+
+
+*Que. What is HTML5? What are some of its new features that were not present in HTML?
+Ans. HTML5 is the latest version of the Hypertext Markup Language. Some of the new features of HTML5 are:
+
+It has multimedia support.
+It has the capabilities to store offline data using SQL databases and cache.
+JS can be run in background.
+It also allows users to draw various shapes like circle, rectangle etc.
+Includes new semantic tags and form control tags.
+
+
+*New input types in HTML5 for forms: date, datetime, datetime-local, month, time, week, email, number, url
+
+
+*Ways to optimise website asset loading time: CDN Hosting, File compression, File concatenation, minify scripts, parallel downloads, lazy loading.
+
+
+*Local Storage: 10 mb, HTML 5 accessible, any window/tab, never expire, only strings supported, no auto expiration, browser is the storage location
+			   not sent with requests, editable or blockable by users.
+			   
+Cookie Storage: 4 kb, HTML 4 & 5 accessible, any window/tab, expiration manually set and till browser is open, only strings supported, browser and 
+			    server is the storage location, sent with requests, editable or blockable by users, auto expiration option avaiable
+				
+Session Storage: 5 mb, HTML 5 accessible, same tab accessible, expiration on tab close, auto expiration option avaiable, only strings supported, 
+				 browser is the storage location, not sent with requests, editable or blockable by users.
+
+
+*An image map is defined by the <map> tag. Using this the image map tag, we can linking the different web pages using a single image. We can
+ add one or more clickable areas in a single image using <area> tags.
+ 
+ 
+*
+Que. What is URL Encoding? Why are URLs encoded in HTML?
+Ans. URL Encoding is the process of encoding non-ASCII characters in URLs to a format that is universally accepted by web browsers. URLs are 
+sent over the Internet using the ASCII character set. If a URL contains characters outside the ASCII set, the URL has to be converted. 
+URL is encoded in HTML as it converts non-ASCII characters into a format that can be transmitted over the web. The URL encoding replaces 
+non-ASCII characters with a “%” followed by hexadecimal digits.
+
+
+*The <figure> tag identifies self-contained content related to the main content.
+<figure>
+    <img src=”pancakes.jpg” alt=”Blueberry Pancakes”>
+    <figcaption>A Stack of Blueberry Pancakes</figcaption>
+</figure>
+
+*The <datalist> tag provides autocomplete feature in the HTML files.
+<label for=”car”>Choose your car from the list:</label>
+<input list=”cars” name=”car” id=”car”>
+<datalist id=”cars”>
+  <option value=”Honda”>
+  <option value=”Hyundai”>
+  <option value=”Maruti”>
+  <option value=”Audi”>
+  <option value=”BMW”>
+</datalist>
+
+
+*Inline CSS has the highest priority, then comes Internal/Embedded followed by External CSS which has the least priority.
+
+
+*Inline-block: This feature uses both properties: block and inline. So, this property aligns the div inline but the difference is it can edit 
+the height and the width of the block. Basically, this will align the div both in the block and inline fashion.
+
+
+*Features/advantages of react
+It is based on components with the help of which we can achieve seperation of concern.
+It increases the application's performance with the help of virtual dom.
+It can be used on client and server side as well. Server side with the help of it's framework Next.js
+Because of JSX code readibility increases.
+
+
+*Disadvantages of react:
+It is just a library not a full blown framework like angular which has more features.
+It can become difficult to understand bcz of inline templates(JSX)
+
+
+*Can browser read JSX directly?
+No, browser can only read JS object and JSX is not a JS object. Therefore react converts JSX into JS object internally and then gives it to
+browser.
+
+
+*What is state in react?
+State is an object which contains data about the component. Whenever component state changes the component re-renders. We can update state
+of the component with the help of useState
+
+
+*Difference between props & states:
+props are read only whereas state can be changes.
+props can be accessed by the child component whereas state of the parent component can't be accessed by child component.
+Stateless component can have props whereas stateless component cannot have state.
+
+
+*What are different phases of react component's lifecycle?
+Initial rendering phase, updating phase, unmounting phase.
+1. componentWillMount()
+2. componentDidMount()
+3. componentWillReceiveProps()
+4. shouldComponentUpdate()
+5. componentWillUpdate()
+6. componentDidUpdate()
+7. componentWillUnmount()
+
+
+*shallow copy copies the object/array upar upar se, not properly. It copies reference of the object/array to the new variable, therefore when
+new variable changes the value in it's object/array then original object/array value will also gets changed.
+Whereas in deep copy, object/array values are copied in new memory location and new variable points to that new memory location.
+
+
+*parameters of map fn: array.map(function(currentValue, index, arr), thisValue) 
+
+
+*position values:
+Static: not affected by tblr(top, below, left, right) properties/values.
+Relative: tblr values cause element to move from its normal position.
+Absolute: positioned relative to its parent element that is positioned relative.
+Fixed: positioned relative to the viewport. Keeps same position even after scrolling.
+Sticky: positioned based on scroll position. Position can be set when scrolled like the navbar.
+
+
+*useCallback is a hook that will return a memoized version of the callback function that only changes if one of the dependencies has changed.
+
+
+*How do we implement componentdidunmount in functional component
+useEffect(() => { 
+   document.addEventListener('click', handleClick);
+
+   return function cleanup () {
+     document.removeEventListener('click', handleClick);
+   }
+}, [])
+Here we return a cleanup function with the removing logic of our event. As per react hooks rule whenever an effect received a return function 
+it runs only at the time of cleanup of the component.
+
+
+*A React component is considered pure if it renders the same output for the same state and props.
+
+
+*a higher-order component is a component function that takes a component and returns a new component. With HOC we can share the component logic
+within multiple components. If a component (logic) is required in more than one other components then we can pass that component to HOC.
+
+
+*What is strict mode in react?
+It is a functionality provided by react which helps us to write better code by highlighting potential problems in an application.
+For it to implement, we can wrap our components or JSX inside <React.StrictModeS>JSX logic/components</React.StrictModeS>
+so components inside these will only be covered by strict mode.
+
+
+*React Hooks are simple JavaScript functions that we can use to isolate the reusable part from a functional component.
+
+
+*Pangram: is a sentence which contains ALL the alphabets of english from A-Z every character at least once.
+
+
+*Object manipulation question:
+From given JSON array of objects, return array of Menu names used
+const apiResponse = [
+    {
+        name: "Menu 1",
+        link: "google.com",
+        subItems: [
+            {
+                name: "Menu 2",
+                link: "facebook.com"
+            }
+        ]
+    },
+    {
+        name: "Menu 3",
+        link: "gfg.com",
+        subItems: [
+            {
+                name: "Menu 4",
+                link: "maps.com",
+                subItems: [
+                    {
+                        name: "Menu 5",
+                        link: "Google.com"
+                    },
+                    {
+                        name: "Menu 6",
+                        link: "wiki.org"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        name: "Menu 7",
+        link: "twitter.com"
+    }
+]
+
+function getItemsForObject(resultArr, obj){
+    resultArr = [...resultArr, obj.name];
+    obj.subItems?.map((item)=>{
+        resultArr = [...getItemsForObject(resultArr, item)];//as we don't know how many nested objects can be there that's why recursion
+    });
+    return resultArr;
+}
+
+const resultArr = apiResponse.reduce((resultArrTemp, arrElement)=>{
+    resultArrTemp = [ ...getItemsForObject(resultArrTemp, arrElement)];
+    return resultArrTemp;
+}, []);
+
+console.log(resultArr);// ['Menu 1', 'Menu 2', 'Menu 3', 'Menu 4', 'Menu 5', 'Menu 6', 'Menu 7']
+
+
+*IIFE: Imedietly invoked function expression
+const ans = ((value)=>value*value)(5); //const ans = IIFE
+console.log(ans); //25
+
+
+*Function hoisting
+
+functionName(); //I am called
+
+functionName(){
+	console.log("I am called");
+}
+
+
+//in case of function expression
+functionName(); //Error: functionName is not a function bcz at this line, functionName = undefined
+
+var functionName = () => {
+	console.log("I am called");
+}
+
+functionDeclaredWithLetAndConst(); //Error: Cannot access functionDeclaredWithLetAndConst before initialization bcz we can't access let or 
+//const variables before their initialization
+
+let functionDeclaredWithLetAndConst = () => {
+	console.log("I am called");
+}
+
+
+*arguments
+//we don't even have to add parameter for arguments, function declaration/definition will automatically take it in 'arguments' variable
+function f(){
+	console.log(arguments); //[1, 3, 2]
+}
+
+f(1, 3, 2);
+//but we can't do the same thing in arrow functions, it will give error as arguments not defined
+//we can do it in normal function expression but not in case of arrow functions
+
+
+*if there is nested objects, so 'this' used inside the nested object will point to that nested object, so if we will access any variable with 
+'this' keyword then JS will search for that variable only inside the nested object, not inside outer object.
+
+IMPORTANT
+*let user = {
+	name: "prateek",
+	age: 24,
+	getDetails(){
+		const nestedArrowFunction = () => { console.log(this.name) };
+		nestedArrowFunction();
+	}
+}
+user.getDetails(); //prateek
+bcz arrow function initializes this with it's parent this variable, so in above case, parent is getDetails() inside which 'this' points to
+object user so arrow function inside getDetails() will also point it's 'this' to object user
+
+In the case of arrow function directly inside an object, it's parent becomes the global scope(if object is declared globally, otherwise the 
+scope in which object is declared) as object doesn't forms a scope with it's {} and in global scope this = window object
+So when arrow function is directly inside an object then 'this' inside that arrow function points to window object.
+
+
+*const obj = {
+    name: "Prateek",
+    getName(){
+        const name = "Prateek Agarwal";
+        console.log(this.name);
+    }
+}
+obj.getName(); //Prateek
+
+//'this' used inside the normal function will either point to object it is declared in or will point to window object if declared outside object
+//even inside nested function, 'this' will point to window object
+
+
+*OUTPUT
+const obj = {
+    ref: this
+}
+
+console.log(obj.ref); //window object
+//therefore only normal function inside an object points to that object, otherwise 'this' everywhere else inside an object will point to window object
+
+
+*OUTPUT
+const obj = {
+	firstName: "Prateek",
+	getName(){
+		console.log(this.firstName);
+	}
+}
+setTimeout(obj.getName, 1000); //undefined
+
+//because, getName will take it's scope and it's lexical scope with it as a closure and as object doesn't form a scope so it will take window
+//object as it's lexical scope and firstName is not defined in window object therefore it logged undefined
+
+
+*whereas
+const obj = {
+	firstName: "Prateek",
+	getName(){
+		console.log(this.firstName);
+	}
+}
+setTimeout(function(){
+				obj.getName(); //Prateek
+			}, 1000);
+			
+//in this case, function will form a scope and firstName will be inside it therefore getName will point to that scope
+
+*function fun(){
+	console.log("callback");
+}
+setTimeout(fun(), 1000); //callback
+setTimeout(fun, 1000); //callback
+
+
+*If you are asked to take value from the user, you can use prompt
+let a = prompt("a= ", 0); //0 will be it's default value
+
+
+*OUTPUT
+var length = 4;
+function callback(){
+	console.log(this.length);
+}
+
+const obj = {
+	length: 5,
+	method(fn) {
+		fn();
+	},
+	method2(){
+		arguments[0]();
+	}
+}
+
+obj.method(callback); //4 bcz callback fn will be sent with it's lexical scope, it's same as nested functions where nested function points to window object
+
+obj.method2(callback, 2); //2 bcz callback function will be inside an array arguments, in that case this will point to array object and inside
+array prototype there is length property which tells the length of the array (which is 2 in this case)
+
+
 *difference between virtual dom and real dom
+A virtual DOM object is a representation of the original DOM object. 
+Whenever any modifications happen in the web application, the entire UI is re-rendered in virtual DOM representation. 
+Then it checks the difference between the previous DOM representation and new DOM. 
+Once it has done, the real DOM will update only the things that have actually changed. 
+This makes the application faster, and there is no wastage of memory.
+Whereas if we will directly update the real dom, it will re-render whole real dom which will be very expensive for the performance.
+
+
 *what is babel
+babel is a transpiler which translates latest JS code to the version which older browser versions can also understand.
+
+transpiler converts the source code into another source code whereas compiler converts the source code into machine code(which machine can understand)
+
+// sample new version javascript code
+const fun = (x) => {x*2};
+
+after transpiling through babel it becomes
+var fun = function fun(x) {
+  x * 2;
+};
+
+
 *difference between map and forEach
+map returns a new array whereas forEach returns undefined(even if we return something explictly), both map and forEach doesn't iterate on empty elements
+
+
 *difference between null and undefined
-*explain event delegation
+null can be assigned to a variable indicating that it doesn't point to any object, we generally don't assign undefined to any variable(though
+we can do it), undefined means that a variable has been declared but has not yet been assigned a value.
+typeof null is object whereas typeof undefined is undefined (it is a type itself)
+null is converted to 0 when performing primitive operations whereas undefined is converted to NAN.
+2 + null = 2
+2 + undefined = NAN
+
+
+*What is event loop
+JS has a modal based on event loop which takes out tasks from priority queue and callback queue and puts on top of callstack whenever callstack
+gets empty, so that callstack can execute those tasks.
+
+
+*What are ES6 features
+2015 version of JS is known as ES6, some of it's features are
+let keyword, const keyword, arrow functions, spread operator, rest operator, promises, multiline strings, 
+default parameters 
+	eg. function func(length = 5, height = 10),
+template literals 
+	eg. let name = `My name is ${firstName}`;
+
+
+*Explain hoisting in JS
+Hoisting is the process in which it appears that interpreter has moved the variable and function declaration to the top of the scope. 
+Whereas normally it is not sent to top of the scope, JS goes through all the code once before executing and in that it declares variables and
+functions bcz of which we can use them in the code before it's actual declaration.
+
+
 *difference between var, let and const
-*project showcase and questions on it
-*explain call, apply & bind methods
+var: function scoped, it can be redeclared and updated, var variable can be used before it's declaration in the same scope(though it's value 
+	will be undefined) or we can say that var variable is hoisted
+let: block scope, it can't be redeclared but can be updated, let variable can not be used before it's declaration in the same scope, it is also
+	hoisted but stay in temporal dead zone until interpreter executes it's declaration/initialization
+const: block scope, it can neither be redeclared not be updated, const variable also behaves like let variable in hoisting.
+
+But var variable cannot be redeclared by same let/const variable in same scope.
+
+
+*explain event delegation
+Event delegation is the method of handling events in a better way, it is based upon event bubbling. It helps in the case when we have too
+many same events on divs. It says that instead of attaching event listeners to each and every child div, event listener should be attached
+to the parent div. We obviously get the event hit of the parent after it happens in the child in case of bubbling, so we can run main code
+on the event hit of the parent. We don't have to add a event to the child, bubbling will still hit event of it's parent.
+
+If we take an example of buttons inside a div:
+event.target = button element, event.target.tagName = 'BUTTON'
+const div = document.querySelector('div')
+
+div.addEventListener("click", (event) => {
+  if(event.target.tagName === 'BUTTON') {
+    console.log(event.target.innerText)
+  }
+})
+
+
+*Polyfill of arr.map
+const arr = [1, 2, 3];
+
+//note that here Array.prototype will be used not Function as .map is applied on array (.apply, .call, .bind is applied on functions) and fn
+//expression should be a normal function, not arrow function as inside arrow function this will not point to our array
+Array.prototype.myMap = function (callback) {
+    const arr = [];
+    for(let i=0; i<this.length; i++){
+        arr.push(callback(this[i], i, this)); //here we should pass all the parameters bcz we don't know how many parameters callback will be using
+    }
+    return arr;
+}
+
+const tripleArr = arr.myMap((element, i, arr)=>{return element*3;});
+console.log(tripleArr); //[3, 6, 9]
+
+
+*Polyfill of arr.filter
+const arr = [1, 2, 4, 5, 6];
+Array.prototype.myFilter = function(callback) {
+    const arr = [];
+    for(let i=0; i<this.length; i++){
+        if(callback(this[i], i, this)){ //here we should pass all the parameters bcz we don't know how many parameters callback will be using
+            arr.push(this[i]);
+        }
+    }
+    return arr;
+}
+
+const evenPolyfillArr = arr.myFilter((element)=>{
+    if(element%2 == 0){
+        return true;
+    }
+    return false;
+});
+
+console.log(evenPolyfillArr); //[2, 4, 6]
+
+
+*Polyfill for arr.reduce
+const arr = [1, 2, 3, 5];
+
+Array.prototype.myReduce = function(callback, initialValue){
+    let ans = initialValue === undefined ? this[0] : initialValue; //if user fails to give any initial value then .reduce takes first element of array as the initial value
+    for(let i=0; i<this.length; i++){
+        ans = callback(ans, this[i], i, this); //here we should pass all the parameters bcz we don't know how many parameters callback will be using
+    }
+    return ans;
+}
+
+const ansPolyfill = arr.myReduce((result, element)=>{
+    return result + element;
+}, 0);
+
+console.log(ansPolyfill);
+
+
+*If we wanna filter an array on the bases of some condition, then we should use arr.filter and not arr.map, map can also perform the required
+action but the elements which do not satisfy the condition will be filled with undefined in new array whereas in filter, new array will contain
+only the elements which satisfy the condition no undefined no empty
+
+
+*Polyfill of arr.find
+let arr = [10, 32, 17, 19];
+
+Array.prototype.myFind = function(cb){
+    for(let i=0; i<this.length; i++){
+        if(cb(this[i], i, this)){
+            return this[i];
+        }
+    }
+}
+
+const greaterThan15 = arr.myFind((element)=>{
+    if(element > 15){
+        return true;
+    }
+})
+
+console.log(greaterThan15); //32
+arr.find returns first array element which satisfies a particular condition, in implementation we check the condition and return true just like
+arr.filter, difference is that instead of array of elements it just returns the first element which satisfies the condition.
+
+
+*if block creates a block scope. Any let variable defined inside if block, can't be accessed outside it.
+
+
+*Question
+Implement a function which can give below output(in comments)
+var addSix = createBase(6);
+addSix(10); //16
+addSix(21); //27
+Answer: 
+function createBase(base){
+    return function(value){
+        console.log(base+value);
+    }
+}
+
+
+*Question
+Optimise the below implementation with the help of closures
+function find(index){
+    let a = [];
+
+    for(let i=0; i < 1000000; i++){
+        a[i] = i*i;
+    }
+	console.log(index);
+}
+
+console.time("6");
+closure(6);
+console.timeEnd("6");
+
+console.time("12");
+closure(12);
+console.timeEnd("12");
+
+Answer:
+function find(){
+    let a = [];
+
+    for(let i=0; i < 1000000; i++){
+        a[i] = i*i;
+    }
+	
+    return function(index){
+        console.log(a[index]);
+    }
+}
+
+const closure = find();
+console.time("6");
+closure(6);
+console.timeEnd("6");
+
+console.time("12");
+closure(12);
+console.timeEnd("12");
+
+
+*How will you create a private counter(or any hidden/private variable) using closure
+function incrementCounter(){
+    let count = 0;
+    function incrementCounterBy(value){
+        count += value;
+    }
+    function getCounter(){
+        return count;
+    }
+    return {
+        increaseBy: incrementCounterBy,
+        value: getCounter
+    }
+}
+
+const counter = incrementCounter();
+counter.increaseBy(6);
+counter.increaseBy(3);
+console.log(counter.value()); //9
+
+
+*What is Module Pattern?
+var Module = (function(){
+				function privateMethod(){
+					//code
+				}
+				
+				return {
+					publicMethod: function(){
+									//code which uses above privateMethod
+								}
+					}
+			})();
+Basically module pattern is the pattern of writing a piece of code which is not publically available.
+
+
+*Question: perform an activity only once
+function likeMyVideo(){
+    let count = 0;
+    return function(){
+        if(count == 0){
+            count++;
+            console.log("Hello");
+        }
+    }
+}
+
+const like = likeMyVideo();
+like();//Hello
+like();
+like();
+
+The above implementation will console the output only once no matter how many times we call that function.
+
+
+*How is one-way data binding in react different from two way data binding in Angular?
+Two-way data binding provides the ability to take the value of a property and display it on the view while also having an input to automatically 
+update the value in the model.
+In contrast, one way binding only binds the value of the model to the view and does not have an additional watcher to determine if the value 
+in the view has been changed by the user. We have to use events like onChange, onBlur to know the latest value.
+
+
+*Debouncing with arguments
+function debouncing(fn, ...args){
+    let timer;
+    return function(val){
+        clearTimeout(timer);
+        timer = setTimeout(()=>{fn(val, args)}, 500);
+    }
+}
+
+function apiCallFor(value, args){
+    console.log("API hit for", value);
+    console.log(args);
+}
+
+const efficientApiCallFor = debouncing(apiCallFor, "arg1", "arg2");
+
+const doc = document.getElementById('text').addEventListener("keyup", ()=>{efficientApiCallFor(event.target.value)});
+
+
+*OUTPUT
+const fruits = "Banana";
+const keys = Object.keys(fruits); //0,1,2,3,4,5
+
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+const keys = Object.keys(fruits); //0, 1, 2, 3
+
+
+*IMPORTANT
+const person = {name: "prateek", marks: 100};
+
+Object.defineProperty(person, 'age', {value: 24});
+person['country'] = 'India';
+console.log(person); // [name: 'prateek', marks: 100, country: 'India', age: 24]
+console.log(Object.keys(person)); // ['name', 'marks', 'country']
+console.log(person['age']); // 24
+
+
+*const str = "Hello How are you?";
+output should be: Hello Prateek How are you?
+ans: const ans = str.replace(/Hello/, 'Hello Prateek');
+console.log(ans); //Hello Prateek How are you?
+
+
+*Difference btw JS Object and Map
+Object is not directly iterable, it doesn't have size property, keys must be string whereas in Map key can be any datatype, in Ojbect keys are
+not well ordered
+
+
+*Difference between css and css3
+css is slow, with css we can't use styling like border-radius, with css3 we can use gradiant colors, css3 supports RGBA with which we can create
+any color. With css3 we can apply animations, text-shadow, Responsive design was not supported in CSS.
+
+
+*ECMAScript is a JavaScript standard intended to ensure the interoperability of web pages across different browsers. Like at least this much
+standard of JS every browser should support.
+
+
+*Redux Middleware allows you to intercept every action sent to the reducer so you can make changes to the action or cancel the action. 
+Middleware helps you with logging, error reporting.
+
+
+*function callme(...args){
+    console.log("I was called with", args);
+}
+
+setInterval(callme, 1000, "param1", "param2", "param3"); // I was called with ["param1", "param2", "param3"]
+
+
+*Polyfill of arr.slice (it returns new array from first parameter to second parameter -1
+Array.prototype.mySlice = function(startIndex, endIndex){
+    const tempArr = [];
+    startIndex = (startIndex === undefined) ? 0 : (startIndex < 0) ? this.length + startIndex : startIndex;
+    startIndex = (startIndex < 0) ? 0 : startIndex; //in the case when startIndex is -(more than length of array)
+    endIndex = (endIndex === undefined || endIndex > this.length) ? this.length : (endIndex < 0) ? this.length + endIndex : endIndex;
+    for(let i = startIndex; i<endIndex && i<this.length; i++){
+        tempArr.push(this[i]);
+    }
+    return tempArr;
+}
+
+*GET api call
+ React.useEffect(async ()=>{
+    const res = await fetch(url);
+    const data = await res.json();
+    setUserData(data);
+  }, []);
+  
+  
+
 *Implement promise.all
-*Implement debouncing (with arguments)
 *Implement throttling
+*project showcase and questions on it
+*Implement https://medium.com/geekculture/react-coding-interview-task-c9f21fb872e2 after revising context.
+*(advanced)What Is Redux Middleware? https://www.freecodecamp.org/news/what-is-redux-middleware-and-how-to-create-one-from-scratch/
+*for more CSS interview questions: https://www.geeksforgeeks.org/css-interview-questions-and-answers/
+you have read till 32
+For more CSS interview questions: https://www.naukri.com/learning/articles/css-interview-questions-and-answers/

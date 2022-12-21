@@ -784,14 +784,18 @@ console.log(a, b, c); //3 6 1
 
 *Destructuring object
 const student = {
-	name = "Raj",
+	name = { firstName: 'Prateek', lastName: 'Agarwal' },
 	city = "Noida",
 	rollno = 23,
 	sex = "male"
 };
 
 const {city, sex, name} = student; //here we have to give the exact key
-console.log(name, sex, city); //Raj male Noida
+console.log(name, sex, city); //{firstName: 'Prateek', lastName: 'Agarwal'} male Noida
+
+//if we want to extract just firstName from name key
+const {name: {firstName}} = student;
+console.log(firstName); //Prateek
 
 //but if we want to use another variable name then
 const {city: cityName, name: studentName} = student; //name is the key and studentName is the new variable name
@@ -904,6 +908,10 @@ const letters = new Set();
 // Add Values to the Set
 letters.add("a");
 
+Other functions which set has: delete(), clear(), has(), forEach(), size()
+letters instanceof Set;  // Returns true
+typeof letters; //object
+
 IMPORTANT
 *A Map holds key-value pairs where the keys can be any datatype. A Map remembers the original insertion order of the keys.
 
@@ -921,6 +929,9 @@ OR
 const fruits = new Map();
 // Set Map Values
 fruits.set("apples", 500);
+
+Other functions which Map has: get(), clear(), delete(), has(), forEach(), keys(), values(), size()
+fruits.forEach (function(value, key) {});
 
 
 *If you assign a value to a variable that has not been declared, it will automatically become a GLOBAL variable.
@@ -1297,6 +1308,9 @@ all the arguments passed starting from index 0 as follows:
 function myFun(...args){
 	//here we can use array args to get the arguments
 }
+//...args is known as rest parameter and we have to keep this rest parameter at the last of all the parameters
+//if spread operator is not in parameters then it is known as spread opearator and that is not necessarily be on last, it can be in middle or start
+eg. const arr1 = [...arr, 'banana'];
 
 *to remove spaces from left or right size of the string
 let str = "   Hello ";
@@ -1597,3 +1611,58 @@ promise.then(//callback fn)
 Object.seal(objName);
 but we can update the values of the existing keys
 it won't give error if we try to add any other key-value pair, it will just not add it to the object
+
+
+*to add dynamic key values into JS object
+const property = 'FullName';
+const value = 'Prateek Agarwal';
+const obj = {
+	[property]: value
+}
+
+console.log(obj); //{FullName: 'Prateek Agarwal'}
+
+
+*if we want to go through all the key value pairs of the object, when we don't know the keys/values
+we can use for in loop
+for(item in obj){
+	console.log(item); //will print keys one by one
+}
+
+
+*Function inside function: this concept is used multiple places in JS where we return function from a function.
+Some usecase includes 
+-when we want to pass any parameter on function call of onClick in react then we keep arrow function in onClick and from
+there we return that function call with parameter, so when click event will occur then it will call our arrow function which will then call
+our function
+-sum(2)(3)(5)() in infinite currying this concept is used
+-when we write optimised implementation of an existing function then we return a function from our optimised function which takes the main
+arguments and perform optimized action
+-and many more
+
+
+*to create array and fill it with some default value:
+const arr = new Array(26).fill(false);
+this will create an array of 26 length and will fill false in it.
+
+
+*to get numeric value of any character of a string:
+str.charCodeAt(3); 
+it will return unicode(numeric value) of the character present at index 3 of string str
+if character at index is 3 is 'a' then it will return 97
+
+
+*to get character at index i of string str
+str.chatAt(i)
+
+
+*arr.slice(startIndex, endIndex) this returns new array from startIndex to endIndex-1
+If no arguments are passed, it takes 0 as startIndex and array length as endIndex
+If any parameter is passed as negative then it takes from last.
+
+
+*arr.splice
+The splice() method adds and/or removes array elements.
+The splice() method overwrites the original array.
+arr.splice(index, howmany, item1, ....., itemX)
+It returns an array containing the removed items (if any).
