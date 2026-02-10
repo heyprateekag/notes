@@ -1,0 +1,318 @@
+*npm install -g typescript
+
+*TS is statically typed
+
+*Anything which we can do with JS, we can do with TS as well
+
+*Every JS code can be run as TS code, TS covers everything which JS provides and give some more features
+
+*Drawback with TS is, browsers don't understand TS code, so there is compilation involved in between and then TS code is converted into JS internally and then run on browsers. This process is called Transpilation.
+
+*Another drawback is, we need to be little more disciplined while coding in TS.
+
+*Touple is a fixed length array in which every element have a type.
+let user: [number, string] = [1, 'aman'];
+
+*enums are used to declare constants concisely
+enum Size { Small = 1, Medium, Large };
+let mySize: Size = Size.Medium;
+
+*Literal type
+type Quantity = 50 | 100;
+let quantity: Quantity = 100;
+//anything which has type Quantity, can only have any of two values (50 or 100)
+
+similarly in the case of variable as well
+let role: "admin" | "user" | 0;
+
+*to give type to children passed to your component,
+type ButtonProps = {
+	children: React.ReactNode;
+}
+export default function Button({children}: ButtonPorps {
+	return <button> {children} </button};
+	}
+
+*Union type: if we want to asign either of two types of values to a variable.
+let age: number | string;
+age = 15;
+age = '15 yrs';
+
+*return type void returns undefined whereas return type never doesn't return anything.
+
+*type of btn element:  e: React.MouseEvent<HTMLButtonElement>
+It can be used as: e.currentTarget.innerText
+
+*if a variable is not assigned a value at the time of declaration then it gets the type "any" and which means it can stores any value in it (basically normal functionality of javascript)
+so if you don't want that and don't have any value at the time of declaration then anyleast type assignment is suggested.
+let userName: string;
+in this case, you can't keep any value in userName
+
+
+*to define type of object
+let user: {
+	name: string,
+	age: number,
+	isAdmin: boolean,
+	id: string | number;
+}
+
+now I can't store any other type of object in the variable user, I need to give all the 4 values to those defined keys
+
+
+*to define the type of array
+let hobbies: string[]; //number[], boolean[], {name: string; age: number}[]
+
+
+*adding type to functions
+function add(a: number, b: {value: string}): string{
+	...function code
+}
+
+if we don't have anything to return then we can either not add anything or we can add void instead of string above
+
+
+*if we are passing a function to any function in its parameters
+function calculate(a: number, calcFn: (a: number, b: string)=>number){
+	...function code
+}
+
+now in this function calculate, we can only pass another function which is having two parameters(number and string) and which returns a number
+
+
+*sometimes these type can be really long which doesn't look good, to solve that we can define our own custom type and define our type 
+type AddFn = (a: number, b: string)=> number;
+
+now we can use this AddFn in above type definition
+function calculate(a: number, calcFn: AddFn){...}
+
+similarly I can define type of the object like this
+
+and we can also define type of object as interface
+eg.
+
+interface user {
+	name: string,
+	age: number,
+	isAdmin: boolean,
+}
+
+limitation of interface is that you can only use it to define object types and function types but can't store a union type
+one advantage of using interface is that we can use it as a contract with classes which will force your class to define the properties of interface with the keyword "implements"
+another advantage is that interface can be extendable
+eg, I can again in some other place of my code write
+interface user {
+	phone: number
+}
+now my interface also have another property
+
+
+*we can merge two custom types as well into a third with "&"
+type person = child & staff;
+similarly we can merge two interfaces as well
+interface person extends child, staff {}
+
+
+*Generic Type
+sometimes we don't know all the details of the data I will be storing or I want a generic type, but I know little structure, in that case I can define a type with Generic types
+type DataStorage<T> = {
+	storage: T,
+	add: (data: T) => void;
+}
+
+const textStorage: DataStorage<string> = {
+	storage: [],
+	add(data){
+		....code
+	}
+}
+
+const userStorage: DataStorage<User> = {
+	storage: [{...userProperties}, {...userProperties}],
+	add(user){
+		...code
+	}
+}
+
+similarly we can also use generic types in function declaration/definition
+function merge<T, U>(a: T, b: U){
+	return {
+		...a,
+		...b
+	};
+}
+
+const newUser({name: "sid"}, {age: 34});
+
+
+*If we want to keep any prop as optional then at the time of defining its type, we can define like
+type InfoBoxProps = {
+	mode: 'hint' | 'warning';
+	severity?: 'low' | 'medium' | 'high';
+}
+
+//with this ? it becomes optional, in that case it is not mandatory for the parent component to pass or we can give the default value as undefined like
+severity: 'low' | 'medium' | 'high' | undefined;
+
+
+*Discriminated Union: There could be a case where severity(above) is needed everytime with 'warning' mode and sometimes with 'hint' mode for example, in that case we will define two different type for each mode and will create a third type which will be union of those two props
+
+
+*ComponentPropsWithoutRef: In the case of creating a wrapper component of the html element, we can't define the type of all the possible props which can be passed from the parent component, therefore we use the below solution with our custom props
+
+type InputProps = {
+	id: string;
+	label: string;
+} & ComponentPropsWithoutRef<'input'>; //in the case of wrapping an <input/> element
+
+now we can declare our props with this type and with this we can put any props in the parent component and can spread the props in the wrapper component with ...props
+
+
+*Polymorphic component: A component which gets the element as props and acts as a container for that element and return the updated element according to the requirement.
+Example skeleton of a generic polymorphic component
+App.tsx
+import Button from './components/Button.tsx';
+import Container from './components/Container.tsx';
+function App(){
+	return(
+		<main>
+			<Container as={Button} onClick={()=>{}} type="button">Click Me</Container>
+		</main>
+	);
+}
+export default App;
+
+Container.tsx
+import {ReactNode, ElementType, ComponentPropsWithoutRef} from 'react';
+
+type ContainerProps<T extends ElementType> = {
+	as?: T;
+	children: ReactNode;
+} & ComponentPropsWithoutRef<T>;
+
+export default function Container<C extends ElementType>({as, children, ...props}: ContainerProps<C>){
+	const Component = as || 'div';
+	return(
+		<Component {...props} className="container">{children}</Component>
+	);
+}
+
+
+*forwardRef: is used when parent component needs to control the dom of the child componenent and where child component is basically a wrapper of the HTMLElement. For implementation, refer video 58 of the udemy course: React & Typescript - The Practical Guide
+Skeleton example:
+Input.tsx
+import { forwardRef, type ComponentPropsWithoutRef } from 'react';
+
+type InputProps = {
+  label: string;
+  id: string;
+} & ComponentPropsWithoutRef<'input'>;
+
+const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
+  { label, id, ...props },
+  ref
+) {
+  return (
+    <p>
+      <label htmlFor={id}>{label}</label>
+      <input id={id} {...props} ref={ref} />
+    </p>
+  );
+});
+
+export default Input;
+
+App.tsx
+import { useRef } from 'react';
+
+import Input from './components/Input.tsx';
+
+function App() {
+  const input = useRef<HTMLInputElement>(null);
+
+  return (
+    <main>
+      <Input label="Test" id="test" ref={input} />
+    </main>
+  );
+}
+
+export default App;
+
+
+*Creating a generic form container component? Video 59-60 of the udemy course: React & Typescript - The Practical Guide
+
+
+*Skeleton of the wrapper form component
+Form.tsx
+import {FormEvent, ComponentPropsWithoutRef, useRef, useImperativeHandle, forwardRef} from 'react';
+
+export type FormHandle = {
+  clear: () => void;
+};
+
+type FormProps = ComponentPropsWithoutRef<'form'> & {
+  onSave: (value: unknown) => void;
+};
+
+const Form = forwardRef<FormHandle, FormProps>(function Form({ onSave, children, ...otherProps }, ref) {
+  const form = useRef<HTMLFormElement>(null);
+
+  useImperativeHandle(ref, () => {
+    return {
+      clear() {
+        console.log('CLEARING');
+        form.current?.reset();
+      },
+    };
+  });
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const data = Object.fromEntries(formData);
+    onSave(data);
+  }
+
+  return (
+    <form onSubmit={handleSubmit} {...otherProps} ref={form}>
+      {children}
+    </form>
+  );
+});
+
+export default Form;
+
+App.tsx
+import { useRef } from 'react';
+import Input from './components/Input.tsx';
+import Form, { type FormHandle } from './components/Form.tsx';
+import Button from './components/Button.tsx';
+
+function App() {
+  const customForm = useRef<FormHandle>(null);
+
+  function handleSave(data: unknown) {
+    const extractedData = data as { name: string; age: string };
+    console.log(extractedData);
+    customForm.current?.clear();
+  }
+
+  return (
+    <main>
+      <Form onSave={handleSave} ref={customForm}>
+        <Input type="text" label="Name" id="name" />
+        <Input type="number" label="Age" id="age" />
+        <p>
+          <Button>Save</Button>
+        </p>
+      </Form>
+    </main>
+  );
+}
+
+export default App;
+
+
+*Type of input change event e: React.ChangeEvent<HTMLInputElement>

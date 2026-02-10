@@ -1,0 +1,168 @@
+Polyfill of arr.flat
+
+Array.prototype.myFlat = function (depth=1, output=[]){
+    // console.log("inside: ", arr);
+    // console.log("output: ", output);
+    if(depth <= 0){
+        for(const item of this){
+            output.push(item);
+        }
+        return output;
+    }
+    for(const item of this){
+        if(Array.isArray(item)){
+            item.myFlat(depth-1, output);
+        }else{
+            output.push(item);
+        }
+    }
+    return output;
+}
+const newArr = arr.myFlat(2);
+
+
+
+Polyfill of arr.filter
+
+Array.prototype.myFilter = function(fn){
+    let outputArr = [];
+    for(const item of this){
+        if(fn(item)){
+            outputArr.push(item);
+        }
+    }
+    return outputArr;
+}
+const newArr = arr.myFilter((element)=>{
+     if(element<18){
+        return false;
+    }
+    return true;
+});
+console.log(newArr);
+
+
+
+Polyfill of arr.reduce
+
+Array.prototype.myReduce = function(fn, initialValue){
+    let result = initialValue;
+    for(const item of this){
+        result = fn(result, item);
+    }
+    return result;
+}
+
+const result = arr.myReduce((total, ele)=>{
+    return total+ele;
+}, 0);
+
+
+
+Polyfill of arr.map
+
+Array.prototype.myMap = function(fn){
+    const newArr = [];
+    for(const item of this){
+        newArr.push(fn(item));
+    }
+    return newArr;
+}
+const newArr = arr.myMap((ele)=>{
+    return ele*10;
+});
+
+
+
+Polyfill of arr.forEach
+
+Array.prototype.myForEach = function(fn){
+    for(let i=0; i<this.length; i++){
+        fn(this[i], i);
+    }
+}
+
+arr.myForEach((ele, index)=>{
+    console.log(ele, index);
+});
+
+
+
+Polyfill of call
+
+Function.prototype.myCall = function(obj, ...args){
+    //as this contains the function of the person object, therefore we will first include that function in our object and then call it
+    obj.myFunction = this;
+    obj.myFunction(...args);
+}
+
+const person = {
+	firstName: "Prateek",
+    lastName: "Agarwal",
+    fullName: function(gender, rollno) {
+        console.log(this.firstName + " " + this.lastName + " " + gender + " " + rollno); //John Doel male 10
+    }
+}
+const person1 = {
+  firstName:"John",
+  lastName: "Doe"
+}
+
+person.fullName.myCall(person1, "male", 10);
+
+
+
+Polyfill of apply
+
+Function.prototype.myApply = function(obj, args){
+    //as 'this' contains the function of the person object, therefore we will first include that function in our object and then call it
+    obj.myFunction = this;
+    obj.myFunction(...args);
+}
+
+const person = {
+	firstName: "Prateek",
+    lastName: "Agarwal",
+    fullName: function(gender, rollno) {
+        console.log(this.firstName + " " + this.lastName + " " + gender + " " + rollno); //John Doel male 10
+    }
+}
+const person1 = {
+  firstName:"John",
+  lastName: "Doe"
+}
+
+person.fullName.myApply(person1, ["male", 10]);
+
+
+
+Polyfill of bind
+
+Function.prototype.myBind = function(obj){
+    obj.myFunction = this;
+    return function(){
+        obj.myFunction();
+        };
+}
+
+const person = {
+  firstName:"John",
+  lastName: "Doe",
+  fullName: function() {
+    console.log(this.firstName + " " + this.lastName);
+  }
+}
+
+const member = {
+  firstName:"Hege",
+  lastName: "Nilsen",
+}
+
+let fullName = person.fullName.myBind(member);
+fullName();
+
+
+
+Polyfill of promise.all
+Polyfill of debounce
+Polyfill of throttle

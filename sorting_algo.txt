@@ -1,0 +1,145 @@
+Go through the array, one value at a time.
+For each value, compare the value with the next value.
+If the value is higher than the next one, swap the values so that the highest value comes last.
+Go through the array as many times as there are values in the array.
+
+function bubbleSort(arr){
+    for(let i=arr.length; i>0; i--){
+        let updated = false;
+        for(let j=0; j<i; j++){
+            if(arr[j]>arr[j+1]){
+                let temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+                updated = true;
+            }
+        }
+        if(!updated){
+            //in case array is almost sorted and doesn't need multiple iterations to sort, with 1-2 iterations it will sort
+            break;
+        }
+    }
+}
+
+
+Go through the array to find the lowest value.
+Move the lowest value to the front of the unsorted part of the array.
+Go through the array again as many times as there are values in the array.
+
+function selectionSort(arr){
+
+	for(let i=0; i<arr.length; i++){
+    		let lowestElementIndex = i;
+    		for(let j=i+1; j<arr.length; j++){
+        		if(arr[j] < arr[lowestElementIndex]){
+            			lowestElementIndex = j;
+        		}
+    		}
+    		if(lowestElementIndex !== i){
+        	let temp = arr[i];
+        	arr[i] = arr[lowestElementIndex];
+        	arr[lowestElementIndex] = temp;
+    	}
+}
+
+
+Take the first value from the unsorted part of the array.
+Move the value into the correct place in the sorted part of the array.
+Go through the unsorted part of the array again as many times as there are values.
+
+function insertionSort(arr){
+	for(let i=0; i<arr.length; i++){
+		let j = i;
+		while(j >= 0 && arr[j+1] < arr[j]){
+			let temp = arr[j+1];
+			arr[j+1] = arr[j];
+			arr[j] = temp;
+			j--;
+		}
+	}
+}
+
+
+Divide the unsorted array into two sub-arrays, half the size of the original.
+Continue to divide the sub-arrays as long as the current piece of the array has more than one element.
+Merge two sub-arrays together by always putting the lowest value first.
+Keep merging until there are no sub-arrays left.
+
+function mergeTwoSortedArrays(arr1, arr2){
+    let arr3 = [];
+    let i = 0, j = 0;
+    while(i<arr1.length && j<arr2.length){
+        let temp;
+        if(arr1[i] < arr2[j]){
+            arr3.push(arr1[i]);
+            i++;
+        }else{
+            arr3.push(arr2[j]);
+            j++;
+        }
+    }
+    while(i<arr1.length){
+        arr3.push(arr1[i]);
+        i++;
+    }
+    while(j<arr2.length){
+        arr3.push(arr2[j]);
+        j++;
+    }
+    return arr3;
+}
+
+function mergeSort(arr){
+    if(arr.length == 1){
+        return arr;
+    }
+    let arr1 = mergeSort(arr.slice(0, arr.length/2));
+    let arr2 = mergeSort(arr.slice(arr.length/2));
+    return mergeTwoSortedArrays(arr1, arr2);
+}
+
+// console.log(mergeTwoSortedArrays([1, 3, 6, 19], [4, 2, 16, 67]));
+let sortedArray = mergeSort(arr);
+console.log(sortedArray);
+
+
+Initially, the low points to the first index and the high points to the last index(as the range is n i.e. the size of the array). 
+After that, we will get the index(where the pivot should be placed after sorting) while shifting the smaller elements on the left and the larger ones on the right using a partition() function discussed later.
+Now, this index can be called the partition index as it creates a partition between the left and the right unsorted subarrays.
+After placing the pivot in the partition index(within the partition() function specified), we need to call the function quickSort() for the left and the right subarray recursively. So, the range of the left subarray will be [low to (partition index - 1)] and the range of the right subarray will be [(partition index + 1) to high]. 
+This is how the recursion will continue until the range becomes 1.
+
+function quickSortHelper(arr, startIndex, endIndex){
+    if(startIndex >= endIndex){
+        return arr;
+    }
+    let i = startIndex+1;
+    let j = endIndex;
+    while(i !== j){
+        if(arr[i] > arr[startIndex]){
+            let temp = arr[j];
+            arr[j] = arr[i];
+            arr[i] = temp;
+            j--;
+        }else{
+            i++;
+        }
+    }
+    if(arr[i] > arr[startIndex]){
+        let temp = arr[i-1];
+        arr[i-1] = arr[startIndex];
+        arr[startIndex] = temp;
+    }else{
+        let temp = arr[i];
+        arr[i] = arr[startIndex];
+        arr[startIndex] = temp;
+    }
+    quickSortHelper(arr, startIndex, i-1);
+    quickSortHelper(arr, i, endIndex);
+    return arr;
+}
+
+function quickSort(arr){
+    let sortedArr = quickSortHelper(arr, 0, arr.length-1);
+    return sortedArr;
+}

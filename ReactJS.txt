@@ -1,5 +1,6 @@
 *to create a new starter basic react app: npx create-react-app your-app-name
 NOTE: it's npx not npm
+to have it with typescript: npx create-react-app your-app-name --template typescript
 
 
 *command to download dependencies(node_modules) of react app: npm install (though above command will automatically download 
@@ -33,6 +34,25 @@ that single page which gets loaded in the browser.
 
 *in index.js we mention that the above div should be our root of the application, whole application
 should get rendered there. and then we render our component in the root through JSX syntax.
+
+
+*we can write js code inside jsx within {} anywhere in our jsx
+eg: const HeadingComponent = () => {
+			let rollNumber = 22;
+			let name = Ajay;
+			return  <div>
+						<h1>Student Data</h1>
+						<h2>{rollNumber}</h2>
+						<h2>{name}</h2>
+					</div>
+					};
+					
+					
+*root.render(<element/>) takes an element, not a component(JS fn), if we want to pass a component then we need to send it like <ComponentName/>
+
+
+*we can render a component inside another by two ways 1. {Title()} 2. <Title></Title>
+as component is just a javascript function and inside {} we can have any js code, so basically we are calling that functional component
 
 
 *JSX expands as JavaScript XML which means XML code in JS.
@@ -1072,3 +1092,17 @@ IMPORTANT
 
 
 *Good guide to deploy react web app on through firebase: https://dev.to/guillerbr/deploy-reactjs-on-firebase-hosting-4mpj
+
+
+*benefit of using react with javascript is that js is more flexible as it doesn't restrict you to specify type of a variable but this flexibility can lead to unexpected bugs with large code base. Which therefore tells the benefit of using Typescript instead which provides type safety by helping catch errors early.
+
+
+*command to create react app with typescript: 
+ npm install -g typescript
+npx create-react-app my-app --template typescript --legacy-peer-deps
+
+
+*component composition: calling one or more component into another is known as component composition
+
+
+*useref vs usestate: with every rerender, value of useState gets initialised whereas useref retains its value and with every change in the value of useState, component gets re-rendered whereas that is not the case in useref

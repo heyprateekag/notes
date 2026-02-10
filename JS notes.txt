@@ -41,18 +41,19 @@ something on console, we need to put a bridge between script and console and con
 
 *Inline Script: In this we write JS code in html file itself, its only advantage is that we don't have to create another file for JS but we 
 should use external file for JS logic.
-write like this anywhere in your html file
+write like this in your html file, either in <head> or in <body>
 <script>
     console.log('Hello World! from inline code.');
 </script>
 
-To link js logic file to html file, we usually do that after the end of the <body> within <script src="script.js"></script>
+To link js logic file to html file, we usually do that in the end of the <body> within <script src="script.js"></script> before </body>
 we need to write the location of the file, if file is in same folder then only name of that file will work.
 If we will write code inside script tag along with .js file attached with html file then that code will not get executed, code which is in 
 that file will only get executed.
 scripts can be placed in the <body>, or in the <head> section of an HTML page, or in both. 
 
 Placing scripts at the bottom of the <body> element improves the display speed, because script interpretation slows down the display.
+Both JavaScript code blocks will be executed in the order they appear in the HTML document: the code in the <head> tag will run first, followed by the code in the <body> tag.
 
 
 *We generally use camelCase notation to name a variable in JS. Variable name cannot start with a number. It can only contain letters, numbers
@@ -350,7 +351,7 @@ words.shift() for removing from the front of the array
 *words.indexOf(element) //this will return 0-indexed position.
 if that element is not present then it will return -1
 words.includes(element) just returns true or false
-it do strict comparision
+it does strict comparision
 
 
 *initialise a object
@@ -598,7 +599,7 @@ function first() {
     function second() {
         var c = 'Hey!';
         console.log(a + b + c);//undefinedHi! Hey! a is undefined bcz we have defined a in this function therefore EC of this function
-		//contains a with value as undefined as we have initialised 'a' after this line, until which a will hold undefined in EC, so 
+		//contains 'a' with value as undefined as we have initialised 'a' after this line, until which a will hold undefined in EC, so 
 		//compiler found 'a' in inner scope itself but with a value undefined
         var a = 'Bhak';
     }
@@ -640,7 +641,7 @@ Change the properties of constant object
 
 * Exponentiation operator: 2**3 = 8
 
-
+IMPORTANT
 *If you add a number and a string, the result will be a string!
 let y = "4" + 5 + 2; //452
 JavaScript evaluates expressions from left to right.
@@ -700,7 +701,7 @@ IMPORTANT
 *curly braces in object creation doesn't creates a scope, its just the way by which we define object.
 
 
-*In this example, the code changes the content of its own element as eventlistner points this to the it's dom element
+*In this example, the code changes the content of its own element as eventlistner points 'this' to it's dom element
 <button onclick="this.innerHTML = Date()">The time is?</button>
 
 
@@ -708,7 +709,7 @@ IMPORTANT
 let text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 let length = text.length;
 
-
+IMPORTANT
 *Comparing two JavaScript objects always returns false.
 
 *let text = "HELLO WORLD";
@@ -720,8 +721,8 @@ let x = text[0]; //H
 *string methods: https://www.w3schools.com/js/js_string_methods.asp
 
 IMPORTANT
-*If we dont know how many arguments are gonna be passed into our function then we can use 'arguments' array in that function or can loop 
-through that array and it stores the arguments passed into that function in different index positions. But arguments keyword/array does not
+*If we dont know how many arguments are gonna be passed into our function then we can use 'arguments' array in that function and can loop 
+through that array as it stores the arguments passed into that function in different index positions. But arguments keyword/array does not
 exist in arrow functions.
 
 
@@ -946,7 +947,7 @@ function myFunction() {
 //but in strict mode this will throw error
 
 
-*With arrow functions the this keyword always represents the object that defined the arrow function.
+*With arrow functions the "this" keyword always represents the object that defined the arrow function.
 
 
 *class Car {
@@ -979,8 +980,8 @@ let firstname = name; //this is primitive type, here it will just copy the value
 	name: 'Prateek'
 }
 
-const another = person; //this is reference type, here it will copy reference of person object, therefore if we will change person object 
-then another object will also gets changed.
+const another = person; //this is reference type, here it will copy reference of person object, therefore if we will change "person" object 
+then "another" object will also gets changed.
 this acts the same for arrays
 
 but with spread operator, only properties will get copied not the whole object reference
@@ -1057,7 +1058,7 @@ of let and const.
 
 
 *block is also known as compound statement.
-block can be used to combine multiple statements in a place where JS expects a single statement. Eg. JS expects a single statement after if
+block can be used to combine multiple statements in a place where JS expects a single statement. Eg. JS expects a single statement after "if"
 but if we have multiple statements to write then we can add them in a block, basically in a curly braces which we usually do.
 
 block scope mnz what all variables and functions we can access inside that block.
@@ -1074,7 +1075,6 @@ let/const variable's boundry. This is known as illegal shadowing. One more reaso
 we can do that with var variable. 
 
 
-*but var can shadow let/const inside function scope. That is not illegal shadowing.
 *all the scope rules working for functions, works the same way for arrow functions.
 
 IMPORTANT
@@ -1251,11 +1251,13 @@ A function which is passed into that higher order function is known as callback 
 
 IMPORTANT
 *array.map returns transformed version of the array(on which map is called) by going through it's elements one by one, it doesn't change
-the elements of the array on which map is called
+the elements of the array on which map is called 
+eg, if you want to double all the elements of the array
 
 
 *array.filter returns array which is filtered from the array on which filter is called, on some filter condition, if the callback function
 returns true then the filtered array will contain that element of the original array otherwise not.
+eg, if you want to filter out even numbers of the array
 
 
 *array.reduce is used in the place where we want to use all the elements of an array and come up with a single answer eg. to find sum or max
@@ -1331,7 +1333,7 @@ let functionName = func.myBind(obj, "abc", "def");
 functionName("ghg"); //these arguments will go to args2
 
 
-*to get index of the element in which traversing it by .map:
+*to get index of the element while traversing it by .map:
 projects.map((project, index)=>{
 	//code which can use index
 	});
@@ -1342,6 +1344,8 @@ projects.map((project, index)=>{
 projects.forEach((project, index) => {
     //code which can access project and index
 });
+
+
 *Function Currying: is the method of converting function with multiple arguments to functions with single arguments. We can do that by two
 methods, one by .bind method and second method is through closures
 
@@ -1425,25 +1429,6 @@ const throttle = (fn, limit) => {
 }
 
 
-*async, defer are the boolean script attributes which are used in script tag to optimise the load of external script to the web page
-When you load a webpage, there are two things happening in your browser, 1. HTML parcing 2. Loading of the script(which again is divided into
-two steps one is fetching the script from network second is executing the script line by line)
-
-1. normal scripts: while html parcing is going on, browser encounters the script tag, html parcing will stop, browser will fetch the script
-and when scripts are fetched, browser will execute them, then after execution of the scripts browser will continue with the html parcing.
-
-2. scripts with async: while html parcing is going on, when browser encounters the script tag, browser will start fetching the scripts from
-server along with html parcing, when fetch will be completed, html parcing will stop and browser will execute the scripts, html parcing will
-continue once execution of the scripts is done.
-
-3. scripts with defer: while html parcing is going on, when browser will encounter the script tag, it will start fetching the scripts along
-with html parcing, once html parcing is completed then only browser will start the execution of those scripts.
-
-async attribute doesn't garentuee the sequence of the execution of the scripts, if we have multiple scripts and all have async attribute in
-it and mostly are interdependent but as async doesn't guarantee the sequence so our code might break
-but defer does guarantee the sequence, so we should use defer in above senario, in most of the cases defer is preferred
-
-
 *whenever client wants to do any post call to the server side then first a preflight call is made by the browser which is also known as
 options call, then server's responsibility is to verify that whether that api call is valid or not, if it is valid then server will set some
 additional http headers with which browser will know that the api call is valid and then browser will let client do the actual api call
@@ -1454,7 +1439,7 @@ But browser doesn't do this option/preflight call for every api call, it does th
 When we get CORS error then it is because server has not set those headers, if server sets them then we don't get CORS error
 CORS: Cross Origin Resource Sharing
 
-
+IMPORTANT
 *In cookies we can just store 4000 bytes of data but in session storage we can store 5 Mb of data, local storage is same as session storage
 it's just that local storage doesn't clears itself automatically unlike session storage even if we close the browser tab/browser/his system
 local storage won't get cleared for that origin(protocol(http),host(flipkart.in),port(8080)) for which it is set
@@ -1597,7 +1582,7 @@ if we will not handle/catch the error then it will give red color error in brows
 to our catch block and chain will break after that promise.then block.
 
 But if we don't want our chain to break, then we can apply .catch block in between of the chain as well. Wherever we will apply .catch method
-it will handle the error of the upper promise block/blocks. In that case even if error comes, it will process with the promise block/blocks
+it will handle the error of the upper promise block/blocks. In that case even if error comes, it will progress with the promise block/blocks
 ahead of it.
 eg.
 promise.then(//callback fn)
@@ -1666,3 +1651,22 @@ The splice() method adds and/or removes array elements.
 The splice() method overwrites the original array.
 arr.splice(index, howmany, item1, ....., itemX)
 It returns an array containing the removed items (if any).
+
+
+*Writing old fashioned code for syntax, is known as Transpilers
+eg. Transpiler for height = height ?? 100 is
+(height !== undefined && height !== null) ? height : 100
+
+Writing old fashioned code for functions, is known as Polyfill
+eg. polyfill for Math.trunc(n) is
+if (!Math.trunc) { // if no such function
+  // implement it
+  Math.trunc = function(number) {
+    // Math.ceil and Math.floor exist even in ancient JavaScript engines
+    return number < 0 ? Math.ceil(number) : Math.floor(number);
+  };
+}
+
+
+*add id to the element from js file
+employeeElement.setAttribute("id", emp.empID);

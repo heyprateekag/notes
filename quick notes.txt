@@ -1,0 +1,236 @@
+Premitiv data types in javscript: string, number, boolean, undefined, symbol, null
+where as non primitive types are object, functions, arrays
+Primitives data types are passed by value whereas non primitives data types are passed by reference
+
+1 + 2; // 3
+
+Other non-string, non-BigInt values are coerced to numbers:
+true + 1; // 2
+false + false; // 0
+
+Addition using BigInts
+1n + 2n; // 3n
+
+You cannot mix BigInt and number operands in addition.
+1n + 2; // TypeError: Cannot mix BigInt and other types, use explicit conversions
+2 + 1n; // TypeError: Cannot mix BigInt and other types, use explicit conversions
+"1" + 2n; // TypeError: Cannot mix BigInt and other types, use explicit conversions
+
+To do addition with a BigInt and a non-BigInt, convert either operand:
+1n + BigInt(2); // 3n
+Number(1n) + 2; // 3
+
+If one of the operands is a string, the other is converted to a string and they are concatenated:
+"foo" + "bar"; // "foobar"
+5 + "foo"; // "5foo"
+"foo" + false; // "foofalse"
+"2" + 2; // "22"
+
+The Window object is the global object in a web browser environment. It represents the browser window or frame that contains a DOM document.
+window.open(), window.close(), window.alert(), window.history, window.location, window.setTimeout, window.setInterval
+
+The Document object represents the HTML or XML document loaded in the browser window. It is a property of the Window object (window.document). 
+document.getElementById(), document.querySelector(), document.getElementsByClassName()
+
+document.getElementById(id), document.getElementsByClassName(className), document.getElementsByTagName(tagName), document.getElementsByName(name), document.querySelector(cssSelector), document.querySelectorAll(cssSelector)
+
+Why use setTimeout(fn, 0)?
+To defer execution until the call stack is clear.
+Useful when you don’t want to block UI updates, rendering, or other event handlers.
+Helps break up heavy tasks into smaller chunks (avoid “freezing” the page).
+Sometimes used to ensure code runs after DOM updates or after promises.
+
+Event Loop Basics (simplified)
+
+Call stack → runs your current synchronous code.
+Microtask queue → things like Promise.then, queueMicrotask.
+Macrotask (task) queue → things like setTimeout, setInterval, setImmediate (Node), UI events.
+
+Order of execution:
+
+Run all synchronous code (stack).
+Flush all microtasks (until empty).
+Take one macrotask → run it → go back to step 2.
+
+var, let, and const
+1. Scope
+var → Function-scoped (or global if not inside a function).
+let & const → Block-scoped (inside { ... }).
+
+2. Hoisting
+All are hoisted to the top of their scope, but:
+var → hoisted and initialized with undefined.
+let & const → hoisted but not initialized (they live in the temporal dead zone until execution reaches their declaration).
+
+3. Re-declaration
+var → Can be redeclared in the same scope.
+let & const → Cannot be redeclared in the same scope.
+
+4. Re-assignment
+var → Allowed.
+let → Allowed.
+const → Not allowed (value cannot be reassigned).
+For const objects/arrays, you can mutate properties/elements, but you can’t reassign the variable itself.
+
+5. Global Object Binding
+var → Declared in the global scope, attaches to window (in browsers).
+let & const → Do not attach to the global object.
+
+Pure function:
+Returns the same output(UI) for the same input(props and state)
+Does not cause side effects during rendering, means it should not modify anything outside itself like no changing global variables, no DOM manipulations directly, no API calls
+
+
+Function along with its lexical scope makes a closure.
+Usecase is in memoization, setTimeout, function like once etc
+ function x(){
+	 let a = 7;
+	 return function y(){
+		 console.log(a);
+	 };
+ }
+ x()();
+ 
+ 
+//usecase of .bind
+function multiply(factor, number){
+	console.log(factor*number);
+}
+const double = multiply.bind(null, 2);
+
+double(5);	
+
+another usecase could be at the time of event handling, to bind the callback function with the element(eg btn) itself.
+
+//async await
+Async/await is a programming pattern for writing non-blocking, asynchronous code in a style similar to synchronous code, allowing programs to handle long-running tasks without freezing.
+// An async function
+async function getData() {
+  try {
+    let response = await fetch("https://api.example.com/data"); 
+    // execution waits here until fetch resolves
+    let data = await response.json(); 
+    console.log(data); // Use the data
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+getData();
+
+
+//if you mark, box-sizing: border-box;
+Then width and height include padding and border automatically.
+But in the case of default: box-sizing: content-box
+Total Width = content width + left/right padding + left/right border + left/right margin
+Total Height = content height + top/bottom padding + top/bottom border + top/bottom margin
+
+
+Inline → text-level elements (links, highlights).
+
+Block → structural elements (sections, containers).
+
+Inline-block → when you need elements side-by-side with control over size (buttons, nav menus, cards).
+
+
+*pseudo classes in css are hover, focus, first-child, visited
+*pseudo elements allows you to add content to the dom without adding extra HTML or style particular part of the element
+eg. ::first-line, ::first-letter, ::before, ::after
+
+
+ position: static | relative | absolute | fixed | sticky;
+ 
+ 
+SCSS:
+Variables:
+$primary-color: #3498db;
+$padding: 10px;
+
+button {
+  background-color: $primary-color;
+  padding: $padding;
+}
+
+Nesting:
+ul {
+    margin: 0;
+    li {
+      display: inline-block;
+      a {
+        text-decoration: none;
+		&:hover {
+          color: yellow; // nested pseudo-class
+        }
+      }
+    }
+  }
+  
+Mixins allow you to define reusable blocks of code that can accept parameters.
+@mixin rounded($radius) {
+  border-radius: $radius;
+}
+
+.button {
+  @include rounded(5px);
+}
+
+.card {
+  @include rounded(15px);
+}
+
+Sass allows math operations, color functions
+.container {
+  width: 100%;
+  padding: 10px / 2; // Sass can calculate
+}
+
+$color: #ff0000;
+.button {
+  background-color: lighten($color, 20%);
+}
+
+
+units of length in css: vh, vw, %, px, rem, em
+
+forEach never iterates to empty values.
+
+
+Big 0, Big Omega, Big Theta, Little o (isse toh kam hoga), Little omega (isse toh jda hoga)
+
+
+Features of React: Components, JSX, Virtual DOM, Uni-directional data flow, react hooks, automatically updates dom when data changes
+
+
+Summary (When to use)
+
+React.memo → Component renders too often with same props.
+
+useMemo → Expensive calculations should not run on every render.
+
+useCallback → Passing functions to memoized components or dependencies of useEffect to avoid re-creating them every render.
+
+
+Use of useRef
+function InputFocus(){
+const inputRef = useRef(null);
+
+const btnClicked =()=>{
+	inputRef.current.focus();
+}
+
+return (
+	<div>
+		<input type="text" ref={inputRef}/>
+		<button onClick={btnClicked}>Focus Input</button>
+	</div>
+	);
+}
+
+
+componentDidMount → Class components only.
+useEffect → Function components.
+Only one componentDidMount per class.
+You can use multiple useEffect hooks in the same function component, separating concerns.
+
+
+I check React performance using the React DevTools Profiler to see which components are re-rendering unnecessarily, Chrome DevTools Performance tab for runtime issues, and bundle analyzers for build size optimization. Based on results, I apply optimizations like memoization, code-splitting, lazy loading, and virtualization for large lists.

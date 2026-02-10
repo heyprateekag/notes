@@ -1,0 +1,99 @@
+Developer testing in React Application (Unit Testing, Integration Testing)
+
+*Unit testing is the testing technique in which every component is tested seperately, without it's effects on other parts of the application. For eg, if we are doing unit testing in navigation bar then we need to check if navbar is getting rendered, all the options are coming correctly or not.
+
+
+*Integration testing is the technique in which we test various integrations of the components, for eg if we are searching in the search bar then correct number of items are getting displayed in other component etc etc.
+
+
+*Various Libraries are there
+among which one is React Testing Library
+React Testing Library is build over DOM Testing Library
+React Testing Library uses jest
+
+if we create a react application with npx create-react-app then this library will already be downloaded but if react application is made from scratch with parcel then we need to follow below procedure
+
+run below commands:
+to download npm i -D @testing-library/react
+to download jest npm i -D jest
+
+if you are working with babel then you need to install below dependencies as well
+npm i -D babel-jest @babel/core @babel/preset-env
+
+then on root level of your application, create a file with name babel.config.js and include below code in it to configure babel
+module.exports = {
+	presets: [["@babel/preset-env", { targets: { node: "current" } }]]
+};
+
+now create another file there with name .parcelrc and write below code to configure parcel config file to disable default babel transpilation
+{
+	"extends": "@parcel/config-default",
+	"transformers": {
+		"*.{js, mjs, jsx, cjs, ts, tsx}": [
+			"@parcel/transformers-js",
+			"@parcel/transformers-react-refresh-wrap"
+		]
+	}
+}
+
+now run
+npx jest --init
+(choose test env jsdom (browser-like)
+
+now run
+npm i --save-dev jest-environment-jsdom
+
+to make jsx work in testcase, run
+npm i @babel/preset-react
+
+now include this in babel config file
+["@babel/preset-react",{ runtime: "automatic" }]
+
+
+*Import Libraries                         Purpose
+@testing-library/react             Uses ReactDOM to render a component for testing
+@testing-library/user-event        Helps simulate user input like typing and clicking
+@testing-library/dom               Helps find elements that are rendered by our components
+jest                               Runs our tests, reports results
+jsdom                              Simulates a browser when running in a Node environment
+
+
+*Jest finds all files in the src folder that 
+ends with .spec.js
+ends with .test.js
+are placed in a folder called __test__
+
+
+*Skeleton
+import ( render, screen } from '@testing-library/react';
+import { user } from '@testing-library/user-event';
+
+test('what we are testing', ()=>{
+	//STEP 1: render the component and that's where we can pass any props as well if required
+	//STEP 2: find an element in it
+	//STEP 3: maybe manipulate the component (optional, according to requirement, if you just want to count a number of appearance then not required, in case of button click it is required)
+	//STEP 4: assertion - make sure the component is doing what we expect it to do
+});
+
+
+*Example without manipulation
+test('shows 6 products by default', async () => {
+  render(<App />);
+
+  const headings = await screen.findAllByRole('heading'); //for input tag we write textbox
+  expect(headings).toHaveLength(6);
+});
+
+
+*Example with manipulation
+test('clicking on button will load 6 more projects', async () => {
+  render(<App />);
+
+  const button = await screen.findByRole('button', { name: /load more/i });
+  user.click(button);
+
+  await waitFor(async () => {
+    const headings = await screen.findAllByRole('heading');
+    expect(headings).toHaveLength(12);
+  });
+});

@@ -1,0 +1,83 @@
+*type of a children node is ReactNode, which you import as
+import { ReactNode } from 'react';
+
+export default function MyComponent(props: {name: string, children: ReactNode}){
+	...your code
+}
+
+
+*another way of doing the above is with "PropsWithChildren"
+import { PropsWithChildren } from 'react';
+
+export default function CourseGoal(props: PropsWithChildren<{ title: string }>) {
+	...your code
+}
+
+
+*you might think that if you are using a list of data then do you have to specify key in your prop type as well?
+answer is no, you can use key while using your custom component and not mention in your custom component
+eg.
+function User(props: {name: string}){
+	return <li>User: {props.name}</li>
+}
+function App() {
+  const users = [{ name: 'John' }, { name: 'Mary' }, { name: 'Luke' }];
+ 
+  return (
+    <>
+      <ul>
+        {users.map((user, index) => (
+          <User key={user} name={user.name} />
+        ))}
+      </ul>
+    </>
+  );
+}
+
+
+*There is another way of Typing components as well, in case of defining a function as a value to a variable
+import { FC } from 'react';
+const MyComponent: FC<{name: string, description: string}}> = (props) => {
+	...your code
+};
+
+export default MyComponent;
+
+
+*IMPORTANT
+passing a function which you want to invoke on click event, pass it as a anonymous function when you want to pass a value in that function and also click event doesn't accept a normal function
+eg, <button onClick={() => props.onDelete(props.id)}>Delete</button>
+
+
+*FormEvent<HTMLFormElement> from 'react' is the Type for an event
+
+
+*Example of using useRef and Form element
+import { useRef, FormEvent } from "react";
+
+type NewGoalProps = {
+  onAddGoal: (goal: string) => void;
+};
+
+export default function NewGoal(props: NewGoalProps) {
+  const goal = useRef<HTMLInputElement>(null);
+
+  function submitHandler(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const enteredGoal = goal.current!.value; //'!' tells that goal.current will never be null, otherwise typescript will give error
+    event.currentTarget.reset();
+    props.onAddGoal(enteredGoal);
+  }
+
+  return (
+    <form onSubmit={submitHandler}>
+      <p>
+        <label htmlFor="goal">Your Goal</label>
+        <input id="goal" type="text" ref={goal} />
+      </p>
+      <p>
+        <button>Add Goal</button>
+      </p>
+    </form>
+  );
+}

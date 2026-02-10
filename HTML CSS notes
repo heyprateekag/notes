@@ -933,3 +933,22 @@ Lightness: It takes a percentage value, where 100% represents white, while 0% re
 h1 {
     color:hsl(H, S, L);
 }
+
+
+*async, defer are the boolean script attributes which are used in script tag to optimise the load of external script to the web page
+When you load a webpage, there are two things happening in your browser, 1. HTML parcing 2. Loading of the script(which again is divided into
+two steps one is fetching the script from network second is executing the script line by line)
+
+1. normal scripts: while html parcing is going on, browser encounters the script tag, html parcing will stop, browser will fetch the script
+and when scripts are fetched, browser will execute them, then after execution of the scripts browser will continue with the html parcing.
+
+2. scripts with async: while html parcing is going on, when browser encounters the script tag, browser will start fetching the scripts from
+server along with html parcing, when fetch will be completed, html parcing will stop and browser will execute the scripts, html parcing will
+continue once execution of the scripts is done.
+
+3. scripts with defer: while html parcing is going on, when browser will encounter the script tag, it will start fetching the scripts along
+with html parcing, once html parcing is completed then only browser will start the execution of those scripts.
+
+async attribute doesn't garentuee the sequence of the execution of the scripts, if we have multiple scripts and all have async attribute in
+it and mostly are interdependent but as async doesn't guarantee the sequence so our code might break
+but defer does guarantee the sequence, so we should use defer in above senario, in most of the cases defer is preferred
